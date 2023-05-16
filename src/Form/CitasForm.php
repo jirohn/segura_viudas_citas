@@ -25,9 +25,11 @@ class CitasForm extends FormBase {
     $form_display->buildForm($node, $form, $form_state);
 
     // Añade cualquier otro elemento al formulario que necesites aquí.
+    $form['#theme'] = 'citas_form';
 
     return $form;
   }
+
 
   /**
    * {@inheritdoc}
