@@ -1,3 +1,5 @@
+<?php
+
 function mymodule_menu() {
   $items['admin/config/mymodule'] = array(
     'title' => 'Mymodule',
