@@ -1,21 +1,23 @@
-<div class="citas-form-container">
-  <h2>{{ 'Pedir cita'|t }}</h2>
-
-  <div class="citas-form-fields">
-    <div class="form-item-date">
-      {{ form.date }}
-    </div>
-    <div class="form-item-time">
-      {{ form.time }}
-    </div>
-    <div class="form-item-comment">
-      {{ form.comment }}
-    </div>
-  </div>
-
-  <div class="form-actions">
-    {{ form.actions }}
-  </div>
-  {# Incluye el resto de los elementos del formulario, como el token CSRF y otros campos ocultos. #}
-  {{ form|without('date', 'time', 'comment', 'actions') }}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Citas Form</title>
+</head>
+<body>
+<form{{ form_attributes }}>
+<div class="form-date">
+  {{ form.date }}
 </div>
+<div class="form-time">
+  {{ form.time }}
+</div>
+<div class="form-comment">
+  {{ form.comment }}
+</div>
+  {{ form.actions.submit }}
+
+</form>
+
+</body>
+</html>
