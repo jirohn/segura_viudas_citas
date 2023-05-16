@@ -7,7 +7,6 @@
     not node.isPublished() ? 'node--unpublished',
   ]
 %}
-<h1>h3y</h1>
 <article{{ attributes.addClass(classes) }}>
   <header>
     {{ title_prefix }}
@@ -24,7 +23,7 @@
           {% trans %}Submitted by{% endtrans %}
           {{ author_name }}
           {% trans %}on{% endtrans %}
-          {{ field_date }}
+          {{ date }}
         </span>
         {{ metadata }}
       </div>
