@@ -22,16 +22,16 @@ class CitasListController extends ControllerBase {
     // Crea una tabla para mostrar las citas.
     $header = [
       'title' => $this->t('Título'),
-      'date' => $this->t('Fecha y hora'),
-      'comment' => $this->t('Comentario'),
+      'fied_date' => $this->t('Fecha y hora'),
+      'field_comment' => $this->t('Comentario'),
     ];
 
     $rows = [];
     foreach ($citas_nodes as $node) {
       $row = [
         'title' => Link::fromTextAndUrl($node->label(), $node->toUrl()),
-        'date' => $node->get('field_date')->value,
-        'comment' => $node->get('field_comment')->value,
+        'field_date' => $node->get('field_date')->value,
+        'field_comment' => $node->get('field_comment')->value,
       ];
       $rows[] = $row;
     }
