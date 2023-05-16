@@ -1,0 +1,37 @@
+<<<<<<< HEAD
+=======
+<?php
+
+function mymodule_menu() {
+  $items['admin/config/mymodule'] = array(
+    'title' => 'Mymodule',
+    'page callback' => 'mymodule_page',
+    'access arguments' => array('access administration pages'),
+  );
+
+  return $items;
+}
+
+function mymodule_page() {
+  $form = array();
+
+  $form['name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Name'),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+
+  return $form;
+}
+
+function mymodule_form_mymodule_page_alter(&$form, &$form_state) {
+  $form['email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email'),
+  );
+}
+>>>>>>> 92a4e1a36f3f0a7cf5d4b5f0677967c0b2ee2b3e
