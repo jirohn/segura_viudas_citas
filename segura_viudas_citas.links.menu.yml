@@ -1,7 +1,8 @@
 segura_viudas_citas.admin_page_link:
   title: 'Gestión de citas'
   description: 'Administrar citas de proveedores'
-  parent: system.admin_config_development
+  parent: system.admin
   route_name: segura_viudas_citas.admin_page
-  weight: 100
+  weight: 5
   menu_name: admin
+  icon: calendar-check
