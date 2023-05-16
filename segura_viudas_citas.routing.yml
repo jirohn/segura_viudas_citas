@@ -1,8 +1,8 @@
 segura_viudas_citas.form:
   path: '/proveedores/gestion-citas'
   defaults:
-    _form: '\Drupal\segura_viudas_citas\Form\CitasForm'
-    _title: 'Pedir cita'
+    _controller: '\Drupal\segura_viudas_citas\Controller\CitasController::formPage'
+    _title: 'Pide tu Cita'
   requirements:
     _permission: 'access content'
 

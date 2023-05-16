@@ -16,7 +16,9 @@
   <div class="form-actions">
     {{ form.actions }}
   </div>
-
+  <div class="form">
+    {{ form }}
+  </div>
   {# Incluye el resto de los elementos del formulario, como el token CSRF y otros campos ocultos. #}
   {{ form|without('date', 'time', 'comment', 'actions') }}
 </div>
