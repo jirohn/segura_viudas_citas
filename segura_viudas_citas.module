@@ -5,12 +5,12 @@
 function segura_viudas_citas_theme($existing, $type, $theme, $path) {
   return [
     'citas_form' => [
-      'variables' => ['form' => NULL],
+      'render element' => 'form',
       'template' => 'citas-form',
+      'path' => $path . '/templates',
     ],
   ];
 }
-
 /**
  * Implements hook_theme_suggestions_page_alter().
  */
