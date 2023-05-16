@@ -11,5 +11,3 @@ segura_viudas_citas.admin_page:
   defaults:
     _controller: '\Drupal\segura_viudas_citas\Controller\AdminPageController::content'
     _title: 'Gestión de citas'
-  requirements:
-    _permission: ''
