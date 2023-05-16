@@ -23,7 +23,7 @@
       function handleDateChange() {
         const dateValue = $dateField.val();
         if (!dateValue) {
-          disableTimeField();
+         // disableTimeField();
         } else {
           checkExistingAppointments(dateValue).done(function (response) {
             enableTimeField();

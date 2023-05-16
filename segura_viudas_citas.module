@@ -1,5 +1,14 @@
 <?php
 use Drupal\Core\Form\FormStateInterface;
+/**
+ * Implements hook_theme_suggestions_page_alter().
+ */
+function segura_viudas_citas_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if ($route_name === 'segura_viudas_citas.citas_form') {
+    $suggestions[] = 'page__citas_form';
+  }
+}
 
 /**
  * Implements hook_theme().
@@ -26,22 +35,3 @@ function segura_viudas_citas_theme($existing, $type, $theme, $path) {
   ];
 }
 
-/**
- * Implements hook_theme_suggestions_page_alter().
- */
-function segura_viudas_citas_theme_suggestions_page_alter(array &$suggestions, array $variables) {
-  $route_name = \Drupal::routeMatch()->getRouteName();
-  if ($route_name === 'segura_viudas_citas.citas_form') {
-    $suggestions[] = 'page__citas_form';
-  }
-}
-
-
-
-
-/**
- * Attaches the segura_viudas_citas library to the form.
- */
-function _segura_viudas_citas_attach_library(&$form) {
-  $form['#attached']['library'][] = 'segura_viudas_citas/segura_viudas_citas';
-}

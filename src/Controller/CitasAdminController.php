@@ -5,7 +5,7 @@ namespace Drupal\segura_viudas_citas\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\node\NodeInterface;
 
-class CitasController extends ControllerBase {
+class CitasAdminController extends ControllerBase {
 
   public function viewCitas(NodeInterface $node) {
     if ($node->getType() != 'citas') {
