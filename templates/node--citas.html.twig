@@ -20,10 +20,60 @@
       <div class="node__meta">
         {{ author_picture }}
         <span{{ author_attributes }}>
-          {% trans %}Submitted by{% endtrans %}
-          {{ author_name }}
-          {% trans %}on{% endtrans %}
-          {{ date }}
+            <div class="layout-row clearfix">
+                <div class="layout-column layout-column--half">
+                    <div class="panel gin-layer-wrapper">
+                        <h3 class="panel__title">Datos solicitante</h3>
+                        <div class="panel__content">
+                            <dl class="admin-list--panel admin-list gin-layer-wrapper">
+                                <div class="admin-item">
+                                    <dt class="admin-item__title">Acreedor</dt>
+                                    <dd class="admin-item__description">8000092965</dt>
+                                </div>
+                                <div class="admin-item">
+                                    <dt class="admin-item__title">Nombre</dt>
+                                    <dd class="admin-item__description">AGRARIA DE SANT MARTI DE MALDA  S.C</dt>
+                                </div>
+                                <div class="admin-item">
+                                    <dt class="admin-item__title">CIF</dt>
+                                    <dd class="admin-item__description">F25003880</dt>
+                                </div>
+                                <div class="admin-item">
+                                    <dt class="admin-item__title">Teléfono</dt>
+                                    <dd class="admin-item__description">973330213</dt>
+                                </div>
+                                <div class="admin-item">
+                                    <dt class="admin-item__title">Correo electrónico</dt>
+                                    <dd class="admin-item__description">agraria.sm@hotmail.com</dt>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layout-column layout-column--half">
+                    <div class="panel gin-layer-wrapper">
+                        <h3 class="panel__title">Cita</h3>
+                        <div class="panel__content">
+                            <dl class="admin-list--panel admin-list gin-layer-wrapper">
+                                <div class="admin-item">
+                                    <dt class="admin-item__title">Día</dt>
+                                    <dd class="admin-item__description">23/11/2023</dt>
+                                </div>
+                                <div class="admin-item">
+                                    <dt class="admin-item__title">Hora</dt>
+                                    <dd class="admin-item__description">11:00 - 12:00</dt>
+                                </div>
+                                <div class="admin-item">
+                                    <dt class="admin-item__title">Vía</dt>
+                                    <dd class="admin-item__description">Presencial</dt>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </span>
         {{ metadata }}
       </div>
