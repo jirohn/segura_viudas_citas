@@ -10,6 +10,6 @@ segura_viudas_citas.admin_page:
   path: '/admin/citas'
   defaults:
     _controller: '\Drupal\segura_viudas_citas\Controller\AdminPageController::content'
-    _title: 'Título de tu página personalizada'
+    _title: 'Gestión de citas'
   requirements:
-    _permission: 'access your_custom_permission'
+    _permission: ''
