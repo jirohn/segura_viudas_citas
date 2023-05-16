@@ -1,42 +1,19 @@
 <?php
-
-namespace Drupal\segura_viudas_citas\Controller;
-
-use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Render\HtmlResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class CitasController.
- */
-class CitasController extends ControllerBase {
-
-/**
- * Render the citas form without Drupal's decorations, but with theme CSS.
+ * Render the citas form without Drupal's decorations.
  *
  * @return \Symfony\Component\HttpFoundation\Response
  */
 public function formPage() {
   $form = \Drupal::formBuilder()->getForm('\Drupal\segura_viudas_citas\Form\CitasForm');
 
-  // Create a basic render array to include the form and the active theme's CSS.
-  $build = [
-    '#theme' => 'html',
-    'page' => [
-      'content' => [
-        '#theme' => 'citas_form',
-        '#form' => $form,
-      ],
-    ],
-  ];
+  // Render the form.
+  $rendered_form = \Drupal::service('renderer')->renderRoot($form);
 
-  // Render the build array.
-  $rendered_page = \Drupal::service('renderer')->renderRoot($build);
-
-  // Build the HTML response using HtmlResponse.
-  $response = new HtmlResponse();
-  $response->setContent($rendered_page);
-
+  // Build the HTML response.
+  $response = new Response();
+  $response->setContent('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Citas Form</title></head><body>' . $rendered_form . '</body></html>');
   return $response;
-}
-
 }
