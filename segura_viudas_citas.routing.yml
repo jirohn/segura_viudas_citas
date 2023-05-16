@@ -1,5 +1,5 @@
 segura_viudas_citas.form:
-  path: '/segura_viudas/citas'
+  path: '/proveedores/gestion-citas'
   defaults:
     _form: '\Drupal\segura_viudas_citas\Form\CitasForm'
     _title: 'Pedir cita'
@@ -7,7 +7,7 @@ segura_viudas_citas.form:
     _permission: 'access content'
 
 segura_viudas_citas.admin_page:
-  path: '/admin/citas'
+  path: '/admin/gestion-citas'
   defaults:
     _controller: '\Drupal\segura_viudas_citas\Controller\AdminPageController::content'
     _title: 'Gestión de citas'
