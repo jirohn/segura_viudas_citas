@@ -30,8 +30,8 @@ class CitasListController extends ControllerBase {
     foreach ($citas_nodes as $node) {
       $row = [
         'title' => Link::fromTextAndUrl($node->label(), $node->toUrl()),
-        'date' => $node->get('field_date')->value,
-        'comment' => $node->get('field_comment')->value,
+        'date' => $node->get('date')->value,
+        'comment' => $node->get('comment')->value,
       ];
       $rows[] = $row;
     }
