@@ -1,0 +1,93 @@
+<?php
+
+use Drupal\node\Entity\NodeType;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
+
+/**
+ * Implements hook_install().
+ */
+function segura_viudas_citas_install() {
+  // Crear el tipo de contenido 'citas'.
+  $citas_node_type = NodeType::create([
+    'type' => 'citas',
+    'name' => 'Citas',
+  ]);
+  $citas_node_type->save();
+
+  // Crear campos de fecha, hora y comentario.
+  segura_viudas_citas_create_field('date', 'Fecha', 'citas', 'datetime', 'datetime_default');
+  segura_viudas_citas_create_field('comment', 'Comentario', 'citas', 'text_long', 'text_textarea');
+}
+
+/**
+ * Helper function to create fields.
+ */
+function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $field_type, $widget_type) {
+  // Crear el almacenamiento del campo.
+  $field_storage = FieldStorageConfig::create([
+    'field_name' => $field_name,
+    'entity_type' => 'node',
+    'type' => $field_type,
+  ]);
+  $field_storage->save();
+
+  // Crear la configuración del campo.
+  $field_config = FieldConfig::create([
+    'field_name' => $field_name,
+    'label' => $field_label,
+    'entity_type' => 'node',
+    'bundle' => $bundle,
+    'settings' => [],
+  ]);
+  $field_config->save();
+
+  // Asignar el widget a la configuración del formulario.
+  $entity_form_display_id = 'node.' . $bundle . '.default';
+  $entity_form_display = \Drupal::entityTypeManager()->getStorage('entity_form_display')->load($entity_form_display_id);
+
+  if (!$entity_form_display) {
+    $entity_form_display = \Drupal::entityTypeManager()->getStorage('entity_form_display')->create([
+      'targetEntityType' => 'node',
+      'bundle' => $bundle,
+      'mode' => 'default',
+      'status' => TRUE,
+    ]);
+  }
+
+  $entity_form_display->setComponent($field_name, [
+    'type' => $widget_type,
+  ])->save();
+}
+/**
+ * Implements hook_uninstall().
+ */
+function segura_viudas_citas_uninstall() {
+  // Eliminar campos de fecha, hora y comentario.
+  segura_viudas_citas_delete_field('date', 'citas');
+  segura_viudas_citas_delete_field('time', 'citas');
+  segura_viudas_citas_delete_field('comment', 'citas');
+
+  // Eliminar el tipo de contenido 'citas'.
+  $citas_node_type = NodeType::load('citas');
+  if ($citas_node_type) {
+    $citas_node_type->delete();
+  }
+}
+
+/**
+ * Helper function to delete fields.
+ */
+function segura_viudas_citas_delete_field($field_name, $bundle) {
+  // Eliminar la configuración del campo.
+  $field_config = FieldConfig::loadByName('node', $bundle, $field_name);
+  if ($field_config) {
+    $field_config->delete();
+  }
+
+  // Eliminar el almacenamiento del campo.
+  $field_storage = FieldStorageConfig::loadByName('node', $field_name);
+  if ($field_storage) {
+    $field_storage->delete();
+  }
+}

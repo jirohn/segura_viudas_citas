@@ -1,0 +1,6 @@
+name: Segura Viudas Citas
+description: Añade un tipo de contenido llamado 'Citas'.
+package: 'Segura Viudas'
+type: module
+core_version_requirement: ^8.8 || ^9 || ^10
+
