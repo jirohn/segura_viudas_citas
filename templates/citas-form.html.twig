@@ -5,23 +5,38 @@
   <title>Citas Form</title>
 </head>
  <script>
- (function($) {
+
 (function($) {
-  $(document).ready(function() {
-    var dateField = $('#edit-date-0-value-date');
-    var datePickerDiv = $('<div>').insertAfter(dateField);
+  function initDatePicker(context) {
+    var dateField = $('#edit-date-0-value-date', context);
+    if (!dateField.data('initialized')) {
+      dateField.data('initialized', true);
+      var datePickerDiv = $('<div>').insertAfter(dateField);
 
-    datePickerDiv.datepicker({
-      dateFormat: 'yy-mm-dd',
-      onSelect: function(dateText) {
-        dateField.val(dateText);
-      }
-    });
+      datePickerDiv.datepicker({
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText) {
+          dateField.val(dateText);
+        }
+      });
 
-    // Muestra el calendario al cargar la página.
-    datePickerDiv.datepicker('show');
-  });
+      // Muestra el calendario al cargar la página.
+      datePickerDiv.datepicker('show');
+    }
+  }
+
+  Drupal.behaviors.citasForm = {
+    attach: function(context, settings) {
+      initDatePicker(context);
+    }
+  };
+
+$(document).ready(function() {
+  initDatePicker(document);
+});
 })(jQuery);
+
+
 
 </script>
 

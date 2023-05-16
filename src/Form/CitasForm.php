@@ -20,6 +20,8 @@ class CitasForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     // Creamos un nuevo nodo de tipo "citas" para obtener el formulario.
+    $form['#attached']['library'][] = 'segura_viudas_citas/citas-form';
+     // Creamos un nuevo nodo de tipo "citas" para obtener el formulario.
     $form['#attached']['library'][] = 'core/drupal.date';
     $form['#attached']['library'][] = 'core/jquery.ui.datepicker';
     $node = Node::create(['type' => 'citas']);

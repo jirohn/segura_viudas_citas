@@ -3,3 +3,10 @@ custom_admin_page_styles:
   css:
     theme:
       css/custom_admin_page.css: {}
+
+citas-form:
+  js:
+    https://code.jquery.com/ui/1.12.1/jquery-ui.min.js: { type: external, minified: true }
+  css:
+    theme:
+      https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css: { type: external, minified: true }
