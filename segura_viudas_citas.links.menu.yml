@@ -1,0 +1,8 @@
+segura_viudas_citas.admin_page_link:
+  title: 'Nombre del enlace en el menú'
+  description: 'Descripción del enlace'
+  parent: system.admin_config_development
+  route_name: segura_viudas_citas.admin_page
+  weight: 100
+  menu_name: admin
+  icon: 'ruta/a/tu/icono.svg' # Esta línea define el ícono que se mostrará junto al enlace del menú.
