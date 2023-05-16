@@ -5,3 +5,11 @@ segura_viudas_citas.form:
     _title: 'Pedir cita'
   requirements:
     _permission: 'access content'
+
+segura_viudas_citas.admin_page:
+  path: '/admin/your_custom_page'
+  defaults:
+    _controller: '\Drupal\segura_viudas_citas\Controller\AdminPageController::content'
+    _title: 'Título de tu página personalizada'
+  requirements:
+    _permission: 'access your_custom_permission'
