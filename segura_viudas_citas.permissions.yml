@@ -1,0 +1,3 @@
+access your_custom_permission:
+  title: 'Acceder a la página personalizada'
+  description: 'Permite a los usuarios con este permiso acceder a la página personalizada.'
