@@ -1,0 +1,22 @@
+{# gestion-citas.html.twig #}
+<div class="gestion-citas-wrapper">
+  <h1>{{ title }}</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>{{ 'Fecha'|t }}</th>
+        <th>{{ 'Hora'|t }}</th>
+        <th>{{ 'Comentario'|t }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+        <tr>
+          <td>{{ row.date|date('Y-m-d') }}</td>
+          <td>{{ row.date|date('H:i') }}</td>
+          <td>{{ row.comment }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

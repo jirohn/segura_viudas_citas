@@ -8,8 +8,13 @@ function segura_viudas_citas_theme($existing, $type, $theme, $path) {
       'variables' => ['form' => NULL],
       'template' => 'citas-form',
     ],
+    'gestion_citas' => [
+      'variables' => ['title' => NULL, 'rows' => []],
+      'template' => 'gestion-citas',
+    ],
   ];
 }
+
 /**
  * Implements hook_theme_suggestions_page_alter().
  */

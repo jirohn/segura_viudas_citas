@@ -36,14 +36,13 @@ class CitasListController extends ControllerBase {
       $rows[] = $row;
     }
 
-    $table = [
-      '#type' => 'table',
-      '#header' => $header,
+    $build = [
+      '#theme' => 'gestion_citas',
+      '#title' => $this->t('Gestión de citas'),
       '#rows' => $rows,
-      '#empty' => $this->t('No hay citas disponibles.'),
     ];
 
-    return $table;
+    return $build;
   }
 
 }
