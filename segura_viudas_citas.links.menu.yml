@@ -5,4 +5,4 @@ segura_viudas_citas.admin_page_link:
   route_name: segura_viudas_citas.admin_page
   weight: 5
   menu_name: admin
-  icon: calendar-check
+  icon: 'url(/themes/contrib/gin/dist/media/sprite.svg#people-view)'

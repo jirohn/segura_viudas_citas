@@ -22,3 +22,15 @@ segura_viudas_citas.admin_page:
     _title: 'Gestión de citas'
   requirements:
     _permission: 'access segura_viudas_citas_admin_page'
+
+segura_viudas_citas.admin_citas:
+  path: '/admin/content/citas/{node}'
+  defaults:
+    _controller: '\Drupal\segura_viudas_citas\Controller\CitasAdminController::viewCitas'
+    _title: 'Citas'
+  requirements:
+    _permission: 'access content'
+    node: \d+
+  options:
+    _admin_route: TRUE
+

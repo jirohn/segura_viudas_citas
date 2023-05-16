@@ -12,6 +12,11 @@ function segura_viudas_citas_theme($existing, $type, $theme, $path) {
       'variables' => ['title' => NULL, 'rows' => []],
       'template' => 'gestion-citas',
     ],
+    'node__citas' => [
+      'base hook' => 'node',
+      'template' => 'node--citas',
+      'path' => $path . '/templates',
+    ],
   ];
 }
 
