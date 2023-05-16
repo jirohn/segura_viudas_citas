@@ -16,8 +16,8 @@ function segura_viudas_citas_install() {
   $citas_node_type->save();
 
   // Crear campos de fecha, hora y comentario.
-  segura_viudas_citas_create_field('date', 'Fecha', 'citas', 'datetime', 'datetime_default');
-  segura_viudas_citas_create_field('comment', 'Comentario', 'citas', 'text_long', 'text_textarea');
+  segura_viudas_citas_create_field('field_date', 'Fecha', 'citas', 'datetime', 'datetime_default');
+  segura_viudas_citas_create_field('field_comment', 'Comentario', 'citas', 'text_long', 'text_textarea');
 }
 
 /**
@@ -64,9 +64,8 @@ function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $f
  */
 function segura_viudas_citas_uninstall() {
   // Eliminar campos de fecha, hora y comentario.
-  segura_viudas_citas_delete_field('date', 'citas');
-  segura_viudas_citas_delete_field('time', 'citas');
-  segura_viudas_citas_delete_field('comment', 'citas');
+  segura_viudas_citas_delete_field('field_date', 'citas');
+  segura_viudas_citas_delete_field('field_comment', 'citas');
 
   // Eliminar el tipo de contenido 'citas'.
   $citas_node_type = NodeType::load('citas');
