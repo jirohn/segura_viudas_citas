@@ -1,0 +1,7 @@
+segura_viudas_citas.form:
+  path: '/segura_viudas/citas'
+  defaults:
+    _form: '\Drupal\segura_viudas_citas\Form\CitasForm'
+    _title: 'Pedir cita'
+  requirements:
+    _permission: 'access content'
