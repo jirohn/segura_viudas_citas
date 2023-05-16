@@ -1,3 +1,12 @@
+segura_viudas_citas:
+  version: 1.x
+  js:
+    js/segura_viudas_citas.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+
 custom_admin_page_styles:
   version: 1.x
   css:

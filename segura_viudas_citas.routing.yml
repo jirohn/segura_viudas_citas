@@ -34,3 +34,10 @@ segura_viudas_citas.admin_citas:
   options:
     _admin_route: TRUE
 
+segura_viudas_citas.check_appointments:
+  path: '/segura_viudas_citas/check_appointments'
+  defaults:
+    _controller: '\Drupal\segura_viudas_citas\Controller\CitasController::checkAppointments'
+    _title: 'Check Appointments'
+  requirements:
+    _permission: 'access content'

@@ -4,6 +4,7 @@ use Drupal\node\Entity\NodeType;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\field\Entity\FieldConfig;
 
+
 /**
  * Implements hook_install().
  */
@@ -17,28 +18,29 @@ function segura_viudas_citas_install() {
 
   // Crear campos de fecha, hora y comentario.
   segura_viudas_citas_create_field('field_date', 'Fecha', 'citas', 'datetime', 'datetime_default');
+  segura_viudas_citas_create_field('field_time', 'Hora', 'citas', 'list_string', 'options_select', segura_viudas_citas_allowed_time_values());
   segura_viudas_citas_create_field('field_comment', 'Comentario', 'citas', 'text_long', 'text_textarea');
 }
 
 /**
  * Helper function to create fields.
  */
-function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $field_type, $widget_type) {
+function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $field_type, $widget_type, $allowed_values = []) {
   // Crear el almacenamiento del campo.
   $field_storage = FieldStorageConfig::create([
     'field_name' => $field_name,
     'entity_type' => 'node',
     'type' => $field_type,
+    'settings' => ($field_name == 'field_time') ? ['allowed_values' => $allowed_values] : [],
   ]);
   $field_storage->save();
-
   // Crear la configuración del campo.
+
   $field_config = FieldConfig::create([
     'field_name' => $field_name,
     'label' => $field_label,
     'entity_type' => 'node',
     'bundle' => $bundle,
-    'settings' => [],
   ]);
   $field_config->save();
 
@@ -66,7 +68,7 @@ function segura_viudas_citas_uninstall() {
   // Eliminar campos de fecha, hora y comentario.
   segura_viudas_citas_delete_field('field_date', 'citas');
   segura_viudas_citas_delete_field('field_comment', 'citas');
-
+  segura_viudas_citas_delete_field('field_time', 'citas');
   // Eliminar el tipo de contenido 'citas'.
   $citas_node_type = NodeType::load('citas');
   if ($citas_node_type) {
@@ -89,4 +91,26 @@ function segura_viudas_citas_delete_field($field_name, $bundle) {
   if ($field_storage) {
     $field_storage->delete();
   }
+}
+function segura_viudas_citas_allowed_time_values() {
+  return [
+    '09:00' => '09:00',
+    '09:30' => '09:30',
+    '10:00' => '10:00',
+    '10:30' => '10:30',
+    '11:00' => '11:00',
+    '11:30' => '11:30',
+    '12:00' => '12:00',
+    '12:30' => '12:30',
+    '13:00' => '13:00',
+    '13:30' => '13:30',
+    '14:00' => '14:00',
+    '14:30' => '14:30',
+    '15:00' => '15:00',
+    '15:30' => '15:30',
+    '16:00' => '16:00',
+    '16:30' => '16:30',
+    '17:00' => '17:00',
+    // ... añade más opciones aquí ...
+  ];
 }

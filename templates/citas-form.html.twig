@@ -4,54 +4,17 @@
   <meta charset="UTF-8">
   <title>Citas Form</title>
 </head>
- <script>
-
-(function($) {
-  function initDatePicker(context) {
-    var dateField = $('#edit-date-0-value-date', context);
-    if (!dateField.data('initialized')) {
-      dateField.data('initialized', true);
-      var datePickerDiv = $('<div>').insertAfter(dateField);
-
-      datePickerDiv.datepicker({
-        dateFormat: 'yy-mm-dd',
-        onSelect: function(dateText) {
-          dateField.val(dateText);
-        }
-      });
-
-      // Muestra el calendario al cargar la página.
-      datePickerDiv.datepicker('show');
-    }
-  }
-
-  Drupal.behaviors.citasForm = {
-    attach: function(context, settings) {
-      initDatePicker(context);
-    }
-  };
-
-$(document).ready(function() {
-  initDatePicker(document);
-});
-})(jQuery);
-
-
-
-</script>
-
-
 
 <body>
 <form{{ form_attributes }}>
 <div class="form-date">
-  {{ form.date }}
+  {{ form.field_date }}
 </div>
 <div class="form-time">
-  {{ form.time }}
+  {{ form.field_time }}
 </div>
 <div class="form-comment">
-  {{ form.comment }}
+  {{ form.field_comment }}
 </div>
   {{ form.actions.submit }}
 
