@@ -26,33 +26,32 @@ class CitasListController extends ControllerBase {
 
     // Log the received date
     \Drupal::logger('segura_viudas_citas')->notice('Received date: @date', ['@date' => $date]);
+    $existing_citas = []; // Inicializa la variable $existing_citas como un array vacío.
 
-    $existing_times = []; // Inicializa la variable $existing_times como un array vacío
+    $query = \Drupal::entityQuery('node')
+    ->condition('type', 'citas')
+    ->condition('field_date', $date)
+    ->accessCheck(FALSE);
 
-    try {
-            // Realiza la consulta para obtener los nodos del tipo de contenido 'citas' con el 'field_date' seleccionado
-            $query = \Drupal::entityQuery('node')
-            ->condition('type', 'citas')
-            ->condition('field_date', $date)
-            ->accessCheck(FALSE);
 
-          $nids = $query->execute();
 
-          if (!empty($nids)) {
-            $nodes = Node::loadMultiple($nids);
-            foreach ($nodes as $node) {
-              $existing_times[] = $node->get('field_time')->value;
-            }
-          }
-        } catch (\Exception $e) {
-          \Drupal::logger('segura_viudas_citas')->error('Error: @message', ['@message' => $e->getMessage()]);
-        }
+    $nids = $query->execute();
 
-        // Log the existing times
-        \Drupal::logger('segura_viudas_citas')->notice('Existing times: @times', ['@times' => implode(', ', $existing_times)]);
-
-        return new JsonResponse($existing_times);
+    if (!empty($nids)) {
+      $nodes = Node::loadMultiple($nids);
+      foreach ($nodes as $node) {
+        $existing_citas[] = [
+          'title' => $node->label(),
+          'field_date' => $node->get('field_date')->value,
+          'field_time' => $node->get('field_time')->value,
+          'field_comment' => $node->get('field_comment')->value,
+        ];
       }
+    }
+
+
+    return new JsonResponse($existing_citas);
+  }
 
   public function content() {
     // Obtén todas las citas.
