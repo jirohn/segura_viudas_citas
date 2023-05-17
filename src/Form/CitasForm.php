@@ -94,12 +94,4 @@ class CitasForm extends FormBase {
 
     drupal_set_message($this->t('La cita ha sido guardada.'));
   }
-
-<<<<<<< HEAD
 }
-=======
-
-
-
-}
->>>>>>> 4ab79eecadd2dcfbb7115ec36bc519d278a14afa

@@ -192,19 +192,19 @@
 
       <!-- Computer -->
       </div>
-      <div class="block nomobile third column p-3 space-between" style="background-color:#f8f9f6; height:fit-content; margin-top:5em;margin-left: 2em;">
+      <div class="block nomobile third column p-3 rgap-5 space-between" style="background-color:#f8f9f6; height:fit-content; margin-top:5em;margin-left: 2em;">
         <h2 class="noup">{{ "Cita para la firma" | t }}</h2>
           <center><a style="text-align:center;" class="btn primary" href="#"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</a></center>
-          <div class="block">
+          <div id="citas-form" class="block">
               {{ dump(citas) }}
-            <form{{ form_attributes }}>
-              <div class="form-date">
+            <form class="full"{{ form_attributes }}>
+              <div class="form-date full">
                 {{ form.field_date }}<br><br>
               </div>
-              <div class="form-time">
+              <div class="form-time full">
                 {{ form.field_time }}<br><br>
               </div>
-              <div class="form-comment">
+              <div class="form-comment full">
                 {{ form.field_comment }}
               </div>
                 {{ form.actions.submit }}
