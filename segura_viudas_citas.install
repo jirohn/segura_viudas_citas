@@ -17,9 +17,17 @@ function segura_viudas_citas_install() {
   $citas_node_type->save();
 
   // Crear campos de fecha, hora y comentario.
+  //creamos campos para agregar archivos//
+  segura_viudas_citas_create_field('field_file', 'Archivo', 'citas', 'file', 'file_generic');
+  segura_viudas_citas_create_field('field_file2', 'Archivo2', 'citas', 'file', 'file_generic');
+  segura_viudas_citas_create_field('field_file3', 'Archivo3', 'citas', 'file', 'file_generic');
+  segura_viudas_citas_create_field('field_file4', 'Archivo4', 'citas', 'file', 'file_generic');
+  segura_viudas_citas_create_field('field_file5', 'Archivo5', 'citas', 'file', 'file_generic');
+  segura_viudas_citas_create_field('field_file6', 'Archivo6', 'citas', 'file', 'file_generic');
   segura_viudas_citas_create_field('field_date', 'Fecha', 'citas', 'datetime', 'datetime_default');
   segura_viudas_citas_create_field('field_time', 'Hora', 'citas', 'list_string', 'options_select', segura_viudas_citas_allowed_time_values());
   segura_viudas_citas_create_field('field_comment', 'Comentario', 'citas', 'text_long', 'text_textarea');
+
 }
 
 /**
@@ -36,6 +44,15 @@ function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $f
   $field_storage->save();
   if ($field_name == 'field_date') {
     $field_storage->setSetting('datetime_type', 'date');
+  }
+  if ($field_type == 'file') {
+    $field_storage->setThirdPartySetting(
+      'file',
+      'upload_validators',
+      [
+        'file_validate_extensions' => ['pdf doc docx jpg'],
+      ]
+    );
   }
   $field_storage->save();
   // Crear la configuración del campo.
@@ -74,6 +91,13 @@ function segura_viudas_citas_uninstall() {
   segura_viudas_citas_delete_field('field_date', 'citas');
   segura_viudas_citas_delete_field('field_comment', 'citas');
   segura_viudas_citas_delete_field('field_time', 'citas');
+  //elimina campos de archivos//
+  segura_viudas_citas_delete_field('field_file', 'citas');
+  segura_viudas_citas_delete_field('field_file2', 'citas');
+  segura_viudas_citas_delete_field('field_file3', 'citas');
+  segura_viudas_citas_delete_field('field_file4', 'citas');
+  segura_viudas_citas_delete_field('field_file5', 'citas');
+  segura_viudas_citas_delete_field('field_file6', 'citas');
   // Eliminar el tipo de contenido 'citas'.
   $citas_node_type = NodeType::load('citas');
   if ($citas_node_type) {

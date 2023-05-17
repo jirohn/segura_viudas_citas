@@ -1,14 +1,26 @@
 <?php
 
 namespace Drupal\segura_viudas_citas\Form;
-
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
 use Drupal\Core\Datetime\DrupalDateTime; // Añade esta línea para importar la clase DrupalDateTime
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CitasForm extends FormBase {
 
+  protected $currentUser;
+
+  public function __construct(AccountInterface $current_user) {
+    $this->currentUser = $current_user;
+  }
+
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('current_user')
+    );
+  }
   /**
    * {@inheritdoc}
    */
@@ -44,23 +56,67 @@ class CitasForm extends FormBase {
       '17:00' => '17:00',
       // ... añade más opciones aquí ...
     );
+    
+    /*$current_username = $this->currentUser->getDisplayName();*/
 
-    $node = Node::create(['type' => 'citas']);
+    $node = Node::create([
+      'type' => 'citas', 
+      'title' => $this->currentUser->getDisplayName(),
+    ]);
+    $node->save();
     $form_display = \Drupal::service('entity_display.repository')->getFormDisplay('node', 'citas');
     $form_display->buildForm($node, $form, $form_state);
 
     // le ponemos el nombre completo del usuario al campo de title.
-    $user = \Drupal::currentUser();
-    $user_name = $user->getDisplayName();
-    $form['title']['widget'][0]['value']['#default_value'] = $user_name;
 
     // Obtén la fecha actual en el formato correcto
     $current_date = DrupalDateTime::createFromTimestamp(time())->format('Y-m-d');
-
+    
+    $form['field_file'] = [
+      '#type' => 'file',
+      '#title' => $this->t('Subir archivo'),
+      '#upload_location' => 'public://documentacion/', 
+      '#upload_validators' => [
+        'file_validate_extensions' => ['pdf doc docx jpg'], 
+      ],
+    ];
+    $form['field_file2'] = [
+      '#type' => 'file',
+      '#title' => $this->t('Subir archivo'),
+      '#upload_location' => 'public://documentacion/', 
+      '#upload_validators' => [
+        'file_validate_extensions' => ['pdf doc docx jpg'], 
+      ],
+    ];
+    $form['field_file3'] = [
+      '#type' => 'file',
+      '#title' => $this->t('Subir archivo'),
+      '#upload_location' => 'public://documentacion/', 
+      '#upload_validators' => [
+        'file_validate_extensions' => ['pdf doc docx jpg'], 
+      ],
+    ];
+    $form['field_file4'] = [
+      '#type' => 'file',
+      '#title' => $this->t('Subir archivo'),
+      '#upload_location' => 'public://documentacion/', 
+      '#upload_validators' => [
+        'file_validate_extensions' => ['pdf doc docx jpg'], 
+      ],
+    ];
+    $form['field_file5'] = [
+      '#type' => 'file',
+      '#title' => $this->t('Subir archivo'),
+      '#upload_location' => 'public://documentacion/', 
+      '#upload_validators' => [
+        'file_validate_extensions' => ['pdf doc docx jpg'], 
+      ],
+    ];
+    
     $form['field_date'] = [
       '#type' => 'date',
       '#title' => $this->t('Fecha'),
-      '#default_value' => $current_date, // Establece la fecha actual como valor predeterminado
+      '#default_value' => $current_date, 
       '#required' => TRUE,
     ];
     $form['field_time'] = [
@@ -90,6 +146,7 @@ class CitasForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Guarda el nodo cuando el formulario se envía.
     $node = $form_state->getFormObject()->getEntity();
+    
     $node->save();
 
     drupal_set_message($this->t('La cita ha sido guardada.'));
