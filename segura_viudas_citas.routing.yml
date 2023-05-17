@@ -41,3 +41,4 @@ segura_viudas_citas.check_appointments:
     _title: 'Check Appointments'
   requirements:
     _permission: 'access content'
+

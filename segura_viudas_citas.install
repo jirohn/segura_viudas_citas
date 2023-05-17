@@ -34,6 +34,10 @@ function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $f
     'settings' => ($field_name == 'field_time') ? ['allowed_values' => $allowed_values] : [],
   ]);
   $field_storage->save();
+  if ($field_name == 'field_date') {
+    $field_storage->setSetting('datetime_type', 'date');
+  }
+  $field_storage->save();
   // Crear la configuración del campo.
 
   $field_config = FieldConfig::create([
@@ -43,6 +47,7 @@ function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $f
     'bundle' => $bundle,
   ]);
   $field_config->save();
+
 
   // Asignar el widget a la configuración del formulario.
   $entity_form_display_id = 'node.' . $bundle . '.default';

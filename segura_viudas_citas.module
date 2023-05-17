@@ -14,14 +14,12 @@ function segura_viudas_citas_theme_suggestions_page_alter(array &$suggestions, a
  * Implements hook_theme().
  */
 function segura_viudas_citas_theme($existing, $type, $theme, $path) {
+
   return [
     'citas_form' => [
       'variables' => ['form' => NULL],
       'template' => 'citas-form',
       'path' => $path . '/templates',
-      'libraries' => [
-        'segura_viudas_citas/segura_viudas_citas',
-      ],
     ],
     'citas_admin_page' => [
       'template' => 'citas-admin',
