@@ -174,5 +174,33 @@
       fileName.textContent = "{{ "Ningún archivo seleccionado" | t }}";
     }
   });
+
+document.addEventListener('DOMContentLoaded', function () {
+  var popUp = document.getElementById('myPopUp');
+  var btn = document.getElementById('openPopUp');
+  var closeBtn = document.getElementsByClassName('close')[0];
+  var body = document.body;
+
+  function openPopUp() {
+    popUp.style.display = 'flex';
+    body.classList.add('no-scroll');
+  }
+
+  function closePopUp() {
+    popUp.style.display = 'none';
+    body.classList.remove('no-scroll');
+  }
+
+  btn.onclick = openPopUp;
+  closeBtn.onclick = closePopUp;
+
+  window.onclick = function (event) {
+    if (event.target === popUp) {
+      closePopUp();
+    }
+  };
+});
+
+
 </script>
 <!-- Appointment -->
