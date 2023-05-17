@@ -7,7 +7,7 @@ segura_viudas_citas.form:
     _permission: 'access content'
 
 segura_viudas_citas.citas_list:
-  path: '/admin/gestion-citas-new'
+  path: '/admin/gestion-citas/reservas'
   defaults:
     _controller: '\Drupal\segura_viudas_citas\Controller\CitasListController::content'
     _title: 'Gestión de citas'
