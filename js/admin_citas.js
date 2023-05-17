@@ -27,7 +27,10 @@
         $tableBody.empty();
 
         citas.forEach(function (cita) {
-          var $row = $('<tr></tr>');
+          // cremamos un href para mostrar cada cita en una pagina nueva //
+
+
+          var $row = $('<tr onclick="window.location.href='+ cita.nid + '"></tr>');
           $row.append($('<td></td>').text(cita.field_time));
           $row.append($('<td></td>').text(cita.title));
           $row.append($('<td></td>').text(cita.field_date));

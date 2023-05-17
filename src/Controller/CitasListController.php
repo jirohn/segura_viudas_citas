@@ -41,6 +41,7 @@ class CitasListController extends ControllerBase {
       $nodes = Node::loadMultiple($nids);
       foreach ($nodes as $node) {
         $existing_citas[] = [
+          'nid' => $node->id(),
           'title' => $node->label(),
           'field_date' => $node->get('field_date')->value,
           'field_time' => $node->get('field_time')->value,
