@@ -72,3 +72,25 @@
     },
   };
 })(jQuery, Drupal);
+
+(function ($, Drupal) {
+  Drupal.behaviors.seguraViudasCitas = {
+    attach: function (context, settings) {
+      $('#edit-field-date', context).once('seguraViudasCitasDatepicker').each(function () {
+        $(this).datepicker({
+          dateFormat: 'yy-mm-dd',
+          altField: '#edit-field-date',
+          altFormat: 'yy-mm-dd',
+          showOn: '',
+          changeMonth: true,
+          changeYear: true
+        });
+
+        // Hacer que el calendario esté siempre visible
+        $(this).datepicker('show');
+      });
+    }
+  };
+})(jQuery, Drupal);
+
+
