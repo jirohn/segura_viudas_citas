@@ -5,6 +5,7 @@ namespace Drupal\segura_viudas_citas\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
+use Drupal\Core\Datetime\DrupalDateTime; // Añade esta línea para importar la clase DrupalDateTime
 
 class CitasForm extends FormBase {
 
@@ -20,12 +21,21 @@ class CitasForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     // Creamos un nuevo nodo de tipo "citas" para obtener el formulario.
-    $form['#attached']['library'][] = 'segura_viudas_citas/segura_viudas_citas';
-
+    //$form['#attached']['library'][] = 'segura_viudas_citas/segura_viudas_citas';
 
     $node = Node::create(['type' => 'citas']);
     $form_display = \Drupal::service('entity_display.repository')->getFormDisplay('node', 'citas');
     $form_display->buildForm($node, $form, $form_state);
+
+    // Obtén la fecha actual en el formato correcto
+    $current_date = DrupalDateTime::createFromTimestamp(time())->format('Y-m-d');
+
+    $form['field_date'] = [
+      '#type' => 'date',
+      '#title' => $this->t('Date'),
+      '#default_value' => $current_date, // Establece la fecha actual como valor predeterminado
+      '#required' => TRUE,
+    ];
 
     // Añade el botón de envío al formulario.
     $form['actions']['submit'] = [
@@ -36,7 +46,6 @@ class CitasForm extends FormBase {
 
     return $form;
   }
-
 
   /**
    * {@inheritdoc}

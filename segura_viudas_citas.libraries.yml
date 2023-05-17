@@ -6,6 +6,9 @@ segura_viudas_citas:
     - core/jquery
     - core/drupal
     - core/drupalSettings
+      libraries:
+    - system/moment
+
 
 custom_admin_page_styles:
   version: 1.x
