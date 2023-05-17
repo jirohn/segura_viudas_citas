@@ -52,15 +52,12 @@ class CitasController extends ControllerBase {
     $existing_times = []; // Inicializa la variable $existing_times como un array vacío
 
     try {
-      $date_object = new \DateTime($date);
-      $start_date = $date_object->format('Y-m-d\T00:00:00');
-      $end_date = $date_object->format('Y-m-d\T23:59:59');
+
 
       // Realiza la consulta para obtener los nodos del tipo de contenido 'citas' con el 'field_date' seleccionado
       $query = \Drupal::entityQuery('node')
         ->condition('type', 'citas')
-        ->condition('field_date', $start_date, '>=')
-        ->condition('field_date', $end_date, '<=')
+        ->condition('field_date', $date)
         ->accessCheck(FALSE);
 
       $nids = $query->execute();
