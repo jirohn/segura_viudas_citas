@@ -12,6 +12,17 @@
       const $timeField = $form.find('select[name="field_time"]');
       const $dateField = $form.find('input[name="field_date"]');
 
+
+      // deshabilitamos los sabados y domingos
+      $dateField.on('change', function () {
+        const dateValue = new Date(this.value);
+        const day = dateValue.getDay();
+
+        if (day === 6 || day === 0) {
+          alert('Sábados y domingos no están disponibles para citas.');
+          this.value = '';
+        }
+      });
       function disableTimeField() {
         console.log('Disabling time field'); // Added console log
         $timeField.prop('disabled', true);
