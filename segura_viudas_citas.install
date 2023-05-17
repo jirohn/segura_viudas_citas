@@ -41,30 +41,24 @@ function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $f
     'type' => $field_type,
     'settings' => ($field_name == 'field_time') ? ['allowed_values' => $allowed_values] : [],
   ]);
-  $field_storage->save();
+
   if ($field_name == 'field_date') {
     $field_storage->setSetting('datetime_type', 'date');
   }
-  if ($field_type == 'file') {
-    $field_storage->setThirdPartySetting(
-      'file',
-      'upload_validators',
-      [
-        'file_validate_extensions' => ['pdf doc docx jpg'],
-      ]
-    );
-  }
   $field_storage->save();
-  // Crear la configuración del campo.
 
+  // Crear la configuración del campo.
   $field_config = FieldConfig::create([
     'field_name' => $field_name,
     'label' => $field_label,
     'entity_type' => 'node',
     'bundle' => $bundle,
   ]);
-  $field_config->save();
 
+  if ($field_type == 'file') {
+    $field_config->setSetting('file_extensions', 'pdf doc docx jpg');
+  }
+  $field_config->save();
 
   // Asignar el widget a la configuración del formulario.
   $entity_form_display_id = 'node.' . $bundle . '.default';
@@ -83,6 +77,7 @@ function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $f
     'type' => $widget_type,
   ])->save();
 }
+
 /**
  * Implements hook_uninstall().
  */
@@ -108,7 +103,13 @@ function segura_viudas_citas_uninstall() {
 /**
  * Helper function to delete fields.
  */
-function segura_viudas_citas_delete_field($field_name, $bundle) {
+function segura_viudas_citas_delete_field($field_name, $bundle) { 
+  //eliminar el titulo del contenido
+  $field_config = FieldConfig::loadByName('node', $bundle, 'title');
+  if ($field_config) {
+    $field_config->delete();
+  }
+
   // Eliminar la configuración del campo.
   $field_config = FieldConfig::loadByName('node', $bundle, $field_name);
   if ($field_config) {
@@ -119,6 +120,12 @@ function segura_viudas_citas_delete_field($field_name, $bundle) {
   $field_storage = FieldStorageConfig::loadByName('node', $field_name);
   if ($field_storage) {
     $field_storage->delete();
+  }
+  // Eliminar el widget del formulario.
+  $entity_form_display_id = 'node.' . $bundle . '.default';
+  $entity_form_display = \Drupal::entityTypeManager()->getStorage('entity_form_display')->load($entity_form_display_id);
+  if ($entity_form_display) {
+    $entity_form_display->removeComponent($field_name)->save();
   }
 }
 function segura_viudas_citas_allowed_time_values() {

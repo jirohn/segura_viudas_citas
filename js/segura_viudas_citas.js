@@ -1,6 +1,37 @@
 (function ($, Drupal) {
   Drupal.behaviors.seguraViudasCitas = {
     attach: function (context, settings) {
+
+      //si lees esto es que te sobra tiempo
+
+      /*const realFile = document.getElementById("real-file");
+      const customButton = document.getElementById("custom-button");
+      const fileName = document.getElementById("file-name");
+
+  
+
+      function openPopUp() {
+        popUp.style.display = 'flex';
+        body.classList.add('no-scroll');
+      }
+
+      function closePopUp() {
+        popUp.style.display = 'none';
+        body.classList.remove('no-scroll');
+      }
+
+      btn.onclick = openPopUp;
+      closeBtn.onclick = closePopUp;
+
+      window.onclick = function (event) {
+        if (event.target === popUp) {
+          closePopUp();
+        }
+      }
+*/
+
+      //cosas pedralas Pedralo, estas to pedralao, el que lo desenpedre buen desenpedrelador sera//
+
       console.log('seguraViudasCitas behavior attached');
 
       const $form = $(context).find('form');
@@ -73,24 +104,6 @@
   };
 })(jQuery, Drupal);
 
-(function ($, Drupal) {
-  Drupal.behaviors.seguraViudasCitas = {
-    attach: function (context, settings) {
-      $('#edit-field-date', context).once('seguraViudasCitasDatepicker').each(function () {
-        $(this).datepicker({
-          dateFormat: 'yy-mm-dd',
-          altField: '#edit-field-date',
-          altFormat: 'yy-mm-dd',
-          showOn: '',
-          changeMonth: true,
-          changeYear: true
-        });
 
-        // Hacer que el calendario esté siempre visible
-        $(this).datepicker('show');
-      });
-    }
-  };
-})(jQuery, Drupal);
 
 
