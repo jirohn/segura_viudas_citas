@@ -3,19 +3,21 @@
   <table>
     <thead>
       <tr>
-        <th>{{ 'Fecha'|t }}</th>
         <th>{{ 'Hora'|t }}</th>
+        <th>{{ 'Título'|t }}</th>
+        <th>{{ 'Tipo de cita'|t }}</th>
         <th>{{ 'Comentario'|t }}</th>
       </tr>
     </thead>
     <tbody>
       {% for row in rows %}
         <tr>
-          <td>{{ row.date|date('Y-m-d') }}</td>
-          <td>{{ row.date|date('H:i') }}</td>
-          <td>{{ row.comment }}</td>
+          <td>{{ row.field_time }}</td>
+          <td>{{ row.field_title }}</td>
+          <td> no configurado </td>
+          <td>{{ row.field_comment }}</td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
-</div> 
+</div>

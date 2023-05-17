@@ -42,3 +42,10 @@ segura_viudas_citas.check_appointments:
   requirements:
     _permission: 'access content'
 
+segura_viudas_citas.admin_check_apointments:
+  path: '/segura_viudas_citas/admin/check_apointments'
+  defaults:
+    _controller: '\Drupal\segura_viudas_citas\Controller\CitasListController::adminCheckAppointments'
+    _title: 'Admin check Appointments'
+  requirements:
+    _permission: 'access content'
