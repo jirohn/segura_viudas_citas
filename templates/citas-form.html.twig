@@ -1,25 +1,236 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Citas Form</title>
-</head>
+<!-- Appointment -->
 
-<body>
-  {{ dump(citas) }}
-<form{{ form_attributes }}>
-<div class="form-date">
-  {{ form.field_date }}
-</div>
-<div class="form-time">
-  {{ form.field_time }}
-</div>
-<div class="form-comment">
-  {{ form.field_comment }}
-</div>
-  {{ form.actions.submit }}
+<!-- Mobile -->
+<section id="appointment" class="nospace nocomputer" style="margin-top:1em;">
+    <div class="block column">
+        <h1 class="noup">{{ "Documentació i cita de contracte" | t }}</h1>
+    </div>
+</section>
+<!-- Mobile -->
 
-</form>
+<!-- Computer -->
+<section id="appointment" class="nospace nomobile" style="margin-top:1em;">
+    <div class="block column full">
+        <h1 class="noup">{{ "Documentació i cita de contracte" | t }}</h1>
+    </div>
+</section>
+<!-- Computer -->
 
-</body>
-</html>
+<section id="attach" class="nospace">
+    <div class="block full space-between">
+
+      <!-- Mobile -->
+      <div class="block column p-3 space-between nocomputer" style="background-color:#f8f9f6; margin-top:2em;">
+        <h2 class="noup">{{ "Cita para la firma" | t }}</h2>
+          <a style="width:auto; margin-top:2em; text-align:center;" class="btn primary" href="#"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</a>
+      </div>
+      <div class="block column nocomputer">
+        <h2 style="margin-bottom:1em;" class="noup">{{ "Adjuntar documentació" | t }}</h2>
+          <p>{{ "Un cop adjuntada tota la documentació requerida podràs demanar una cita el dia que vulguis per a la signatura del contracte." | t }}</p><br>
+          <p style="margin-top:1em;">{{ "Pots pujar la documentació en <b>els formats següents: JPG, PDF, xlsx (Excel)." | t }}</b></p><br>
+          <!-- Mobile -->
+          <!-- Mobile -->
+         <div class="block column full space-between nocomputer" style="margin-left: 0;">
+          <div class="block full row space-between" style="margin-left: 0;" >
+            <p><svg style="border-radius: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#c82020" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="#c82020"/>
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            </svg>{{ "Per verificar" | t }}</p>
+            <p><svg style="border-radius: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2ca500" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="#2ca500"/>
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            </svg>{{ "Verificat" | t }}</p>
+          </div>
+            <p style="margin:2em 0em; text-align:right;">{{" *Camps obligatoris" | t }}</p>
+        </div>
+        <!-- Mobile -->
+        <!-- Mobile -->
+      <div class="block column cgap-1 uploads nocomputer" style="margin: 0;">
+          <div class="block column right space-between">
+            <label>{{ "CARTA ACREDITATIVA RAÏM DO CAVA O DO CAT, O AMBDÓS*" | t }}</label><br>
+            <input type="file" id="real-file" hidden="hidden" />
+            <button type="button" id="custom-button"><p id="file-name">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#718457" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" />
+          </svg>
+            {{ "Adjunta o arrossega el fitxer" | t }}</p></button>
+          </div>
+          <div class="block column right space-between">
+            <label>{{ "QUADERN DE CAMP*" | t }}</label><br>
+            <input type="file" id="real-file" hidden="hidden" />
+            <button type="button" id="custom-button"><p id="file-name">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#718457" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" />
+          </svg>
+            {{ "Adjunta o arrossega el fitxer" | t }}</p></button>
+          </div>
+        </div>
+
+        <div class="block column cgap-1 uploads nocomputer" style="margin: 0;">
+          <div class="block column right space-between">
+            <label>{{ "CERTIFICAT CCPAE" | t }}</label><br>
+            <input type="file" id="real-file" hidden="hidden" />
+            <button type="button" id="custom-button"><p id="file-name">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#718457" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" />
+          </svg>
+            {{ "Adjunta o arrossega el fitxer" | t }}</p></button>
+          </div>
+          <div class="block column right space-between">
+            <label>{{ "RVC" | t }}</label><br>
+            <input type="file" id="real-file" hidden="hidden" />
+            <button type="button" id="custom-button"><p id="file-name">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#718457" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" />
+          </svg>
+            {{ "Adjunta o arrossega el fitxer" | t }}</p></button>
+          </div>
+        </div>
+
+        <div class="block column cgap-1 uploads nocomputer" style="margin: 0;">
+          <div class="block column right space-between">
+            <label>{{ "ALTRES DOCUMENTS" | t }}</label><br>
+            <input type="file" id="real-file" hidden="hidden" />
+            <button type="button" id="custom-button"><p id="file-name">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#718457" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" />
+          </svg>
+            {{ "Adjunta o arrossega el fitxer" | t }}</p></button>
+          </div>
+          <div class="block column half right space-between">
+          </div>
+        </div>
+        </div>
+        <!-- Mobile -->
+
+        <!-- Computer -->
+        <div class="block two-thirds column nomobile">
+        <h2 style="margin-bottom:1em; margin-top: 2em;" class="noup">{{ "Adjuntar documentació" | t }}</h2>
+          <p>{{ "Un cop adjuntada tota la documentació requerida podràs demanar una cita el dia que vulguis per a la signatura del contracte." | t }}</p><br>
+          <p style="margin-top:1em;">{{ "Pots pujar la documentació en <b>els formats següents: JPG, PDF, xlsx (Excel)." | t }}</b></p><br>
+        <div class="block row space-between nomobile">
+          <div class="block row cgap-1">
+            <p><svg style="border-radius: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#c82020" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="#c82020"/>
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            </svg>{{ "Per verificar" | t }}</p>
+            <p><svg style="border-radius: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2ca500" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="#2ca500"/>
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            </svg>{{ "Verificat" | t }}</p>
+          </div>
+            <p>{{" *Camps obligatoris" | t }}</p>
+        </div>
+        <!-- Computer -->
+        <!-- Computer -->
+        <div class="block row full cgap-1 uploads nomobile">
+          <div class="block column half right space-between">
+            <label>{{ "CARTA ACREDITATIVA RAÏM DO CAVA O DO CAT, O AMBDÓS*" | t }}</label><br>
+            <input type="file" id="real-file" hidden="hidden" />
+            <button type="button" id="custom-button"><p id="file-name">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#718457" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" />
+          </svg>
+            {{ "Adjunta o arrossega el fitxer" | t }}</p></button>
+          </div>
+          <div class="block column half right space-between">
+            <label>{{ "QUADERN DE CAMP*" | t }}</label><br>
+            <input type="file" id="real-file" hidden="hidden" />
+            <button type="button" id="custom-button"><p id="file-name">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#718457" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" />
+          </svg>
+            {{ "Adjunta o arrossega el fitxer" | t }}</p></button>
+          </div>
+        </div>
+
+        <div class="block row full cgap-1 uploads nomobile">
+          <div class="block column half right space-between">
+            <label>{{ "CERTIFICAT CCPAE" | t }}</label><br>
+            <input type="file" id="real-file" hidden="hidden" />
+            <button type="button" id="custom-button"><p id="file-name">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#718457" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" />
+          </svg>
+            {{ "Adjunta o arrossega el fitxer" | t }}</p></button>
+          </div>
+          <div class="block column half right space-between">
+            <label>{{ "RVC" | t }}</label><br>
+            <input type="file" id="real-file" hidden="hidden" />
+            <button type="button" id="custom-button"><p id="file-name">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#718457" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" />
+          </svg>
+            {{ "Adjunta o arrossega el fitxer" | t }}</p></button>
+          </div>
+        </div>
+
+        <div class="block row full cgap-1 uploads nomobile">
+          <div class="block column half right space-between">
+            <label>{{ "ALTRES DOCUMENTS" | t }}</label><br>
+            <input type="file" id="real-file" hidden="hidden" />
+            <button type="button" id="custom-button"><p id="file-name">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#718457" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" />
+          </svg>
+            {{ "Adjunta o arrossega el fitxer" | t }}</p></button>
+          </div>
+          <div class="block column half right space-between">
+          </div>
+        </div>
+        <!-- Computer -->
+
+      <!-- Computer -->
+      </div>
+      <div class="block nomobile third column p-3 rgap-5 space-between" style="background-color:#f8f9f6; height:fit-content; margin-top:5em;margin-left: 2em;">
+        <h2 class="noup">{{ "Cita para la firma" | t }}</h2>
+          <center><a style="text-align:center;" class="btn primary" href="#"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</a></center>
+          <div id="citas-form" class="block">
+              {{ dump(citas) }}
+            <form class="full"{{ form_attributes }}>
+              <div class="form-date full">
+                {{ form.field_date }}<br><br>
+              </div>
+              <div class="form-time full">
+                {{ form.field_time }}<br><br>
+              </div>
+              <div class="form-comment full">
+                {{ form.field_comment }}
+              </div>
+                {{ form.actions.submit }}
+
+            </form>
+          </div>
+      </div>
+      <!-- Computer -->
+    </div>
+</section>
+
+<script>
+  const realFile = document.getElementById("real-file");
+  const customButton = document.getElementById("custom-button");
+  const fileName = document.getElementById("file-name");
+
+  customButton.addEventListener("click", () => {
+    realFile.click();
+  });
+
+  realFile.addEventListener("change", () => {
+    if (realFile.value) {
+      fileName.textContent = realFile.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+    } else {
+      fileName.textContent = "{{ "Ningún archivo seleccionado" | t }}";
+    }
+  });
+</script>
+<!-- Appointment -->
