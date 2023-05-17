@@ -37,7 +37,7 @@ class AdminPageController extends ControllerBase {
                   </div>
               </div>
           </div>
-          
+
           '),
         ];
 
