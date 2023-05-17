@@ -89,6 +89,11 @@ class CitasListController extends ControllerBase {
       '#title' => $this->t('Gestión de citas'),
       '#header' => $header,
       '#rows' => $rows,
+      '#attached' => [
+        'library' => [
+          'segura_viudas_citas/admin_citas',
+        ],
+      ],
     ];
 
 

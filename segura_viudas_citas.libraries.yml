@@ -9,6 +9,17 @@ segura_viudas_citas:
       libraries:
     - system/moment
 
+admin_citas:
+  version: 1.x
+  js:
+    js/admin_citas.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+      libraries:
+    - system/moment
+
 
 custom_admin_page_styles:
   version: 1.x
