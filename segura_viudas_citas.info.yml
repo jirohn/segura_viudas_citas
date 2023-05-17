@@ -1,6 +1,6 @@
 name: Segura Viudas Citas
 description: Añade un tipo de contenido llamado 'Citas'.
-package: 'Segura Viudas'
+package: 'Nateevo'
 type: module
 core_version_requirement: ^8 || ^9 || ^10
 dependencies:
