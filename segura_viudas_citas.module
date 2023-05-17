@@ -23,6 +23,10 @@ function segura_viudas_citas_theme($existing, $type, $theme, $path) {
         'segura_viudas_citas/segura_viudas_citas',
       ],
     ],
+    'citas_admin_page' => [
+      'template' => 'citas-admin',
+      'path' => $path . '/templates',
+    ],
     'gestion_citas' => [
       'variables' => ['title' => NULL, 'rows' => []],
       'template' => 'gestion-citas',
