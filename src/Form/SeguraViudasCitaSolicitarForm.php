@@ -17,15 +17,20 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
      // guardamos la fecha en una variable
     $current_date = DrupalDateTime::createFromTimestamp(time())->format('Y-m-d');
-    // guardamos el nombre del usuario actual en una variable que puede variar
-    // segun el usuario variante que varia pero no desvaria por que si desvariara
-    // no variaria y entonces no habria variedad para que la diversificacion sea diversa y no indiversa
-    $title = $this->currentUser->getDisplayName();
-
+    // guardamos el nombre del usuario actual en una variable con accountinterface
+    $title = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id())->getDisplayName();
     $form['title'] = [
       '#type' => 'hidden',
       '#value' => $title,
     ];
+
+    for ($i = 0; $i < 5; $i++) {
+      $form['field_verify_file' . $i] = [
+        '#type' => 'hidden',
+        '#value' => FALSE,
+      ];
+    }
+
     // llamamos a los campos 'field_file' del formulario
     $form['field_file'] = [
       '#type' => 'managed_file',
@@ -36,6 +41,49 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       ],
       '#required' => TRUE,
     ];
+    // llamamos a los campos 'field_file2' del formulario
+    $form['field_file2'] = [
+      '#type' => 'managed_file',
+      '#title' => $this->t('Subir archivo'),
+      '#upload_location' => 'public://',
+      '#upload_validators' => [
+        'file_validate_extensions' => ['pdf jpg jpeg'],
+      ],
+      '#required' => TRUE,
+    ];
+    // llamamos a los campos 'field_file3' del formulario
+    $form['field_file3'] = [
+      '#type' => 'managed_file',
+      '#title' => $this->t('Subir archivo'),
+      '#upload_location' => 'public://',
+      '#upload_validators' => [
+        'file_validate_extensions' => ['pdf jpg jpeg'],
+      ],
+      '#required' => TRUE,
+    ];
+    // llamamos a los campos 'field_file4' del formulario
+    $form['field_file4'] = [
+      '#type' => 'managed_file',
+      '#title' => $this->t('Subir archivo'),
+      '#upload_location' => 'public://',
+      '#upload_validators' => [
+        'file_validate_extensions' => ['pdf jpg jpeg'],
+      ],
+      '#required' => TRUE,
+    ];
+    // llamamos a los campos 'field_file5' del formulario
+    $form['field_file5'] = [
+      '#type' => 'managed_file',
+      '#title' => $this->t('Subir archivo'),
+      '#upload_location' => 'public://',
+      '#upload_validators' => [
+        'file_validate_extensions' => ['pdf jpg jpeg'],
+      ],
+      '#required' => TRUE,
+    ];
+
+
+
 
     // Agregamos los campos de fecha, hora y lugar al formulario.
     $form['field_date'] = [
@@ -77,6 +125,15 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
     $form['field_comment'] = [
       '#type' => 'textarea',
       '#title' => $this->t('comment'),
+      '#required' => TRUE,
+    ];
+    $form['field_modalidad'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Modalidad'),
+      '#options' => array(
+        'Presencial' => 'Presencial',
+        'Online' => 'Online',
+      ),
       '#required' => TRUE,
     ];
 

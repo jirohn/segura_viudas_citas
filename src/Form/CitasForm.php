@@ -13,6 +13,7 @@ use Drupal\Core\Messenger;
 use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
 use Drupal\node\NodeInterface;
+// request //
 
 
 class CitasForm extends FormBase {
@@ -40,7 +41,7 @@ class CitasForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['#attached']['library'][] = 'segura_viudas_citas/segura_viudas_citas';
-  
+
     // Obtén la fecha actual en el formato correcto
     $current_date = DrupalDateTime::createFromTimestamp(time())->format('Y-m-d');
     // Obtén el nombre del usuario actual y créalo como el título del nodo.
@@ -68,17 +69,17 @@ class CitasForm extends FormBase {
       '17:00' => '17:00',
       // ... añade más opciones aquí ...
     );
-    
+
 
     $node = Node::create([
-      'type' => 'citas', 
+      'type' => 'citas',
       'title' => $this->currentUser->getDisplayName(),
     ]);
 
 
     $form_display = \Drupal::service('entity_display.repository')->getFormDisplay('node', 'citas');
     $form_display->buildForm($node, $form, $form_state);
-
+    $date = $request->query->get('date');
 
 
 
@@ -98,9 +99,9 @@ class CitasForm extends FormBase {
     $form['field_file'] = [
       '#type' => 'file',
       '#title' => $this->t('Subir archivo'),
-      '#upload_location' => 'public://documentacion/', 
+      '#upload_location' => 'public://documentacion/',
       '#upload_validators' => [
-        'file_validate_extensions' => ['pdf doc docx jpg'], 
+        'file_validate_extensions' => ['pdf doc docx jpg'],
       ],
       '#required' => FALSE,
 
@@ -108,9 +109,9 @@ class CitasForm extends FormBase {
     $form['field_file2'] = [
       '#type' => 'file',
       '#title' => $this->t('Subir archivo'),
-      '#upload_location' => 'public://documentacion/', 
+      '#upload_location' => 'public://documentacion/',
       '#upload_validators' => [
-        'file_validate_extensions' => ['pdf doc docx jpg'], 
+        'file_validate_extensions' => ['pdf doc docx jpg'],
       ],
       '#required' => FALSE,
 
@@ -118,9 +119,9 @@ class CitasForm extends FormBase {
     $form['field_file3'] = [
       '#type' => 'file',
       '#title' => $this->t('Subir archivo'),
-      '#upload_location' => 'public://documentacion/', 
+      '#upload_location' => 'public://documentacion/',
       '#upload_validators' => [
-        'file_validate_extensions' => ['pdf doc docx jpg'], 
+        'file_validate_extensions' => ['pdf doc docx jpg'],
       ],
       '#required' => FALSE,
 
@@ -128,9 +129,9 @@ class CitasForm extends FormBase {
     $form['field_file4'] = [
       '#type' => 'file',
       '#title' => $this->t('Subir archivo'),
-      '#upload_location' => 'public://documentacion/', 
+      '#upload_location' => 'public://documentacion/',
       '#upload_validators' => [
-        'file_validate_extensions' => ['pdf doc docx jpg'], 
+        'file_validate_extensions' => ['pdf doc docx jpg'],
       ],
       '#required' => FALSE,
 
@@ -138,18 +139,18 @@ class CitasForm extends FormBase {
     $form['field_file5'] = [
       '#type' => 'file',
       '#title' => $this->t('Subir archivo'),
-      '#upload_location' => 'public://documentacion/', 
+      '#upload_location' => 'public://documentacion/',
       '#upload_validators' => [
-        'file_validate_extensions' => ['pdf doc docx jpg'], 
+        'file_validate_extensions' => ['pdf doc docx jpg'],
       ],
       '#required' => FALSE,
 
     ];
-    
+
     $form['field_date'] = [
       '#type' => 'date',
       '#title' => $this->t('Fecha'),
-      '#default_value' => $current_date, 
+      '#default_value' => $current_date,
       '#required' => FALSE,
     ];
     $form['field_time'] = [
@@ -167,9 +168,9 @@ class CitasForm extends FormBase {
       '#type' => 'submit',
       '#value' => $this->t('Pedir cita'),
       '#button_type' => 'primary',
-      '#submit' => [[ $this, 'submitForm']], // no leas estas cosas... 
+      '#submit' => [[ $this, 'submitForm']], // no leas estas cosas...
     ];
-  
+
     return $form;
   }
 
@@ -184,7 +185,7 @@ class CitasForm extends FormBase {
     $node = $form_state->getFormObject()->getEntity();
     // Guarda el valor del campo de texto en el título del nodo.
 
-    
+
 
     $fields = ['field_file', 'field_file2', 'field_file3', 'field_file4', 'field_file5'];
     foreach ($fields as $field) {
@@ -198,12 +199,12 @@ class CitasForm extends FormBase {
         }
       }
     }
-  
+
     $node->save();
-  
+
     // Muestra el mensaje de confirmación.
     \Drupal::messenger()->addMessage($this->t('La cita ha sido guardada.'));
   }
 
-  
+
 }
