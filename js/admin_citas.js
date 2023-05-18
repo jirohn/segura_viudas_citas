@@ -196,6 +196,9 @@
                 // le ponemos el color rojo a la imagen del boton
                 $blockButton.find('img').css('fill', '#ff0000');
                 // llamamos a la funcion blockAppointment pasandole los datos de la fecha y el timeSlot actual
+                // guardamos la fecha seleccionada en el 'date-picker' en la variable date
+                var date = $('#date-picker').val();
+
                 blockAppointment(date, timeSlot);
 
               }
@@ -216,12 +219,14 @@
       }
       // funcion para crear una nueva cita tipo 'bloqueado'donde enviamos la fecha seleccionada y la hora basada en timeSlot
       function blockAppointment(date, timeSlot) {
+        ;
         $.ajax({
           url: Drupal.url('/segura_viudas_citas/admin/block_appointment'),
-          data: { date: date, timeSlot: timeSlot },
+          // enviamos el timeSlot y la fecha seleccionada
+          data: { timeSlot: timeSlot, date: date },
           dataType: 'json',
           success: function (data) {
-            console.log('Cita bloqueada: ', data);
+            console.log('Cita bloqueada: ', date, timeSlot, data);
             $('#date-picker').change();
           },
           error: function (jqXHR, textStatus, errorThrown) {
@@ -229,10 +234,6 @@
           },
         });
       }
-
-
-
-
       // Función para eliminar una cita usando su NID y eliminamos la cita de la tabla
       function deleteAppointment(nid)
       {

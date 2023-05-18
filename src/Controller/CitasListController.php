@@ -119,23 +119,27 @@ class CitasListController extends ControllerBase {
    *   A JSON response containing the times of existing appointments.
    */
   public function adminBlockAppointment(Request $request) {
+    // recibimos la variable del request con los datos $date y $time
     $date = $request->query->get('date');
-    $time = $request->query->get('time');
+    $time = $request->query->get('timeSlot');
+
 
     // Log the received date
     \Drupal::logger('segura_viudas_citas')->notice('Received date: @date', ['@date' => $date]);
     \Drupal::logger('segura_viudas_citas')->notice('Received time: @time', ['@time' => $time]);
-
+    // dejamos solo la fecha sin la hora
+    $date = substr($date, 0, 10);
+    // creamos un nodo con el tipo de contenido citas
     $node = Node::create([
       'type' => 'citas',
       'title' => 'Bloqueado',
       'field_date' => $date,
-      'field_comment' => 'Bloqueado',
-      'title' => 'Bloqueado por'+\Drupal::currentUser()->getAccountName(),
       'field_time' => $time,
-      'field_modalidad' => FALSE,
+      'field_modalidad' => 0,
     ]);
-    $node->save();
+  $node->save();
+
+
 
     return new JsonResponse(['status' => 'ok']);
   }
