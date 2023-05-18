@@ -6,7 +6,8 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
 use Drupal\Core\Datetime\DrupalDateTime; // Añade esta línea para importar la clase DrupalDateTime
-
+// usamos libreria de drupal para coger nombre de usuario actual
+use Drupal\Core\Session\AccountInterface;
 class SeguraViudasCitaSolicitarForm extends FormBase {
 
   public function getFormId() {
@@ -14,15 +15,26 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
   }
 
   public function buildForm(array $form, FormStateInterface $form_state) {
-    // No es necesario obtener los campos del nodo citas aquí, ya que no se utilizarán en el formulario.
-    // $node = \Drupal::routeMatch()->getParameter('node');
-    // guardamos la fecha en una variable
+     // guardamos la fecha en una variable
     $current_date = DrupalDateTime::createFromTimestamp(time())->format('Y-m-d');
-
+    // guardamos el nombre del usuario actual en una variable que puede variar
+    // segun el usuario variante que varia pero no desvaria por que si desvariara
+    // no variaria y entonces no habria variedad para que la diversificacion sea diversa y no indiversa
+    $title = $this->currentUser->getDisplayName();
 
     $form['title'] = [
       '#type' => 'hidden',
-      '#value' => 'juan palomo',
+      '#value' => $title,
+    ];
+    // llamamos a los campos 'field_file' del formulario
+    $form['field_file'] = [
+      '#type' => 'managed_file',
+      '#title' => $this->t('Subir archivo'),
+      '#upload_location' => 'public://',
+      '#upload_validators' => [
+        'file_validate_extensions' => ['pdf jpg jpeg'],
+      ],
+      '#required' => TRUE,
     ];
 
     // Agregamos los campos de fecha, hora y lugar al formulario.

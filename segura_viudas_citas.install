@@ -16,14 +16,24 @@ function segura_viudas_citas_install() {
   ]);
   $citas_node_type->save();
 
-  // Crear campos de fecha, hora y comentario.
+  // Crear campos de fecha, hora y comentario. pero no comentes por que en boca cerrada no entran moscas
   //creamos campos para agregar archivos//
-  segura_viudas_citas_create_field('field_file', 'Archivo', 'citas', 'file', 'file_generic');
-  segura_viudas_citas_create_field('field_file2', 'Archivo2', 'citas', 'file', 'file_generic');
-  segura_viudas_citas_create_field('field_file3', 'Archivo3', 'citas', 'file', 'file_generic');
-  segura_viudas_citas_create_field('field_file4', 'Archivo4', 'citas', 'file', 'file_generic');
-  segura_viudas_citas_create_field('field_file5', 'Archivo5', 'citas', 'file', 'file_generic');
-  segura_viudas_citas_create_field('field_file6', 'Archivo6', 'citas', 'file', 'file_generic');
+  segura_viudas_citas_create_field('field_file', 'Carta acreditativa Uva DO CAVA o DO CAT, o ambas*', 'citas', 'file', 'file_generic');
+  segura_viudas_citas_create_field('field_verify_file', 'verificado 1', 'citas', 'boolean', 'boolean_checkbox');
+
+  segura_viudas_citas_create_field('field_file2', 'Cuaderno de campo*', 'citas', 'file', 'file_generic');
+  segura_viudas_citas_create_field('field_verify_file2', 'verificado 1', 'citas', 'boolean', 'boolean_checkbox');
+
+  segura_viudas_citas_create_field('field_file3', 'Certificado CCPAE', 'citas', 'file', 'file_generic');
+  segura_viudas_citas_create_field('field_verify_file3', 'verificado 1', 'citas', 'boolean', 'boolean_checkbox');
+
+  segura_viudas_citas_create_field('field_file4', 'RVC', 'citas', 'file', 'file_generic');
+  segura_viudas_citas_create_field('field_verify_file4', 'verificado 1', 'citas', 'boolean', 'boolean_checkbox');
+
+  segura_viudas_citas_create_field('field_file5', 'Otros documentos', 'citas', 'file', 'file_generic');
+  segura_viudas_citas_create_field('field_verify_file5', 'verificado 1', 'citas', 'boolean', 'boolean_checkbox');
+
+  segura_viudas_citas_create_field('field_modalidad', 'modalidad', 'citas', 'boolean', 'boolean_checkbox');
   segura_viudas_citas_create_field('field_date', 'Fecha', 'citas', 'datetime', 'datetime_default');
   segura_viudas_citas_create_field('field_time', 'Hora', 'citas', 'list_string', 'options_select', segura_viudas_citas_allowed_time_values());
   segura_viudas_citas_create_field('field_comment', 'Comentario', 'citas', 'text_long', 'text_textarea');
@@ -35,12 +45,15 @@ function segura_viudas_citas_install() {
  */
 function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $field_type, $widget_type, $allowed_values = []) {
   // Crear el almacenamiento del campo.
+
+
   $field_storage = FieldStorageConfig::create([
     'field_name' => $field_name,
     'entity_type' => 'node',
     'type' => $field_type,
     'settings' => ($field_name == 'field_time') ? ['allowed_values' => $allowed_values] : [],
   ]);
+  // si el campo es tipo modalidad se le ponen los valores de presencial y telefonica//
 
   if ($field_name == 'field_date') {
     $field_storage->setSetting('datetime_type', 'date');
@@ -58,6 +71,14 @@ function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $f
   if ($field_type == 'file') {
     $field_config->setSetting('file_extensions', 'pdf doc docx jpg');
   }
+  if ($field_name == 'field_modalidad') {
+    $field_storage->setSetting('on_label', 'Presencial');
+    $field_storage->setSetting('off_label', 'Telefonica');
+  }
+  // le decimos que si es 'field_file' o 'field_file5' que permita varios archivos//
+  if ($field_name == 'field_file' || $field_name == 'field_file5') {
+    $field_storage->setSetting('cardinality', 5);
+  }
   $field_config->save();
 
   // Asignar el widget a la configuración del formulario.
@@ -72,6 +93,7 @@ function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $f
       'status' => TRUE,
     ]);
   }
+  // le decimos que si es 'field_file' o 'field_file5' que permita varios archivos//
 
   $entity_form_display->setComponent($field_name, [
     'type' => $widget_type,
@@ -86,15 +108,23 @@ function segura_viudas_citas_uninstall() {
   segura_viudas_citas_delete_field('field_date', 'citas');
   segura_viudas_citas_delete_field('field_comment', 'citas');
   segura_viudas_citas_delete_field('field_time', 'citas');
-  //elimina campos de archivos//
+  //elimina campos de archivos y sus field_verify_file//
   segura_viudas_citas_delete_field('field_file', 'citas');
+  segura_viudas_citas_delete_field('field_verify_file', 'citas');
   segura_viudas_citas_delete_field('field_file2', 'citas');
+  segura_viudas_citas_delete_field('field_verify_file2', 'citas');
   segura_viudas_citas_delete_field('field_file3', 'citas');
+  segura_viudas_citas_delete_field('field_verify_file3', 'citas');
   segura_viudas_citas_delete_field('field_file4', 'citas');
+  segura_viudas_citas_delete_field('field_verify_file4', 'citas');
   segura_viudas_citas_delete_field('field_file5', 'citas');
-  segura_viudas_citas_delete_field('field_file6', 'citas');
-  // Eliminar el tipo de contenido 'citas'.
+  segura_viudas_citas_delete_field('field_verify_file5', 'citas');
+  // borramos modaliad//
+  segura_viudas_citas_delete_field('field_modalidad', 'citas');
+  // Eliminar el tipo de contenido 'citas'
   $citas_node_type = NodeType::load('citas');
+  // Eliminar el tipo de contenido nuevo que se ha creado.
+
   if ($citas_node_type) {
     $citas_node_type->delete();
   }
@@ -103,7 +133,7 @@ function segura_viudas_citas_uninstall() {
 /**
  * Helper function to delete fields.
  */
-function segura_viudas_citas_delete_field($field_name, $bundle) { 
+function segura_viudas_citas_delete_field($field_name, $bundle) {
   //eliminar el titulo del contenido
   $field_config = FieldConfig::loadByName('node', $bundle, 'title');
   if ($field_config) {
