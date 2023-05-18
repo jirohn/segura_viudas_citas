@@ -10,3 +10,7 @@
 .gestion-citas-wrapper .appointment:hover {
     background-color: var(--color-white);
 }
+
+.gestion-citas-wrapper * {
+    transition: all .4s;
+} 

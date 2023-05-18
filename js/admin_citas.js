@@ -72,11 +72,11 @@
             if (citaForTimeSlot.title == 'Bloqueado') {
               var $blockButton = $('<button class="action-link action-link--danger action-link--icon-block"></button>').append($('<img src="" alt="lock icon" />'));
               // le añadimos al boton una imagen llamada 'lockicon.png' que se encuentra en la carpeta images del modulo cargando el path con Drupal.url
-              $blockButton.find('img').attr('src', Drupal.url('/modules/NATEEVO/segura_viudas_citas/images/lockicon.svg'));
-              // le quitamos los bordes al boton y le quitamos el color del fondo para que se vea solo la imagen y le damos un tamaño de 3em a la imagen
+              $blockButton.find('img').attr('src', '/modules/nateevo/segura_viudas_citas/images/lockicon.svg');
+              // le quitamos los bordes al boton y le quitamos el color del fondo para que se vea solo la imagen y le damos un tamaño de 1.5em a la imagen
               $blockButton.css('border', 'none');
               $blockButton.css('background-color', 'transparent');
-              $blockButton.find('img').css('width', '3em');
+              $blockButton.find('img').css('width', '1.5em', 'transition', 'all .4s');
 
               $row.addClass('blocked');
               // le ponemos un color rojo claro a la fila por estar bloqueado
@@ -99,7 +99,7 @@
                   $blockButton.find('img').css('transform', 'rotate(0deg)');
 
                   // cambiamos a verde el color de la fila
-                  $row.css('background-color', '#ccffcc');
+                  $row.css('background-color', '#f5f8ff');
                   // color verde a la imagen del boton
                   $blockButton.find('img').css('fill', '#00cc00');
                   deleteAppointment(citaForTimeSlot.nid);
@@ -132,11 +132,11 @@
                 // Agrega un botón de eliminar en la columna Acciones con una imagen
                 var $deleteButton = $('<button class="action-link action-link--danger action-link--icon-delete"></button>').append($('<img src="" alt="delete icon" />'));
                 // le añadimos su imagen llamada 'deleteicon.svg' que se encuentra en la carpeta images del modulo cargando el path con Drupal.url
-                $deleteButton.find('img').attr('src', Drupal.url('/modules/NATEEVO/segura_viudas_citas/images/deleteicon.svg'));
-                // le quitamos los bordes al boton y le quitamos el color del fondo para que se vea solo la imagen y le damos un tamaño de 3em a la imagen
+                $deleteButton.find('img').attr('src', '/modules/nateevo/segura_viudas_citas/images/deleteicon.svg');
+                // le quitamos los bordes al boton y le quitamos el color del fondo para que se vea solo la imagen y le damos un tamaño de 1.5em a la imagen
                 $deleteButton.css('border', 'none');
                 $deleteButton.css('background-color', 'transparent');
-                $deleteButton.find('img').css('width', '3em');
+                $deleteButton.find('img').css('width', '1.5em', 'transition', 'all .4s');
                 // añadimos el boton a la collumna acciones
                 $row.append($('<td></td>').append($deleteButton));
                 $deleteButton.on('click', function (event) {
@@ -163,11 +163,11 @@
             var $blockButton = $('<button class="action-link action-link--danger action-link--icon-block"></button>').append($('<img src="" alt="lock icon" />'));
 
             // le añadimos al boton una imagen llamada 'lockicon.png' que se encuentra en la carpeta images del modulo cargando el path con Drupal.url
-            $blockButton.find('img').attr('src', Drupal.url('/modules/NATEEVO/segura_viudas_citas/images/lockicon.svg'));
+            $blockButton.find('img').attr('src', '/modules/nateevo/segura_viudas_citas/images/lockicon.svg');
             // le quitamos los bordes al boton y le quitamos el color del fondo para que se vea solo la imagen y le damos un tamaño de 1em a la imagen
             $blockButton.css('border', 'none');
             $blockButton.css('background-color', 'transparent');
-            $blockButton.find('img').css('width', '3em');
+            $blockButton.find('img').css('width', '1.5em', 'transition', 'all .4s');
 
 
 
@@ -181,7 +181,7 @@
                 $blockButton.find('img').css('transform', 'rotate(0deg)');
 
                 // cambiamos a verde el color de la fila
-                $row.css('background-color', '#ccffcc');
+                $row.css('background-color', '#f5f8ff');
                 // color verde a la imagen del boton
                 $blockButton.find('img').css('fill', '#00cc00');
 
@@ -201,7 +201,7 @@
               }
 
             });
-            $row.css('background-color', '#ccffcc');
+            $row.css('background-color', '#f5f8ff');
 
             $row.addClass('empty');
             $row.append($('<td></td>').text(timeSlot));
