@@ -136,22 +136,30 @@
       </div>
       <div class="block nomobile third column p-3 rgap-5 space-between" style="background-color:#f8f9f6; height:fit-content; margin-top:5em;margin-left: 2em;">
         <h2 class="noup">{{ "Cita para la firma" | t }}</h2>
-          <center><a style="text-align:center;" class="btn primary" href="#"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</a></center>
-          <div id="citas-form" class="block">
-              
-            <form class="full"{{ form_attributes }}>
-              <div class="form-date full">
-                {{ form.field_date }}<br><br>
-              </div>
-              <div class="form-time full">
-                {{ form.field_time }}<br><br>
-              </div>
-              <div class="form-comment full">
-                {{ form.field_comment }}
-              </div>
-                {{ form.actions.submit }}
 
-            </form>
+         <!-- Popup -->
+            <div id="myPopUp" class="pop-up-modal">
+              <div class="pop-up-content-modal cita">
+                <span class="close-modal">&times;</span>
+                  <div id="citas-form" class="block p-3">
+                  <form class="full"{{ form_attributes }}>
+                    <div class="form-date full">
+                      {{ form.field_date }}<br><br>
+                    </div>
+                    <div class="form-time full">
+                      {{ form.field_time }}<br><br>
+                    </div>
+                    <div class="form-comment full">
+                      {{ form.field_comment }}
+                    </div>
+                      {{ form.actions.submit }}
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- Popup -->
+
+          <center><button style="text-align:center;" class="btn primary" id="openPopUp"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</button></center>
           </div>
       </div>
       <!-- Computer -->
@@ -175,10 +183,10 @@
     }
   });
 
-document.addEventListener('DOMContentLoaded', function () {
+ddocument.addEventListener('DOMContentLoaded', function () {
   var popUp = document.getElementById('myPopUp');
   var btn = document.getElementById('openPopUp');
-  var closeBtn = document.getElementsByClassName('close')[0];
+  var closeBtn = document.getElementsByClassName('close-modal')[0];
   var body = document.body;
 
   function openPopUp() {
@@ -200,7 +208,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   };
 });
-
 
 </script>
 <!-- Appointment -->

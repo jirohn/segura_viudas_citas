@@ -1,0 +1,12 @@
+.gestion-citas-wrapper .empty {
+    background-color: #f5f8ff;
+}
+
+.gestion-citas-wrapper .appointment {
+    background-color: var(--color-bgblue-active);
+    transition: all .4s;
+}
+
+.gestion-citas-wrapper .appointment:hover {
+    background-color: var(--color-white);
+}

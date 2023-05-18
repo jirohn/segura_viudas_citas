@@ -1,20 +1,26 @@
 {# gestion-citas.html.twig #}
 <div class="date-picker-wrapper">
-  <label for="date-picker">{{ 'Seleccionar fecha'|t }}</label>
-  <input type="date" id="date-picker">
+  <label for="date-picker form-item__label visually-hidden">{{ 'Seleccionar fecha'|t }}:</label><br>
+  <input class="form-date form-element form-element--type-date form-element--api-date" type="date" id="date-picker">
 </div>
-<div class="gestion-citas-wrapper">
-  <table>
-    <thead>
-      <tr>
-        <th>{{ 'Hora'|t }}</th>
-        <th>{{ 'Título'|t }}</th>
-        <th>{{ 'Tipo de cita'|t }}</th>
-        <th>{{ 'Comentario'|t }}</th>
-      </tr>
-    </thead>
-    <tbody>
 
-    </tbody>
-  </table>
+<br><br>
+
+<div class="view-content gin-layer-wrapper gestion-citas-wrapper">
+  <div class="gin-table-scroll-wrapper">
+    <table class="views-table views-view-table cols-5 responsive-enabled sticky-enabled">
+      <thead class="sticky-header">
+        <tr>
+          <th>{{ 'Hora'|t }}</th>
+          <th>{{ 'Solicitante'|t }}</th>
+          <th>{{ 'Tipo de cita'|t }}</th>
+          <th>{{ 'Comentario'|t }}</th>
+          <th>{{ 'Acciones' |t }}</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
 </div>

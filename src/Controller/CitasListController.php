@@ -46,6 +46,7 @@ class CitasListController extends ControllerBase {
           'field_date' => $node->get('field_date')->value,
           'field_time' => $node->get('field_time')->value,
           'field_comment' => $node->get('field_comment')->value,
+          'field_modalidad' => $node->get('field_modalidad')->value,
         ];
       }
     }
@@ -80,6 +81,7 @@ class CitasListController extends ControllerBase {
         'field_date' => $node->get('field_date')->value,
         'field_time' => $node->get('field_time')->value,
         'field_comment' => $node->get('field_comment')->value,
+        'field_modalidad' => $node->get('field_modalidad')->value,
       ];
       $rows[] = $row;
     }
