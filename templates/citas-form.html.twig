@@ -83,7 +83,7 @@
         {# llamamos al titulo del nuevo formulario #}
         {# llamamos al formulario con sus estilos y campos #}
 
-        <div class="block two-thirds column nomobile">
+        <div style="display:none;">
          {{ form.title }}
         </div>
 
@@ -143,7 +143,6 @@
       </div>
       <div class="block nomobile third column p-3 rgap-5 space-between" style="background-color:#f8f9f6; height:fit-content; margin-top:5em;margin-left: 2em;">
         <h2 class="noup">{{ "Cita para la firma" | t }}</h2>
-<<<<<<< HEAD
 
          <!-- Popup -->
             <div id="myPopUp" class="pop-up-modal">
@@ -167,50 +166,16 @@
             </div>
             <!-- Popup -->
 
-          <center><button style="text-align:center;" class="btn primary" id="openPopUp"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</button></center>
-=======
-          <center><a style="text-align:center;" class="btn primary" href="#"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</a></center>
-          <div id="citas-form" class="block">
-              
-
-              <div class="form-date full">
-                {{ form.field_date }}<br><br>
-              </div>
-              <div class="form-time full">
-                {{ form.field_time }}<br><br>
-              </div>
-              <div class="form-comment full">
-                {{ form.field_comment }}
-              </div>
-                {{ form.actions.submit }}
-
-
->>>>>>> origin/main
+          <center><button id="openPopUp" style="text-align:center;" class="btn primary"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</button></center>
           </div>
       </div>
       <!-- Computer -->
     </div>
+
 </section>
-
-<<<<<<< HEAD
+<!-- Appointment -->
 <script>
-  const realFile = document.getElementById("real-file");
-  const customButton = document.getElementById("custom-button");
-  const fileName = document.getElementById("file-name");
-
-  customButton.addEventListener("click", () => {
-    realFile.click();
-  });
-
-  realFile.addEventListener("change", () => {
-    if (realFile.value) {
-      fileName.textContent = realFile.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
-    } else {
-      fileName.textContent = "{{ "Ningún archivo seleccionado" | t }}";
-    }
-  });
-
-ddocument.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
   var popUp = document.getElementById('myPopUp');
   var btn = document.getElementById('openPopUp');
   var closeBtn = document.getElementsByClassName('close-modal')[0];
@@ -235,8 +200,5 @@ ddocument.addEventListener('DOMContentLoaded', function () {
     }
   };
 });
-
 </script>
-=======
->>>>>>> origin/main
-<!-- Appointment -->
+```
