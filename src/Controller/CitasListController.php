@@ -40,13 +40,19 @@ class CitasListController extends ControllerBase {
     if (!empty($nids)) {
       $nodes = Node::loadMultiple($nids);
       foreach ($nodes as $node) {
+        //comprobamos si el 'field_modalidad'  del nodo es False se llamara "Presencial" y si es True se llamara "Telefonica"
+        if ($node->get('field_modalidad')->value == 0) {
+          $modalidad = "Presencial";
+        } else {
+          $modalidad = "Telefonica";
+        }
         $existing_citas[] = [
           'nid' => $node->id(),
           'title' => $node->label(),
           'field_date' => $node->get('field_date')->value,
           'field_time' => $node->get('field_time')->value,
           'field_comment' => $node->get('field_comment')->value,
-          'field_modalidad' => $node->get('field_modalidad')->value,
+          'field_modalidad' => $modalidad,
         ];
       }
     }
@@ -54,7 +60,85 @@ class CitasListController extends ControllerBase {
 
     return new JsonResponse($existing_citas);
   }
+ //Creamos el ajax que elimina las citas//
+  /**
+   * Callback for the 'segura_viudas_citas/admin/delete_appointment' route.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   A JSON response containing the times of existing appointments.
+   */
+  public function deleteAppointment(Request $request) {
+    $nid = $request->query->get('nid');
+    $date = $request->query->get('date');
 
+    // Log the received date
+    \Drupal::logger('segura_viudas_citas')->notice('Received nid: @nid', ['@nid' => $nid]);
+
+    $node = Node::load($nid);
+    $node->delete();
+    $query = \Drupal::entityQuery('node')
+    ->condition('type', 'citas')
+    ->condition('field_date', $date)
+    ->accessCheck(FALSE);
+
+
+
+    $nids = $query->execute();
+    if (!empty($nids)) {
+      $nodes = Node::loadMultiple($nids);
+      foreach ($nodes as $node) {
+        //comprobamos si el 'field_modalidad'  del nodo es False se llamara "Presencial" y si es True se llamara "Telefonica"
+        if ($node->get('field_modalidad')->value == 0) {
+          $modalidad = "Presencial";
+        } else {
+          $modalidad = "Telefonica";
+        }
+        $existing_citas[] = [
+          'nid' => $node->id(),
+          'title' => $node->label(),
+          'field_date' => $node->get('field_date')->value,
+          'field_time' => $node->get('field_time')->value,
+          'field_comment' => $node->get('field_comment')->value,
+          'field_modalidad' => $modalidad,
+        ];
+      }
+    }
+    return new JsonResponse($existing_citas);
+  }
+  //Creamos un ajax que crea una cita llamada "Bloquedo" para poder bloquear las horas que no se pueden seleccionar ese dia//
+  /**
+   * Callback for the 'segura_viudas_citas/admin_block_appointment' route.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   A JSON response containing the times of existing appointments.
+   */
+  public function adminBlockAppointment(Request $request) {
+    $date = $request->query->get('date');
+    $time = $request->query->get('time');
+
+    // Log the received date
+    \Drupal::logger('segura_viudas_citas')->notice('Received date: @date', ['@date' => $date]);
+    \Drupal::logger('segura_viudas_citas')->notice('Received time: @time', ['@time' => $time]);
+
+    $node = Node::create([
+      'type' => 'citas',
+      'title' => 'Bloqueado',
+      'field_date' => $date,
+      'field_comment' => 'Bloqueado',
+      'title' => 'Bloqueado por'+\Drupal::currentUser()->getAccountName(),
+      'field_time' => $time,
+      'field_modalidad' => FALSE,
+    ]);
+    $node->save();
+
+    return new JsonResponse(['status' => 'ok']);
+  }
   public function content() {
     // Obtén todas las citas.
     $query = \Drupal::entityQuery('node')
