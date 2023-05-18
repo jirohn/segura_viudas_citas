@@ -1,12 +1,15 @@
 (function ($, Drupal) {
   Drupal.behaviors.adminCitas = {
     attach: function (context, settings) {
-      console.log('AdminCitas behavior attached');
-      // Escucha cambios en el input de tipo "date".
+      // Configura el valor predeterminado del datepicker en la fecha actual
+      var today = new Date();
+      var formattedDate = today.toISOString().substr(0, 10);
+      $('#date-picker', context).val(formattedDate).change();
+
       $('#date-picker', context).on('change', function () {
         var selectedDate = $(this).val();
-        console.log('AdminCitas fecha seleccionada: ', selectedDate );
-        // Realiza una solicitud AJAX para obtener las citas del día seleccionado.
+        console.log('AdminCitas fecha seleccionada: ', selectedDate);
+
         $.ajax({
           url: Drupal.url('/segura_viudas_citas/admin/check_apointments'),
           data: { date: selectedDate },
@@ -26,17 +29,76 @@
         var $tableBody = $('.gestion-citas-wrapper table tbody');
         $tableBody.empty();
 
-        citas.forEach(function (cita) {
-          // cremamos un href para mostrar cada cita en una pagina nueva //
+        // Lista de horarios en el campo field_time (reemplazar con tus horarios reales)
+        var timeSlots = [
+          '09:00',
+          '09:30',
+          '10:00',
+          '10:30',
+          '11:00',
+          '11:30',
+          '12:00',
+          '12:30',
+          '14:00',
+          '14:30',
+          '15:00',
+          '15:30',
+          '16:00',
+          '16:30',
+        ];
 
+        timeSlots.forEach(function (timeSlot) {
+          var citaForTimeSlot = citas.find(function (cita) {
+            return cita.field_time === timeSlot;
+          });
 
-          var $row = $('<tr onclick="window.location.href='+ cita.nid + '"></tr>');
-          $row.append($('<td></td>').text(cita.field_time));
-          $row.append($('<td></td>').text(cita.title));
-          $row.append($('<td></td>').text(cita.field_date));
-          $row.append($('<td></td>').text(cita.field_comment));
+          var $row = $('<tr></tr>');
+
+          if (citaForTimeSlot) {
+            $row.addClass('appointment');
+            $row.css('cursor', 'pointer');
+            $row.on('click', function () {
+              window.location.href = Drupal.url('node/' + citaForTimeSlot.nid);
+            });
+            $row.append($('<td></td>').text(citaForTimeSlot.field_time));
+            $row.append($('<td></td>').text(citaForTimeSlot.title));
+            $row.append($('<td></td>').text(citaForTimeSlot.field_modalidad));
+            $row.append($('<td></td>').text(citaForTimeSlot.field_comment));
+            
+            // Agrega un botón de eliminar en la columna Acciones
+            var $deleteButton = $('<button class="action-link action-link--danger action-link--icon-trash"></button>').text('Eliminar');
+            $deleteButton.on('click', function (event) {
+              event.stopPropagation(); // Evita que el evento click se propague a la fila
+              deleteAppointment(citaForTimeSlot.nid);
+            });
+            $row.append($('<td></td>').append($deleteButton));
+
+          } else {
+            $row.addClass('empty');
+            $row.append($('<td></td>').text(timeSlot));
+            $row.append($('<td colspan="3"></td>').text(''));
+            $row.append($('<td></td>')); // Añade una celda vacía en la columna Acciones
+          }
+
           $tableBody.append($row);
         });
+      }
+
+      // Función para eliminar una cita usando su NID
+      function deleteAppointment(nid) {
+        if (confirm('¿Estás seguro de que deseas eliminar esta cita?')) {
+          $.ajax({
+            url: Drupal.url('node/' + nid),
+            type: 'DELETE',
+            success: function () {
+              // Actualiza la tabla de citas después de eliminar la cita
+              $('#date-picker').trigger('change');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              console.error('Error deleting appointment:', textStatus, errorThrown);
+            },
+          });
+        }
       }
     },
   };

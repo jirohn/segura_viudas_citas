@@ -8,6 +8,9 @@ segura_viudas_citas:
     - core/drupalSettings
       libraries:
     - system/moment
+  css:
+    theme:
+      css/styles.css: {}
 
 admin_citas:
   version: 1.x
@@ -19,13 +22,16 @@ admin_citas:
     - core/drupalSettings
       libraries:
     - system/moment
+  css:
+    theme:
+      css/styles.css: {}
 
 
 custom_admin_page_styles:
   version: 1.x
   css:
     theme:
-      css/custom_admin_page.css: {}
+      css/styles.css: {}
 
 citas-form:
   js:
