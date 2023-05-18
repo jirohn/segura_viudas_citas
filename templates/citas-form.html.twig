@@ -1,12 +1,12 @@
 <!-- Appointment -->
 
-<!-- Mobile -->
+{#<!-- Mobile -->
 <section id="appointment" class="nospace nocomputer" style="margin-top:1em;">
     <div class="block column">
         <h1 class="noup">{{ "Documentació i cita de contracte" | t }}</h1>
     </div>
 </section>
-<!-- Mobile -->
+<!-- Mobile -->#}
 
 <!-- Computer -->
 <section id="appointment" class="nospace nomobile" style="margin-top:1em;">
@@ -19,7 +19,7 @@
 <section id="attach" class="nospace">
     <div class="block full space-between">
 
-      <!-- Mobile -->
+{#      <!-- Mobile -->
       <div class="block column p-3 space-between nocomputer" style="background-color:#f8f9f6; margin-top:2em;">
         <h2 class="noup">{{ "Cita para la firma" | t }}</h2>
           <a style="width:auto; margin-top:2em; text-align:center;" class="btn primary" href="#"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</a>
@@ -77,9 +77,16 @@
           </div>
         </div>
         </div>
-        <!-- Mobile -->
+        <!-- Mobile --> #}
 
         <!-- Computer -->
+        {# llamamos al titulo del nuevo formulario #}
+        {# llamamos al formulario con sus estilos y campos #}
+
+        <div class="block two-thirds column nomobile">
+         {{ form.title }}
+        </div>
+
         <div class="block two-thirds column nomobile">
         <h2 style="margin-bottom:1em; margin-top: 2em;" class="noup">{{ "Adjuntar documentació" | t }}</h2>
           <p>{{ "Un cop adjuntada tota la documentació requerida podràs demanar una cita el dia que vulguis per a la signatura del contracte." | t }}</p><br>
@@ -136,6 +143,7 @@
       </div>
       <div class="block nomobile third column p-3 rgap-5 space-between" style="background-color:#f8f9f6; height:fit-content; margin-top:5em;margin-left: 2em;">
         <h2 class="noup">{{ "Cita para la firma" | t }}</h2>
+<<<<<<< HEAD
 
          <!-- Popup -->
             <div id="myPopUp" class="pop-up-modal">
@@ -160,12 +168,31 @@
             <!-- Popup -->
 
           <center><button style="text-align:center;" class="btn primary" id="openPopUp"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</button></center>
+=======
+          <center><a style="text-align:center;" class="btn primary" href="#"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</a></center>
+          <div id="citas-form" class="block">
+              
+
+              <div class="form-date full">
+                {{ form.field_date }}<br><br>
+              </div>
+              <div class="form-time full">
+                {{ form.field_time }}<br><br>
+              </div>
+              <div class="form-comment full">
+                {{ form.field_comment }}
+              </div>
+                {{ form.actions.submit }}
+
+
+>>>>>>> origin/main
           </div>
       </div>
       <!-- Computer -->
     </div>
 </section>
 
+<<<<<<< HEAD
 <script>
   const realFile = document.getElementById("real-file");
   const customButton = document.getElementById("custom-button");
@@ -210,4 +237,6 @@ ddocument.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
+=======
+>>>>>>> origin/main
 <!-- Appointment -->

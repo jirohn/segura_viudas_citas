@@ -49,3 +49,12 @@ segura_viudas_citas.admin_check_apointments:
     _title: 'Admin check Appointments'
   requirements:
     _permission: 'access content'
+
+segura_viudas_citas.cita_form:
+  path: '/proveedores/solicitar-cita'
+  defaults:
+    _form: '\Drupal\segura_viudas_citas\Form\SeguraViudasCitaSolicitarForm'
+    _title: 'Solicitar una cita'
+  requirements:
+    _permission: 'access content'
+
