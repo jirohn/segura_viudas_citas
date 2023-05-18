@@ -5,6 +5,7 @@ namespace Drupal\segura_viudas_citas\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
+use Drupal\Core\Datetime\DrupalDateTime; // Añade esta línea para importar la clase DrupalDateTime
 
 class SeguraViudasCitaSolicitarForm extends FormBase {
 
@@ -15,18 +16,21 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     // No es necesario obtener los campos del nodo citas aquí, ya que no se utilizarán en el formulario.
     // $node = \Drupal::routeMatch()->getParameter('node');
+    // guardamos la fecha en una variable
+    $current_date = DrupalDateTime::createFromTimestamp(time())->format('Y-m-d');
 
 
     $form['title'] = [
       '#type' => 'hidden',
       '#value' => 'juan palomo',
     ];
-    
+
     // Agregamos los campos de fecha, hora y lugar al formulario.
     $form['field_date'] = [
       '#type' => 'date',
       '#title' => $this->t('Fecha'),
       '#required' => TRUE,
+      '#value' => $current_date,
     ];
 
     $form['field_time'] = [
