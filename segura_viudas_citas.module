@@ -45,6 +45,7 @@ function segura_viudas_citas_entity_view(array &$build, \Drupal\Core\Entity\Enti
     $url = \Drupal\Core\Url::fromRoute('segura_viudas_citas.admin_citas', ['node' => $entity->id()]);
     $response = new \Symfony\Component\HttpFoundation\RedirectResponse($url->toString());
     $response->send();
+    $variables['node'] = $entity;
     exit;
   }
 }

@@ -147,6 +147,20 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $node = Node::create([
+      // guarda los valores de nuevos campos 'field_file' y los 'field_verify_file' los campos en la base de datos
+      'field_file' => $form_state->getValue('field_file'),
+      'field_verify_file' => $form_state->getValue('field_verify_file'),
+      'field_file2' => $form_state->getValue('field_file2'),
+      'field_verify_file2' => $form_state->getValue('field_verify_file2'),
+      'field_file3' => $form_state->getValue('field_file3'),
+      'field_verify_file3' => $form_state->getValue('field_verify_file3'),
+      'field_file4' => $form_state->getValue('field_file4'),
+      'field_verify_file4' => $form_state->getValue('field_verify_file4'),
+      'field_file5' => $form_state->getValue('field_file5'),
+      'field_verify_file5' => $form_state->getValue('field_verify_file5'),
+      // guardamos modalidad
+      'field_modalidad' => $form_state->getValue('field_modalidad'),
+
       'type' => 'citas',
       'title' => $form_state->getValue('title'),
       'field_date' => $form_state->getValue('field_date'),
