@@ -79,8 +79,8 @@ class CitasForm extends FormBase {
 
     $form_display = \Drupal::service('entity_display.repository')->getFormDisplay('node', 'citas');
     $form_display->buildForm($node, $form, $form_state);
+    $request = $this->getRequest();
     $date = $request->query->get('date');
-
 
 
     // Obtén la fecha actual en el formato correcto

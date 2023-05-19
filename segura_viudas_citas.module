@@ -1,5 +1,8 @@
 <?php
+
+use Drupal\node\Entity\Node;
 use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_theme_suggestions_page_alter().
  */
@@ -61,5 +64,27 @@ function segura_viudas_citas_preprocess_page(&$variables) {
     // Si quieres la fecha en un formato específico, puedes usar el servicio de fecha de Drupal.
     $formatted_date = \Drupal::service('date.formatter')->format($last_access, 'custom', 'd/m/Y H:i');
     $variables['last_access'] = $formatted_date;
+  }
+}
+
+
+/**
+ * Implementa hook_preprocess_HOOK() para pasar variables a Twig.
+ */
+function segura_viudas_citas_preprocess_node(&$variables) {
+  $node = $variables['node'];
+
+  // Verifica si el nodo tiene un autor.
+  if ($node->hasField('uid')) {
+    $author = $node->get('uid')->entity;
+
+    if ($author) {
+      // Obtiene el nombre de usuario del autor.
+      $variables['author_name'] = $author->getDisplayName();
+      $variables['author_acre'] = $author->get('field_acreedor')->value;
+      $variables['author_cif_empresa'] = $author->get('field_cif_empresa')->value;
+      $variables['author_telefono'] = $author->get('field_telefono')->value;
+      $variables['author_email'] = $author->getEmail();
+    }
   }
 }

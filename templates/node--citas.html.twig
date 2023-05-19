@@ -28,23 +28,23 @@
                             <dl class="admin-list--panel admin-list gin-layer-wrapper">
                                 <div class="admin-item">
                                     <dt class="admin-item__title">Acreedor</dt>
-                                    <dd class="admin-item__description">8000092965</dt>
+                                    <dd class="admin-item__description">{{ author_acre }}</dt>
                                 </div>
                                 <div class="admin-item">
                                     <dt class="admin-item__title">Nombre</dt>
-                                    <dd class="admin-item__description">AGRARIA DE SANT MARTI DE MALDA  S.C</dt>
+                                    <dd class="admin-item__description">{{ author_name }}</dt>
                                 </div>
                                 <div class="admin-item">
                                     <dt class="admin-item__title">CIF</dt>
-                                    <dd class="admin-item__description">F25003880</dt>
+                                    <dd class="admin-item__description">{{ author_cif_empresa }}</dt>
                                 </div>
                                 <div class="admin-item">
                                     <dt class="admin-item__title">Teléfono</dt>
-                                    <dd class="admin-item__description">973330213</dt>
+                                    <dd class="admin-item__description">{{ author_telefono }}</dt>
                                 </div>
                                 <div class="admin-item">
                                     <dt class="admin-item__title">Correo electrónico</dt>
-                                    <dd class="admin-item__description">agraria.sm@hotmail.com</dt>
+                                    <dd class="admin-item__description">{{ author_email }}</dt>
                                 </div>
                             </dl>
                         </div>
@@ -58,15 +58,19 @@
                             <dl class="admin-list--panel admin-list gin-layer-wrapper">
                                 <div class="admin-item">
                                     <dt class="admin-item__title">Día</dt>
-                                    <dd class="admin-item__description">23/11/2023</dt>
+                                    <dd class="admin-item__description">{{ node.field_date.value | date('d/m/Y') }}</dt>
                                 </div>
                                 <div class="admin-item">
                                     <dt class="admin-item__title">Hora</dt>
-                                    <dd class="admin-item__description">11:00 - 12:00</dt>
+                                    <dd class="admin-item__description">{{ node.field_time.value | date('H:i') }}</dt>
                                 </div>
                                 <div class="admin-item">
                                     <dt class="admin-item__title">Vía</dt>
-                                    <dd class="admin-item__description">Presencial</dt>
+                                    <dd class="admin-item__description">{% if node.field_modalidad.value %} Online {% else %} Presencial {% endif %}</dt>
+                                </div>
+                                <div class="admin-item">
+                                    <dt class="admin-item__title">Comentario</dt>
+                                    <dd class="admin-item__description">{{ node.field_comment.value | raw }}</dt>
                                 </div>
                             </dl>
                         </div>
