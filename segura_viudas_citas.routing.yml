@@ -50,11 +50,12 @@ segura_viudas_citas.admin_check_apointments:
   requirements:
     _permission: 'access content'
 
-segura_viudas_citas.cita_form:
+segura_viudas_citas.citas_form:
   path: '/proveedores/solicitar-cita'
   defaults:
-    _form: '\Drupal\segura_viudas_citas\Form\SeguraViudasCitaSolicitarForm'
-    _title: 'Solicitar una cita'
+    _controller: '\Drupal\segura_viudas_citas\Controller\SeguraViudasCitaSolicitarController::content'
+    _title: 'Solicitar cita'
   requirements:
     _permission: 'access content'
+
 

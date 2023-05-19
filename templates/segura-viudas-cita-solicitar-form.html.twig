@@ -9,6 +9,7 @@
 <!-- Mobile -->#}
 
 <!-- Computer -->
+
 <section id="appointment" class="nospace nomobile" style="margin-top:1em;">
     <div class="block column full">
         <h1 class="noup">{{ "Documentació i cita de contracte" | t }}</h1>
@@ -111,11 +112,11 @@
         <div class="block row full cgap-1 uploads nomobile">
           <div class="block column half right space-between">
             <label>{{ "CARTA ACREDITATIVA RAÏM DO CAVA O DO CAT, O AMBDÓS*" | t }}</label><br>
-            {{ form.field_file }}
+            {{ form.field_file | render}}
           </div>
           <div class="block column half right space-between">
             <label>{{ "QUADERN DE CAMP*" | t }}</label><br>
-            {{ form.field_file }}
+            {{ form.field_file2 }}
           </div>
         </div>
 

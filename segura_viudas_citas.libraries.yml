@@ -6,8 +6,6 @@ segura_viudas_citas:
     - core/jquery
     - core/drupal
     - core/drupalSettings
-      libraries:
-    - system/moment
 
 
 admin_citas:

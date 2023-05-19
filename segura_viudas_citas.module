@@ -23,7 +23,6 @@ function segura_viudas_citas_theme($existing, $type, $theme, $path) {
       'variables' => ['form' => NULL],
       'template' => 'segura-viudas-cita-solicitar-form',
       'path' => $path . '/templates',
-      'render element' => 'form',
     ],
     'citas_admin_page' => [
       'template' => 'citas-admin',
