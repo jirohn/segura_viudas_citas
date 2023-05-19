@@ -1,3 +1,4 @@
+{# segura-viudas-cita-solicitar-form.html.twig #}
 <!-- Appointment -->
 
 {#<!-- Mobile -->
@@ -83,7 +84,10 @@
         <!-- Computer -->
         {# llamamos al titulo del nuevo formulario #}
         {# llamamos al formulario con sus estilos y campos #}
-
+        <form{{ attributes }}>
+        {{ form.form_build_id }}
+        {{ form.form_token }}
+        {{ form.form_id }}
         <div style="display:none;">
          {{ form.title }}
         </div>
@@ -166,9 +170,11 @@
                 </div>
               </div>
             </div>
+
             <!-- Popup -->
 
           <center><button id="openPopUp" style="text-align:center;" class="btn primary"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</button></center>
+          </form>
           </div>
       </div>
       <!-- Computer -->

@@ -22,9 +22,15 @@ class SeguraViudasCitaSolicitarController extends ControllerBase {
 
   public function content() {
     $form = $this->formBuilder->getForm('Drupal\segura_viudas_citas\Form\SeguraViudasCitaSolicitarForm');
-    // llamamos al template para el formulario 'citas-form.html.twig'
+    // llamamos al template para el formulario 'citas-form.html.twigsegura_viudas_cita_solicitar_form'
+
     return [
       '#theme' => 'segura_viudas_cita_solicitar_form',
+      '#attached' => [
+        'library' => [
+          'segura_viudas_citas/segura_viudas_citas',
+        ],
+      ],
       '#form' => $form,
     ];
 

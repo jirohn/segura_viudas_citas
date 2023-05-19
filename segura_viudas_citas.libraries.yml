@@ -6,7 +6,7 @@ segura_viudas_citas:
     - core/jquery
     - core/drupal
     - core/drupalSettings
-
+    - system/moment
 
 admin_citas:
   version: 1.x
@@ -16,12 +16,10 @@ admin_citas:
     - core/jquery
     - core/drupal
     - core/drupalSettings
-      libraries:
     - system/moment
   css:
     theme:
       css/styles.css: {}
-
 
 custom_admin_page_styles:
   version: 1.x
@@ -32,9 +30,11 @@ custom_admin_page_styles:
 citas_form:
   js:
     https://code.jquery.com/ui/1.12.1/jquery-ui.min.js: { type: external, minified: true }
-    js/segura_viudas_citas.js: {}
   css:
     theme:
       https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css: { type: external, minified: true }
   dependencies:
     - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - system/moment
