@@ -144,6 +144,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
     // le añadimos al render del form el js que hemos creado
     $form['#attached']['library'][] = 'segura_viudas_citas/segura_viudas_citas';
 
+    $form["#theme"] = "citas_form";
     return $form;
   }
 

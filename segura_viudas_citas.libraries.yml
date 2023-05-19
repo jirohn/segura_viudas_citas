@@ -8,9 +8,7 @@ segura_viudas_citas:
     - core/drupalSettings
       libraries:
     - system/moment
-  css:
-    theme:
-      css/solicita-citas-styles.css: {}
+
 
 admin_citas:
   version: 1.x

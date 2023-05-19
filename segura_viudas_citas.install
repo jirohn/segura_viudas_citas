@@ -77,7 +77,8 @@ function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $f
   }
   // le decimos que si es 'field_file' o 'field_file5' que permita varios archivos//
   if ($field_name == 'field_file' || $field_name == 'field_file5') {
-    $field_storage->setSetting('cardinality', 5);
+
+
   }
   $field_config->save();
 
