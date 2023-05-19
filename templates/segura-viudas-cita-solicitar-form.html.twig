@@ -107,22 +107,11 @@
         <!-- Computer -->
         <!-- Computer -->
 
-        <form action="#">
-          <div class="input-file-container">  
-            <input class="input-file" id="my-file" type="file">
-            <label tabindex="0" for="my-file" class="input-file-trigger">Select a file...</label>
-          </div>
-        <p class="file-return"></p>
-      </form>
 
         <div class="block row full cgap-1 uploads nomobile">
           <div class="block column half right space-between">
             <label>{{ "CARTA ACREDITATIVA RAÏM DO CAVA O DO CAT, O AMBDÓS*" | t }}</label><br>
-             <div class="input-file-container">  
-            <input class="input-file" id="my-file" type="file">
-            <label tabindex="0" for="my-file" class="input-file-trigger">Select a file...</label>
-          </div>
-        <p class="file-return"></p>
+            {{ form.field_file }}
           </div>
           <div class="block column half right space-between">
             <label>{{ "QUADERN DE CAMP*" | t }}</label><br>
@@ -137,7 +126,6 @@
           </div>
           <div class="block column half right space-between">
             <label>{{ "RVC" | t }}</label><br>
-            <input type="file" id="real-file" hidden="hidden" />
             {{ form.field_file4 }}
           </div>
         </div>
