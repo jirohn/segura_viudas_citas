@@ -23,27 +23,27 @@
             <div class="layout-row clearfix">
                 <div class="layout-column layout-column--half">
                     <div class="panel gin-layer-wrapper">
-                        <h3 class="panel__title">Datos solicitante</h3>
+                        <h3 class="panel__title">{{ 'Datos solicitante'|t }}</h3>
                         <div class="panel__content">
                             <dl class="admin-list--panel admin-list gin-layer-wrapper">
                                 <div class="admin-item">
-                                    <dt class="admin-item__title">Acreedor</dt>
+                                    <dt class="admin-item__title">{{ 'Acreedor'|t }}</dt>
                                     <dd class="admin-item__description">{{ author_acre }}</dt>
                                 </div>
                                 <div class="admin-item">
-                                    <dt class="admin-item__title">Nombre</dt>
+                                    <dt class="admin-item__title">{{ 'Nombre'|t }}</dt>
                                     <dd class="admin-item__description">{{ author_name }}</dt>
                                 </div>
                                 <div class="admin-item">
-                                    <dt class="admin-item__title">CIF</dt>
+                                    <dt class="admin-item__title">{{ 'CIF'|t }}</dt>
                                     <dd class="admin-item__description">{{ author_cif_empresa }}</dt>
                                 </div>
                                 <div class="admin-item">
-                                    <dt class="admin-item__title">Teléfono</dt>
+                                    <dt class="admin-item__title">{{ 'Teléfono'|t }}</dt>
                                     <dd class="admin-item__description">{{ author_telefono }}</dt>
                                 </div>
                                 <div class="admin-item">
-                                    <dt class="admin-item__title">Correo electrónico</dt>
+                                    <dt class="admin-item__title">{{ 'Correo electrónico'|t }}</dt>
                                     <dd class="admin-item__description">{{ author_email }}</dt>
                                 </div>
                             </dl>
@@ -53,24 +53,88 @@
 
                 <div class="layout-column layout-column--half">
                     <div class="panel gin-layer-wrapper">
-                        <h3 class="panel__title">Cita</h3>
+                        <h3 class="panel__title">{{ 'Cita'|t }}</h3>
                         <div class="panel__content">
                             <dl class="admin-list--panel admin-list gin-layer-wrapper">
                                 <div class="admin-item">
-                                    <dt class="admin-item__title">Día</dt>
+                                    <dt class="admin-item__title">{{ 'Día'|t }}</dt>
                                     <dd class="admin-item__description">{{ node.field_date.value | date('d/m/Y') }}</dt>
                                 </div>
                                 <div class="admin-item">
-                                    <dt class="admin-item__title">Hora</dt>
+                                    <dt class="admin-item__title">{{ 'Hora'|t }}</dt>
                                     <dd class="admin-item__description">{{ node.field_time.value | date('H:i') }}</dt>
                                 </div>
                                 <div class="admin-item">
-                                    <dt class="admin-item__title">Vía</dt>
+                                    <dt class="admin-item__title">{{ 'Vía'|t }}</dt>
                                     <dd class="admin-item__description">{% if node.field_modalidad.value %} Online {% else %} Presencial {% endif %}</dt>
                                 </div>
                                 <div class="admin-item">
-                                    <dt class="admin-item__title">Comentario</dt>
+                                    <dt class="admin-item__title">{{ 'Comentario'|t }}</dt>
                                     <dd class="admin-item__description">{{ node.field_comment.value | raw }}</dt>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="layout-column" style="width: 100%;">
+                    <div class="panel gin-layer-wrapper">
+                        <h3 class="panel__title">{{ 'Adjuntos'|t }}</h3>
+                        <div class="panel__content">
+                            <dl class="admin-list--panel admin-list gin-layer-wrapper">
+                                <div class="admin-item">
+                                    <dt class="admin-item__title">{{ 'Carta acreditativa Uva DO CAVA o DO CAT'|t }}</dt>
+                                    <dd class="admin-item__description">
+                                        {% if node.field_file|length > 0 %}
+                                            {% set file_item = node.field_file.0 %}
+                                            {% set file_name = file_item.entity.filename.value %}
+                                            {% set _file_url = file_url(file_item.entity.uri.value) %}
+                                            <a href="{{ _file_url }}">{{ file_name }}</a>
+                                        {% endif %}
+                                    </dt>
+                                </div>
+                                <div class="admin-item">
+                                    <dt class="admin-item__title">{{ 'Cuaderno de campo'|t }}</dt>
+                                    <dd class="admin-item__description">
+                                        {% if node.field_file2|length > 0 %}
+                                            {% set file_item = node.field_file2.0 %}
+                                            {% set file_name = file_item.entity.filename.value %}
+                                            {% set _file_url = file_url(file_item.entity.uri.value) %}
+                                            <a href="{{ _file_url }}">{{ file_name }}</a>
+                                        {% endif %}
+                                    </dt>
+                                </div>
+                                <div class="admin-item">
+                                    <dt class="admin-item__title">{{ 'Certificado CCPAE'|t }}</dt>
+                                    <dd class="admin-item__description">
+                                        {% if node.field_file3|length > 0 %}
+                                            {% set file_item = node.field_file3.0 %}
+                                            {% set file_name = file_item.entity.filename.value %}
+                                            {% set _file_url = file_url(file_item.entity.uri.value) %}
+                                            <a href="{{ _file_url }}">{{ file_name }}</a>
+                                        {% endif %}
+                                    </dt>
+                                </div>
+                                <div class="admin-item">
+                                    <dt class="admin-item__title">{{ 'RVC'|t }}</dt>
+                                    <dd class="admin-item__description">
+                                        {% if node.field_file4|length > 0 %}
+                                            {% set file_item = node.field_file4.0 %}
+                                            {% set file_name = file_item.entity.filename.value %}
+                                            {% set _file_url = file_url(file_item.entity.uri.value) %}
+                                            <a href="{{ _file_url }}">{{ file_name }}</a>
+                                        {% endif %}
+                                    </dt>
+                                </div>
+                                <div class="admin-item">
+                                    <dt class="admin-item__title">{{ 'Otros documentos'|t }}</dt>
+                                    <dd class="admin-item__description">
+                                        {% if node.field_file5|length > 0 %}
+                                            {% set file_item = node.field_file5.0 %}
+                                            {% set file_name = file_item.entity.filename.value %}
+                                            {% set _file_url = file_url(file_item.entity.uri.value) %}
+                                            <a href="{{ _file_url }}">{{ file_name }}</a>
+                                        {% endif %}
+                                    </dt>
                                 </div>
                             </dl>
                         </div>

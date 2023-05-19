@@ -50,22 +50,6 @@ segura_viudas_citas.admin_check_apointments:
   requirements:
     _permission: 'access content'
 
-segura_viudas_citas.delete_appointment:
-  path: '/segura_viudas_citas/admin/delete_appointment'
-  defaults:
-    _controller: '\Drupal\segura_viudas_citas\Controller\CitasListController::deleteAppointment'
-    _title: 'Delete Appointment'
-  requirements:
-    _permission: 'access content'
-
-segura_viudas_citas.admin_block_appointment:
-  path: '/segura_viudas_citas/admin/block_appointment'
-  defaults:
-    _controller: '\Drupal\segura_viudas_citas\Controller\CitasListController::adminBlockAppointment'
-    _title: 'Admin block Appointment'
-  requirements:
-    _permission: 'access content'
-
 segura_viudas_citas.cita_form:
   path: '/proveedores/solicitar-cita'
   defaults:

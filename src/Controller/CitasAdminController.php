@@ -1,5 +1,8 @@
 <?php
 
+//Aquí creamos el controlador para la página de cita, el node de cada cita.
+//Contectado directamente con template/node--citas.html.twig
+
 namespace Drupal\segura_viudas_citas\Controller;
 
 use Drupal\Core\Controller\ControllerBase;

@@ -1,5 +1,8 @@
 <?php
 
+//Este archivo crea el contenido de la pestana de administracion de citas principal
+//de aquí puedes pasar a los otros dos apartados de la administración de citas.
+
 namespace Drupal\segura_viudas_citas\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
