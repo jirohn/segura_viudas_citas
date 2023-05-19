@@ -131,7 +131,6 @@
                 $row.append($('<td></td>').text(citaForTimeSlot.field_modalidad));
                 $row.append($('<td></td>').text(citaForTimeSlot.field_comment));
 
-
                 // si no es una cita bloqueada le añadimos el boton de bloquear
                 if (citaForTimeSlot.title != 'Bloqueado') {
                 // Agrega un botón de eliminar en la columna Acciones con una imagen
