@@ -141,6 +141,8 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#type' => 'submit',
       '#value' => $this->t('Solicitar cita'),
     ];
+    // le añadimos al render del form el js que hemos creado
+    $form['#attached']['library'][] = 'segura_viudas_citas/segura_viudas_citas';
 
     return $form;
   }

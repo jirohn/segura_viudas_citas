@@ -13,4 +13,13 @@
 
 .gestion-citas-wrapper * {
     transition: all .4s;
-} 
+}
+input[type="file"] {
+
+  display: block;
+  width: 100px;
+  height: 30px;
+  border: none;
+  background-color: #f8f9fa;
+  cursor: pointer;
+}

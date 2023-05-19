@@ -1,6 +1,11 @@
 (function ($, Drupal) {
   Drupal.behaviors.adminCitas = {
     attach: function (context, settings) {
+      // le asignamos la vista del 'calendar_view' al datepicker
+
+
+
+
       // Configura el valor predeterminado del datepicker en la fecha actual
       var today = new Date();
       var formattedDate = today.toISOString().substr(0, 10);
@@ -83,7 +88,7 @@
               $row.css('background-color', '#ffcccc');
               // le añadimos el boton de desbloquear la fila y lo giramos 90 grados
               $blockButton.addClass('blocked');
-              $blockButton.find('img').css('transform', 'rotate(90deg)');
+              $blockButton.find('img').css('transform', 'rotate(-90deg)');
               $row.append($('<td></td>').text('Bloqueado'));
               $row.append($('<td></td>').text(''));
               $row.append($('<td></td>').text(''));
@@ -190,7 +195,7 @@
                 // si no esta bloqueado le agregamos la clase blocked
                 $blockButton.addClass('blocked');
                 // y le agregamos el giro de 90 grados
-                $blockButton.find('img').css('transform', 'rotate(90deg)');
+                $blockButton.find('img').css('transform', 'rotate(-90deg)');
                 // le ponemos el color rojo a la fila
                 $row.css('background-color', '#ffcccc');
                 // le ponemos el color rojo a la imagen del boton

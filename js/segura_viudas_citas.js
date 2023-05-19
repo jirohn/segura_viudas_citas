@@ -8,7 +8,7 @@
       const customButton = document.getElementById("custom-button");
       const fileName = document.getElementById("file-name");
 
-  
+
 
       function openPopUp() {
         popUp.style.display = 'flex';
@@ -31,8 +31,28 @@
 */
 
       //cosas pedralas Pedralo, estas to pedralao, el que lo desenpedre buen desenpedrelador sera//
+      // Custom File Input Button.
+      /*const realFileBtn = $(context).find('.js-form-item-field-file');
+      const customBtn = $(context).find('.custom-upload-button');
+      const customTxt = $(context).find('.custom-text');
+
+      customBtn.click(function () {
+        realFileBtn.click();
+      });
+
+      realFileBtn.change(function () {
+        if (realFileBtn.val()) {
+          customTxt.html(realFileBtn.val().match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1]);
+        } else {
+          customTxt.html('No se ha seleccionado ningún archivo...');
+        }
+      });*/
+
+
 
       console.log('seguraViudasCitas behavior attached');
+
+
 
       const $form = $(context).find('form');
       if ($form.hasClass('segura-viudas-citas-attached')) {

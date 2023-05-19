@@ -10,7 +10,7 @@ segura_viudas_citas:
     - system/moment
   css:
     theme:
-      css/styles.css: {}
+      css/solicita-citas-styles.css: {}
 
 admin_citas:
   version: 1.x
@@ -33,7 +33,7 @@ custom_admin_page_styles:
     theme:
       css/styles.css: {}
 
-citas-form:
+citas_form:
   js:
     https://code.jquery.com/ui/1.12.1/jquery-ui.min.js: { type: external, minified: true }
     js/segura_viudas_citas.js: {}
