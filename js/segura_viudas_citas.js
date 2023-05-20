@@ -49,7 +49,9 @@
         }
       });*/
 
-      // ocultamos myPopUp al cargar la pagina
+      // le decimos que si presionas el boton openPopUp hace una funcion
+
+
 
 
 
