@@ -34,6 +34,14 @@ segura_viudas_citas.admin_citas:
   options:
     _admin_route: TRUE
 
+segura_viudas_citas.validate_document:
+  path: '/admin/gestion-citas/validate-document/{cita_id}/{file_field_name}/{validate}'
+  defaults:
+    _controller: '\Drupal\segura_viudas_citas\Controller\AjaxController::validateDocument'
+    _format: json
+  requirements:
+    _access: 'TRUE'
+
 segura_viudas_citas.check_appointments:
   path: '/segura_viudas_citas/check_appointments'
   defaults:

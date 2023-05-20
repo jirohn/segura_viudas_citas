@@ -88,7 +88,8 @@
                                             {% set file_item = node.field_file.0 %}
                                             {% set file_name = file_item.entity.filename.value %}
                                             {% set _file_url = file_url(file_item.entity.uri.value) %}
-                                            <a href="{{ _file_url }}">{{ file_name }}</a>
+                                            {% set file_id = file_item.entity.fid.value %}
+                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_file')">{{ file_name }}</a>
                                         {% endif %}
                                     </dt>
                                 </div>
@@ -99,7 +100,8 @@
                                             {% set file_item = node.field_file2.0 %}
                                             {% set file_name = file_item.entity.filename.value %}
                                             {% set _file_url = file_url(file_item.entity.uri.value) %}
-                                            <a href="{{ _file_url }}">{{ file_name }}</a>
+                                            {% set file_id = file_item.entity.fid.value %}
+                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_file2')">{{ file_name }}</a>
                                         {% endif %}
                                     </dt>
                                 </div>
@@ -110,7 +112,8 @@
                                             {% set file_item = node.field_file3.0 %}
                                             {% set file_name = file_item.entity.filename.value %}
                                             {% set _file_url = file_url(file_item.entity.uri.value) %}
-                                            <a href="{{ _file_url }}">{{ file_name }}</a>
+                                            {% set file_id = file_item.entity.fid.value %}
+                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_file3')">{{ file_name }}</a>
                                         {% endif %}
                                     </dt>
                                 </div>
@@ -121,7 +124,8 @@
                                             {% set file_item = node.field_file4.0 %}
                                             {% set file_name = file_item.entity.filename.value %}
                                             {% set _file_url = file_url(file_item.entity.uri.value) %}
-                                            <a href="{{ _file_url }}">{{ file_name }}</a>
+                                            {% set file_id = file_item.entity.fid.value %}
+                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_file4')">{{ file_name }}</a>
                                         {% endif %}
                                     </dt>
                                 </div>
@@ -132,7 +136,8 @@
                                             {% set file_item = node.field_file5.0 %}
                                             {% set file_name = file_item.entity.filename.value %}
                                             {% set _file_url = file_url(file_item.entity.uri.value) %}
-                                            <a href="{{ _file_url }}">{{ file_name }}</a>
+                                            {% set file_id = file_item.entity.fid.value %}
+                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_file5')">{{ file_name }}</a>
                                         {% endif %}
                                     </dt>
                                 </div>
@@ -150,4 +155,67 @@
   <div{{ content_attributes.addClass('node__content') }}>
     {{ content }}
   </div>
+  <div id="popupDocument" style="display: none;">
+    <span id="documentName"></span>
+    <input type="button" value="Validar" id="validateDocument" />
+    <input type="button" value="Rechazar" id="rejectDocument" />
+    <input type="button" value="Cerrar popup" onclick="closePopup()" />
+  </div>
 </article>
+
+<script>
+
+    function openPopup(file_name, file_url, cita_id, file_field_name)
+    {
+        document.getElementById('documentName').innerHTML = '<a href="' + file_url + '">' + file_name + '</a>';
+        document.getElementById('validateDocument').onclick = function() {
+            fetch('/admin/gestion-citas/validate-document/' + cita_id + '/' + file_field_name + '/1', {
+              method: 'GET',
+              headers: {
+                'Accept': 'application/json'
+              }
+            })
+            .then(function(response) {
+              if (response.ok) {
+                return response.json();
+              } else {
+                alert('error en la llamada Ajax');
+              }
+            })
+            .then(function(data) {
+            })
+            .catch(function(error) {
+              alert('error de conexión');
+            });
+        };
+        document.getElementById('rejectDocument').onclick = function() {
+            fetch('/admin/gestion-citas/validate-document/' + cita_id + '/' + file_field_name + '/0', {
+              method: 'GET',
+              headers: {
+                'Accept': 'application/json'
+              }
+            })
+            .then(function(response) {
+              if (response.ok) {
+                return response.json();
+              } else {
+                alert('error en la llamada Ajax');
+              }
+            })
+            .then(function(data) {
+            })
+            .catch(function(error) {
+              alert('error de conexión');
+            });
+        };
+        document.getElementById('popupDocument').style.display = 'block';
+
+    }
+
+    function closePopup()
+    {
+        document.getElementById('documentName').innerHTML = '';
+        document.getElementById('popupDocument').style.display = 'none';
+    }
+
+</script>
