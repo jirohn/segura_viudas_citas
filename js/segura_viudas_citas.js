@@ -1,6 +1,7 @@
 (function ($, Drupal) {
   Drupal.behaviors.seguraViudasCitas = {
     attach: function (context, settings) {
+      console.log('seguraViudasCitas behavior attached');
 
       //si lees esto es que te sobra tiempo
 
@@ -47,6 +48,8 @@
           customTxt.html('No se ha seleccionado ningún archivo...');
         }
       });*/
+
+      // ocultamos myPopUp al cargar la pagina
 
 
 

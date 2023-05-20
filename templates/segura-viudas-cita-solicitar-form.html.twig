@@ -1,3 +1,4 @@
+{# segura-viudas-cita-solicitar-form.html.twig #}
 <!-- Appointment -->
 
 {#<!-- Mobile -->
@@ -9,6 +10,7 @@
 <!-- Mobile -->#}
 
 <!-- Computer -->
+
 <section id="appointment" class="nospace nomobile" style="margin-top:1em;">
     <div class="block column full">
         <h1 class="noup">{{ "Documentació i cita de contracte" | t }}</h1>
@@ -82,7 +84,10 @@
         <!-- Computer -->
         {# llamamos al titulo del nuevo formulario #}
         {# llamamos al formulario con sus estilos y campos #}
-
+        <form{{ attributes }}>
+        {{ form.form_build_id }}
+        {{ form.form_token }}
+        {{ form.form_id }}
         <div style="display:none;">
          {{ form.title }}
         </div>
@@ -107,6 +112,7 @@
         <!-- Computer -->
         <!-- Computer -->
 
+<<<<<<< HEAD:templates/citas-form.html.twig
         <div class="block row full cgap-1 uploads nomobile">
           <div class="block column half right space-between">
             <label>{{ "CARTA ACREDITATIVA RAÏM DO CAVA O DO CAT, O AMBDÓS*" | t }}</label><br>
@@ -125,9 +131,17 @@
             </div>
 
 
+=======
+
+        <div class="block row full cgap-1 uploads nomobile">
+          <div class="block column half right space-between">
+            <label>{{ "CARTA ACREDITATIVA RAÏM DO CAVA O DO CAT, O AMBDÓS*" | t }}</label><br>
+            {{ form.field_file | render}}
+          </div>
+>>>>>>> refs/remotes/origin/main:templates/segura-viudas-cita-solicitar-form.html.twig
           <div class="block column half right space-between">
             <label>{{ "QUADERN DE CAMP*" | t }}</label><br>
-            {{ form.field_file }}
+            {{ form.field_file2 }}
           </div>
         </div>
 
@@ -138,7 +152,6 @@
           </div>
           <div class="block column half right space-between">
             <label>{{ "RVC" | t }}</label><br>
-            <input type="file" id="real-file" hidden="hidden" />
             {{ form.field_file4 }}
           </div>
         </div>
@@ -178,9 +191,11 @@
                 </div>
               </div>
             </div>
+
             <!-- Popup -->
 
           <center><button id="openPopUp" style="text-align:center;" class="btn primary"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</button></center>
+          </form>
           </div>
       </div>
       <!-- Computer -->

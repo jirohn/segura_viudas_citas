@@ -13,15 +13,17 @@ function segura_viudas_citas_theme_suggestions_page_alter(array &$suggestions, a
   }
 }
 
+
+
 /**
  * Implements hook_theme().
  */
 function segura_viudas_citas_theme($existing, $type, $theme, $path) {
 
   return [
-    'citas_form' => [
+    'segura_viudas_cita_solicitar_form' => [
       'variables' => ['form' => NULL],
-      'template' => 'citas-form',
+      'template' => 'segura-viudas-cita-solicitar-form',
       'path' => $path . '/templates',
     ],
     'citas_admin_page' => [
