@@ -1,1 +1,72 @@
-{{ form }}
+<!-- Appointment -->
+
+<!-- Computer -->
+<section id="appointment" class="nospace nomobile" style="margin-top:1em;">
+    <div class="block column full">
+        <h1 class="noup">{{ "Documentació i cita de contracte" | t }}</h1>
+    </div>
+</section>
+<section id="attach" class="nospace">
+    <div class="block full space-between">
+      <div class="block two-thirds column nomobile">
+        <h2 style="margin-bottom:1em; margin-top: 2em;" class="noup">{{ "Adjuntar documentació" | t }}</h2>
+          <p>{{ "Un cop adjuntada tota la documentació requerida podràs demanar una cita el dia que vulguis per a la signatura del contracte." | t }}</p><br>
+          <p style="margin-top:1em;">{{ "Pots pujar la documentació en <b>els formats següents: JPG, PDF, xlsx (Excel)." | t }}</b></p><br>
+        <div class="block row space-between nomobile">
+          <div class="block row cgap-1">
+            <p><svg style="border-radius: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#c82020" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="#c82020"/>
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            </svg>{{ "Per verificar" | t }}</p>
+            <p><svg style="border-radius: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2ca500" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="#2ca500"/>
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            </svg>{{ "Verificat" | t }}</p>
+          </div>
+            <p>{{" *Camps obligatoris" | t }}</p>
+        </div>
+        <div class="block row full cgap-1 uploads nomobile">
+        <!-- Formulario -->
+
+          <form{{ attributes }}>
+            {{ form.form_build_id }}
+            {{ form.form_token }}
+            {{ form.form_id }} 
+            <div style="display:none;"
+              {{ form.title }}
+            </div>
+          
+            {{ form.field_file }}
+
+            {{ form.field_file2 }}
+
+            {{ form.field_file3 }}
+
+            {{ form.field_file4 }}
+
+            {{ form.field_file5 }}
+
+            {{ form.field_date }}
+
+            {{ form.field_time }}
+
+            {{ form.field_comment }}
+
+            {{ form.field_modalidad }}
+
+            {{ form.submit }}
+          </form>
+       <!-- Formulario -->
+        <div class="block column half right space-between">
+          </div>
+        </div>
+        </div>
+      <div class="block nomobile third column p-3 space-between" style="background-color:#f8f9f6; max-height:150px; margin-top:5em;margin-left: 2em;">
+        <h2 class="noup">{{ "Cita para la firma" | t }}</h2>
+          <center><a style="text-align:center;" class="btn primary" href="#"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</a></center>
+      </div>
+      <!-- Computer -->
+    </div>
+</section>
+
+           
