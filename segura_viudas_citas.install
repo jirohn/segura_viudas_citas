@@ -20,7 +20,6 @@ function segura_viudas_citas_install() {
   // Crear campos de fecha, hora y comentario. pero no comentes por que en boca cerrada no entran moscas
   //creamos campos para agregar archivos//
   segura_viudas_citas_create_field('field_file', 'Carta acreditativa Uva DO CAVA o DO CAT, o ambas*', 'citas', 'file', 'file_generic');
-<<<<<<< HEAD
   segura_viudas_citas_create_field('field_verify_file', 'verificado 1', 'citas',  'list_string', 'options_select', allowed_verify());
 
   segura_viudas_citas_create_field('field_file2', 'Cuaderno de campo*', 'citas', 'file', 'file_generic');
@@ -34,21 +33,6 @@ function segura_viudas_citas_install() {
 
   segura_viudas_citas_create_field('field_file5', 'Otros documentos', 'citas', 'file', 'file_generic');
   segura_viudas_citas_create_field('field_verify_file5', 'verificado 5', 'citas', 'list_string', 'options_select', allowed_verify());
-=======
-  segura_viudas_citas_create_field('field_verify_file', 'Validado', 'citas', 'boolean', 'boolean_checkbox');
-
-  segura_viudas_citas_create_field('field_file2', 'Cuaderno de campo*', 'citas', 'file', 'file_generic');
-  segura_viudas_citas_create_field('field_verify_file2', 'Validado', 'citas', 'boolean', 'boolean_checkbox');
-
-  segura_viudas_citas_create_field('field_file3', 'Certificado CCPAE', 'citas', 'file', 'file_generic');
-  segura_viudas_citas_create_field('field_verify_file3', 'Validado', 'citas', 'boolean', 'boolean_checkbox');
-
-  segura_viudas_citas_create_field('field_file4', 'RVC', 'citas', 'file', 'file_generic');
-  segura_viudas_citas_create_field('field_verify_file4', 'Validado', 'citas', 'boolean', 'boolean_checkbox');
-
-  segura_viudas_citas_create_field('field_file5', 'Otros documentos', 'citas', 'file', 'file_generic');
-  segura_viudas_citas_create_field('field_verify_file5', 'Validado', 'citas', 'boolean', 'boolean_checkbox');
->>>>>>> refs/remotes/origin/develop
 
   segura_viudas_citas_create_field('field_modalidad', 'Modalidad On-Line (desactivado Modalidad Presencial)', 'citas', 'boolean', 'boolean_checkbox');
   segura_viudas_citas_create_field('field_date', 'Fecha', 'citas', 'datetime', 'datetime_default');
