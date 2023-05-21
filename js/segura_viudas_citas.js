@@ -53,6 +53,43 @@
 
 
 
+      // guardamos los div donde se encuentran los input tipo file y les añadimos clases
+      const $fileDiv = $(context).find('.js-form-item-field-file');
+      const $fileDiv2 = $(context).find('.js-form-item-field-file2');
+      const $fileDiv3 = $(context).find('.js-form-item-field-file3');
+      const $fileDiv4 = $(context).find('.js-form-item-field-file4');
+      const $fileDiv5 = $(context).find('.js-form-item-field-file5');
+      $fileDiv.addClass('block column half right space-between');
+      $fileDiv2.addClass('block column half right space-between');
+      $fileDiv3.addClass('block column half right space-between');
+      $fileDiv4.addClass('block column half right space-between');
+      $fileDiv5.addClass('block column half right space-between');
+      // cogemos los input tipo file y les añadimos las clases para que queden asi <input type="file" id="real-file" hidden="hidden" />
+      const $fileInput = $(context).find('input[type="file"]');
+      // le ponemos al $fileInput el atributo hidden y le añadimos la ide real-file
+      $fileInput.attr('hidden', 'hidden');
+      $fileInput.attr('id', 'real-file');
+      /* guardamos una variable con la id custom-button  */
+      const $customButton = $(context).find('#custom-button');
+      /* y la copiamos en los $fileDiv */
+      $fileDiv.append($customButton.clone());
+      $fileDiv2.append($customButton.clone());
+      $fileDiv3.append($customButton.clone());
+      $fileDiv4.append($customButton.clone());
+      $fileDiv5.append($customButton.clone());
+
+
+
+
+
+
+
+
+
+
+      // guardamos una variable con la id file-name y la añadimos en despues de los input tipo file
+
+
 
       // guarda el primero y el segundo input del tipo file de 5 que hay en la pagina y los almacena en una variable
       const $file = $(context).find('input[type="file"]').eq(0);

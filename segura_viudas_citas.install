@@ -34,7 +34,7 @@ function segura_viudas_citas_install() {
   segura_viudas_citas_create_field('field_file5', 'Otros documentos', 'citas', 'file', 'file_generic');
   segura_viudas_citas_create_field('field_verify_file5', 'verificado 5', 'citas', 'list_string', 'options_select', allowed_verify());
 
-  segura_viudas_citas_create_field('field_modalidad', 'modalidad', 'citas', 'boolean', 'boolean_checkbox');
+  segura_viudas_citas_create_field('field_modalidad', 'Modalidad On-Line (desactivado Modalidad Presencial)', 'citas', 'boolean', 'boolean_checkbox');
   segura_viudas_citas_create_field('field_date', 'Fecha', 'citas', 'datetime', 'datetime_default');
   segura_viudas_citas_create_field('field_time', 'Hora', 'citas', 'list_string', 'options_select', segura_viudas_citas_allowed_time_values());
   segura_viudas_citas_create_field('field_comment', 'Comentario', 'citas', 'text_long', 'text_textarea');
@@ -111,27 +111,23 @@ function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $f
  * Implements hook_uninstall().
  */
 function segura_viudas_citas_uninstall() {
-  // Eliminar campos de fecha, hora y comentario.
-  segura_viudas_citas_delete_field('field_date', 'citas');
-  segura_viudas_citas_delete_field('field_comment', 'citas');
-  segura_viudas_citas_delete_field('field_time', 'citas');
-  //elimina campos de archivos y sus field_verify_file//
-  segura_viudas_citas_delete_field('field_file', 'citas');
-  segura_viudas_citas_delete_field('field_verify_file', 'citas');
-  segura_viudas_citas_delete_field('field_file2', 'citas');
-  segura_viudas_citas_delete_field('field_verify_file2', 'citas');
-  segura_viudas_citas_delete_field('field_file3', 'citas');
-  segura_viudas_citas_delete_field('field_verify_file3', 'citas');
-  segura_viudas_citas_delete_field('field_file4', 'citas');
-  segura_viudas_citas_delete_field('field_verify_file4', 'citas');
-  segura_viudas_citas_delete_field('field_file5', 'citas');
-  segura_viudas_citas_delete_field('field_verify_file5', 'citas');
-  // borramos modaliad//
-  segura_viudas_citas_delete_field('field_modalidad', 'citas');
-  // Eliminar el tipo de contenido 'citas'
-  $citas_node_type = NodeType::load('citas');
-  // Eliminar el tipo de contenido nuevo que se ha creado.
 
+  segura_viudas_citas_delete_field('field_comment',      'citas');
+  segura_viudas_citas_delete_field('field_date',         'citas');
+  segura_viudas_citas_delete_field('field_file',         'citas');
+  segura_viudas_citas_delete_field('field_file2',        'citas');
+  segura_viudas_citas_delete_field('field_file3',        'citas');
+  segura_viudas_citas_delete_field('field_file4',        'citas');
+  segura_viudas_citas_delete_field('field_file5',        'citas');
+  segura_viudas_citas_delete_field('field_modalidad',    'citas');
+  segura_viudas_citas_delete_field('field_time',         'citas');
+  segura_viudas_citas_delete_field('field_verify_file',  'citas');
+  segura_viudas_citas_delete_field('field_verify_file2', 'citas');
+  segura_viudas_citas_delete_field('field_verify_file3', 'citas');
+  segura_viudas_citas_delete_field('field_verify_file4', 'citas');
+  segura_viudas_citas_delete_field('field_verify_file5', 'citas');
+
+  $citas_node_type = NodeType::load('citas');
   if ($citas_node_type) {
     $citas_node_type->delete();
   }

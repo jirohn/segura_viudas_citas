@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="admin-item">
                                     <dt class="admin-item__title">{{ 'Correo electrónico'|t }}</dt>
-                                    <dd class="admin-item__description">{{ author_email }}</dt>
+                                    <dd class="admin-item__description"><a href="mailto:{{ author_email}}">{{ author_email }}</a></dt>
                                 </div>
                             </dl>
                         </div>
@@ -69,7 +69,7 @@
                                     <dd class="admin-item__description">{{ node.field_time.value | date('H:i') }}</dt>
                                 </div>
                                 <div class="admin-item">
-                                    <dt class="admin-item__title">{{ 'Vía'|t }}</dt>
+                                    <dt class="admin-item__title">{{ 'Modalidad de la cita'|t }}</dt>
                                     <dd class="admin-item__description">{% if node.field_modalidad.value %} Online {% else %} Presencial {% endif %}</dt>
                                 </div>
                                 <div class="admin-item">
