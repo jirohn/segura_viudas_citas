@@ -166,9 +166,17 @@
 
 <script>
 
-    function openPopup(file_name, file_url, cita_id, file_field_name)
-    {
-        document.getElementById('documentName').innerHTML = '<a href="' + file_url + '">' + file_name + '</a>';
+function openPopup(file_name, file_url, cita_id, file_field_name) {
+    var fileExtension = file_url.split('.').pop().toLowerCase();
+    var fileDisplayArea;
+    if (fileExtension == 'pdf') {
+        fileDisplayArea = '<embed src="' + file_url + '" width="500" height="375" type="application/pdf">';
+    } else if (fileExtension == 'jpg' || fileExtension == 'jpeg') {
+        fileDisplayArea = '<img src="' + file_url + '" width="500">';
+    }
+    document.getElementById('documentName').innerHTML = '<div id="file-container">' + fileDisplayArea + '</div><a href="' + file_url + '">' + file_name + '</a>';
+
+        //document.getElementById('documentName').innerHTML = '<a href="' + file_url + '">' + file_name + '</a>';
         document.getElementById('validateDocument').onclick = function() {
             fetch('/admin/gestion-citas/validate-document/' + cita_id + '/' + file_field_name + '/1', {
               method: 'GET',
