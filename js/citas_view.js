@@ -27,9 +27,11 @@
               img.src = "/modules/nateevo/segura_viudas_citas/images/validated.svg";
               img.width = 20;
               img.height = 20;
-              img.class = "validate-icon";
+              img.classList.add("validate-icon");
               var src = document.getElementById(file_field_name);
               src.append(img);
+              //buscamos el img en el elemento con la id (file_field_name) y le añadimos la clase validate-icon
+              $(file_field_name).find('img').addClass('validate-icon');
             },
             error: function (jqXHR, textStatus, errorThrown) {
               console.error('Error fetching appointments:', textStatus, errorThrown);
@@ -45,11 +47,13 @@
             success: function () {
               closepreview();
               console.log('documento rechazado', file_field_name, 2);
-              // le añadimos al lado del nombre una imagen de rechazado
+              // le añadimos al lado del nombre una imagen de rechazado con la clase 'validate-icon'
               var img = document.createElement("img");
               img.src = "/modules/nateevo/segura_viudas_citas/images/refused.svg";
               img.width = 20;
               img.height = 20;
+              // añadimos la clase 'validate-icon'a nuestra img
+              img.classList.add("validate-icon");
               var src = document.getElementById(file_field_name);
               src.append(img);
             },

@@ -34,67 +34,54 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
     // llamamos a los campos 'field_file' del formulario
     $form['field_file'] = [
       '#type' => 'managed_file',
-      '#title' => $this->t('CARTA ACREDITATIVA RAÏM DO CAVA O DO CAT, O AMBDÓS*'),
+      '#title' => $this->t('Subir archivo'),
       '#upload_location' => 'public://',
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg'],
       ],
-      '#attributes' => [
-        'class' => ['block column half right space-between file-upload-citas'],
-      ],
+      'cardinality' => 5,
       '#multiple' => 'true',
       '#required' => TRUE,
     ];
     // llamamos a los campos 'field_file2' del formulario
     $form['field_file2'] = [
       '#type' => 'managed_file',
-      '#title' => $this->t('QUADERN DE CAMP*'),
+      '#title' => $this->t('Subir archivo'),
       '#upload_location' => 'public://',
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg'],
-      ],
-      '#attributes' => [
-        'class' => ['block column half right space-between file-upload-citas'],
       ],
       '#required' => TRUE,
     ];
     // llamamos a los campos 'field_file3' del formulario
     $form['field_file3'] = [
       '#type' => 'managed_file',
-      '#title' => $this->t('CERTIFICAT CCPAE'),
+      '#title' => $this->t('Subir archivo'),
       '#upload_location' => 'public://',
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg'],
-      ],
-      '#attributes' => [
-        'class' => ['block column half right space-between file-upload-citas'],
       ],
       '#required' => FALSE,
     ];
     // llamamos a los campos 'field_file4' del formulario
     $form['field_file4'] = [
       '#type' => 'managed_file',
-      '#title' => $this->t('RVC'),
+      '#title' => $this->t('Subir archivo'),
       '#upload_location' => 'public://',
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg'],
-      ],
-      '#attributes' => [
-        'class' => ['block column half right space-between file-upload-citas'],
       ],
       '#required' => FALSE,
     ];
     // llamamos a los campos 'field_file5' del formulario
     $form['field_file5'] = [
       '#type' => 'managed_file',
-      '#title' => $this->t('ALTRES DOCUMENTS'),
+      '#title' => $this->t('Subir archivo'),
       '#upload_location' => 'public://',
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg'],
       ],
-      '#attributes' => [
-        'class' => ['block column half right space-between file-upload-citas'],
-      ],
+      'cardinality' => 5,
       '#multiple' => 'true',
       '#required' => FALSE,
     ];
