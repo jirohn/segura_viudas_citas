@@ -34,34 +34,26 @@ class AjaxController extends ControllerBase {
     );
   }
 
+  // creamos una funcion ajax para validar los documentos tipo 'field_file'
   /**
-   * Validate document
+   * Callback for the 'segura_viudas_citas/admin_validate' route.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   A JSON response containing the times of existing appointments.
    */
   public function validateDocument(Request $request) {
+    // esta funcion le cambia el campo 'field_verify_file' a 'validado' cuando se envia el valor 1 en el data del ajax
+    $nid = $request->query->get('nid');
+    $option = $request->query->get('option');
 
-    preg_match('|/([0-9]+)/(field_file[0-9]?)/([01])$|', $request->getUri(), $data);
-    $cita_id = $data[1];
-    $file_field_name = $data[2];
-    $validate = $data[3];
+    $document = $this->entityTypeManager->getStorage('node')->load($data['nid']);
+    $document->set('field_verify_file', 1);
+    $document->save();
+    return new JsonResponse(['status' => 'ok']);
 
-    $cita = $this->entityTypeManager->getStorage('node')->load($cita_id);
 
-    $fields = [
-      'field_file' => 'field_verify_file',
-      'field_file2' => 'field_verify_file2',
-      'field_file3' => 'field_verify_file3',
-      'field_file4' => 'field_verify_file4',
-      'field_file5' => 'field_verify_file5',
-    ];
-
-    $cita->set($fields[$file_field_name], $validate);
-    $cita->save();
-
-    $response = [
-      'ok' => true,
-    ];
-
-    return new JsonResponse($response);
-  }
-
+}
 }
