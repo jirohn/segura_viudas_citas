@@ -129,7 +129,11 @@
                 $row.append($('<td></td>').text(citaForTimeSlot.field_time));
                 $row.append($('<td></td>').text(citaForTimeSlot.title));
                 $row.append($('<td></td>').text(citaForTimeSlot.field_modalidad));
-                $row.append($('<td></td>').text(citaForTimeSlot.field_comment));
+
+                // eliminamos las etiquetas HTML del comentario
+                comment_sanitized = citaForTimeSlot.field_comment.replace(/<[^>]+>/g, '');
+
+                $row.append($('<td></td>').text(comment_sanitized));
 
                 // si no es una cita bloqueada le añadimos el boton de bloquear
                 if (citaForTimeSlot.title != 'Bloqueado') {

@@ -1,0 +1,5 @@
+services:
+  segura_viudas_citas.twig_extension:
+    class: Drupal\segura_viudas_citas\Twig\Extension\SeguraViudasCitasTwigExtension
+    tags:
+      - { name: twig.extension }

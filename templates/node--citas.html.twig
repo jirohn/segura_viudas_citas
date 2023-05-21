@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="admin-item">
                                     <dt class="admin-item__title">{{ 'Correo electrónico'|t }}</dt>
-                                    <dd class="admin-item__description">{{ author_email }}</dt>
+                                    <dd class="admin-item__description"><a href="mailto:{{ author_email}}">{{ author_email }}</a></dt>
                                 </div>
                             </dl>
                         </div>
@@ -69,7 +69,7 @@
                                     <dd class="admin-item__description">{{ node.field_time.value | date('H:i') }}</dt>
                                 </div>
                                 <div class="admin-item">
-                                    <dt class="admin-item__title">{{ 'Vía'|t }}</dt>
+                                    <dt class="admin-item__title">{{ 'Modalidad de la cita'|t }}</dt>
                                     <dd class="admin-item__description">{% if node.field_modalidad.value %} Online {% else %} Presencial {% endif %}</dt>
                                 </div>
                                 <div class="admin-item">
@@ -161,6 +161,7 @@
 
   </div>
   <div id="popupDocument" style="display: none;">
+<<<<<<< HEAD
     <div style="text-align: right;" class="file-actions">
         <input type="button" class="close-modal" value="x" onclick="closePopup()" />
         <div>
@@ -170,8 +171,84 @@
             <input type="button" class="button button--primary js-form-submit form-submit" value="Validar" id="validateDocument" />
             <input type="button" class="button button--secondary js-form-submit form-submit" value="Rechazar" id="rejectDocument" />
         </div>
+=======
+    <div>
+        <input type="button" value="{{ 'Cerrar PopUp [X]'|t }}" onclick="closePopup()" />
+    </div>
+    <div>
+        <span id="documentName"></span>
+        <input type="button" value="{{ 'Validar'|t }}" id="validateDocument" />
+        <input type="button" value="{{ 'Rechazar'|t }}" id="rejectDocument" />
+>>>>>>> refs/remotes/origin/develop
     </div>
   </div>
 </article>
 
 
+<<<<<<< HEAD
+=======
+    function openPopup(file_name, file_url, cita_id, file_field_name)
+    {
+        document.getElementById('documentName').innerHTML = '<a href="' + file_url + '">' + file_name + '</a>';
+        document.getElementById('validateDocument').onclick = function() {
+            fetch('/admin/gestion-citas/validate-document/' + cita_id + '/' + file_field_name + '/1', {
+              method: 'GET',
+              headers: {
+                'Accept': 'application/json'
+              }
+            })
+            .then(function(response) {
+              if (response.ok) {
+                return response.json();
+              } else {
+                alert('{{ 'error en la llamada Ajax'|t }}');
+              }
+            })
+            .then(function(data) {
+            })
+            .catch(function(error) {
+              alert('{{ 'error de conexión'|t }}');
+            });
+        };
+        document.getElementById('rejectDocument').onclick = function() {
+            fetch('/admin/gestion-citas/validate-document/' + cita_id + '/' + file_field_name + '/0', {
+              method: 'GET',
+              headers: {
+                'Accept': 'application/json'
+              }
+            })
+            .then(function(response) {
+              if (response.ok) {
+                return response.json();
+              } else {
+                alert('{{ 'error en la llamada Ajax'|t }}');
+              }
+            })
+            .then(function(data) {
+            })
+            .catch(function(error) {
+              alert('{{ 'error de conexión'|t }}');
+            });
+        };
+        document.getElementById('popupDocument').style.display = 'block';
+
+    }
+
+    function closePopup()
+    {
+        document.getElementById('documentName').innerHTML = '';
+        document.getElementById('popupDocument').style.display = 'none';
+    }
+
+    function fixHomeLink()
+    {
+        var home_link = document.querySelector('a.gin-breadcrumb__link[title="{{ 'Regresar al contenido del sitio'|t }}"]');
+        if (home_link) {
+            home_link.href = '{{ solicitar_cita_url() }}';
+        }
+    }
+
+    fixHomeLink();
+
+</script>
+>>>>>>> refs/remotes/origin/develop
