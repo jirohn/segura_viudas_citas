@@ -24,16 +24,12 @@
               console.log('documento validado', file_field_name);
               // le añadimos al lado del nombre una imagen de validado
               var img = document.createElement("img");
-              img.src = "";
+              img.src = "/modules/nateevo/segura_viudas_citas/images/validated.svg";
               img.width = 20;
               img.height = 20;
+              img.class = "validate-icon";
               var src = document.getElementById(file_field_name);
               src.append(img);
-              // se le añade un texto de validado (termporal)
-              var text = document.createElement("p");
-              text.innerHTML = "Validado";
-              src.append(text);
-              // ELIMINAR ESTE CODIGO TEMPORAL TRAS ENLAZAR LA IMAGEN
             },
             error: function (jqXHR, textStatus, errorThrown) {
               console.error('Error fetching appointments:', textStatus, errorThrown);
@@ -51,17 +47,11 @@
               console.log('documento rechazado', file_field_name, 2);
               // le añadimos al lado del nombre una imagen de rechazado
               var img = document.createElement("img");
-              img.src = "";
+              img.src = "/modules/nateevo/segura_viudas_citas/images/refused.svg";
               img.width = 20;
               img.height = 20;
               var src = document.getElementById(file_field_name);
               src.append(img);
-              // se le añade un texto de validado (termporal)
-              var text = document.createElement("p");
-              text.innerHTML = "Rechazado";
-              src.append(text);
-              // ELIMINAR ESTE CODIGO TEMPORAL TRAS ENLAZAR LA IMAGEN
-
             },
             error: function (jqXHR, textStatus, errorThrown) {
               console.error('Error fetching appointments:', textStatus, errorThrown);
