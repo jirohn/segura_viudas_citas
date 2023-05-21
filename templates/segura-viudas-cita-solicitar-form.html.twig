@@ -26,7 +26,37 @@
             <p>{{" *Camps obligatoris" | t }}</p>
         </div>
         <div class="block row full cgap-1 uploads nomobile">
-       {{ form }}
+        <!-- Formulario -->
+
+          <form{{ attributes }}>
+            {{ form.form_build_id }}
+            {{ form.form_token }}
+            {{ form.form_id }} 
+            <div style="display:none;"
+              {{ form.title }}
+            </div>
+          
+            {{ form.field_file }}
+
+            {{ form.field_file2 }}
+
+            {{ form.field_file3 }}
+
+            {{ form.field_file4 }}
+
+            {{ form.field_file5 }}
+
+            {{ form.field_date }}
+
+            {{ form.field_time }}
+
+            {{ form.field_comment }}
+
+            {{ form.field_modalidad }}
+
+            {{ form.submit }}
+          </form>
+       <!-- Formulario -->
         <div class="block column half right space-between">
           </div>
         </div>
