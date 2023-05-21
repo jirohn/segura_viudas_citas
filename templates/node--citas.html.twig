@@ -157,10 +157,16 @@
 
   </div>
   <div id="popupDocument" style="display: none;">
-    <span id="documentName"></span>
-    <input type="button" value="Validar" id="validateDocument" />
-    <input type="button" value="Rechazar" id="rejectDocument" />
-    <input type="button" value="Cerrar popup" onclick="closePopup()" />
+    <div style="text-align: right;" class="file-actions">
+        <input type="button" class="close-modal" value="x" onclick="closePopup()" />
+        <div>
+            <span id="documentName"></span>
+        </div>
+        <div style="text-align:right;">
+            <input type="button" class="button button--primary js-form-submit form-submit" value="Validar" id="validateDocument" />
+            <input type="button" class="button button--secondary js-form-submit form-submit" value="Rechazar" id="rejectDocument" />
+        </div>
+    </div>
   </div>
 </article>
 
