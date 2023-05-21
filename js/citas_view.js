@@ -20,8 +20,20 @@
             data: { cita_id: cita_id, file_field_name: file_field_name},
             dataType: 'json',
             success: function () {
-
+              closepreview();
               console.log('documento validado', file_field_name);
+              // le añadimos al lado del nombre una imagen de validado
+              var img = document.createElement("img");
+              img.src = "";
+              img.width = 20;
+              img.height = 20;
+              var src = document.getElementById(file_field_name);
+              src.append(img);
+              // se le añade un texto de validado (termporal)
+              var text = document.createElement("p");
+              text.innerHTML = "Validado";
+              src.append(text);
+              // ELIMINAR ESTE CODIGO TEMPORAL TRAS ENLAZAR LA IMAGEN
             },
             error: function (jqXHR, textStatus, errorThrown) {
               console.error('Error fetching appointments:', textStatus, errorThrown);
@@ -35,8 +47,21 @@
             data: { cita_id: cita_id, file_field_name: file_field_name},
             dataType: 'json',
             success: function () {
-
+              closepreview();
               console.log('documento rechazado', file_field_name, 2);
+              // le añadimos al lado del nombre una imagen de rechazado
+              var img = document.createElement("img");
+              img.src = "";
+              img.width = 20;
+              img.height = 20;
+              var src = document.getElementById(file_field_name);
+              src.append(img);
+              // se le añade un texto de validado (termporal)
+              var text = document.createElement("p");
+              text.innerHTML = "Rechazado";
+              src.append(text);
+              // ELIMINAR ESTE CODIGO TEMPORAL TRAS ENLAZAR LA IMAGEN
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
               console.error('Error fetching appointments:', textStatus, errorThrown);
@@ -51,7 +76,11 @@
         document.getElementById('documentName').innerHTML = '';
         document.getElementById('popupDocument').style.display = 'none';
       }
-
+      // creamos funcion cerrar popup y validar documento
+      function closepreview(){
+        document.getElementById('documentName').innerHTML = '';
+        document.getElementById('popupDocument').style.display = 'none';
+      }
 
 
 
