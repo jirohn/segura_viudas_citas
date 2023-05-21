@@ -36,7 +36,7 @@ class AjaxController extends ControllerBase {
 
   // creamos una funcion ajax para validar los documentos tipo 'field_file'
   /**
-   * Callback for the 'segura_viudas_citas/admin_validate' route.
+   * Callback for the 'segura_viudas_citas/validate_appointment' route.
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
    *   The current request.
@@ -44,14 +44,38 @@ class AjaxController extends ControllerBase {
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    *   A JSON response containing the times of existing appointments.
    */
-  public function validateDocument(Request $request) {
+  public function validateAppointment(Request $request) {
     // esta funcion le cambia el campo 'field_verify_file' a 'validado' cuando se envia el valor 1 en el data del ajax
-    $nid = $request->query->get('nid');
-    $option = $request->query->get('option');
+    $nid = $request->query->get('cita_id');
+    $field = $request->query->get('file_field_name');
+    // le añadimos al tipo de contenido 'citas' con la id almacenada en $nid el valor guardado en $option en el campo 'field_verify_file'
+    $node = $this->entityTypeManager->getStorage('node')->load($nid);
+    // le decimos que si el valor $option es 1, que le ponga el valor 'validado' al campo 'field_verify_file'
+    $node->set($field, 'validado');
+    $node->save();
+    return new JsonResponse(['status' => 'ok']);
 
-    $document = $this->entityTypeManager->getStorage('node')->load($data['nid']);
-    $document->set('field_verify_file', 1);
-    $document->save();
+
+}
+  // creamos una funcion ajax para validar los documentos tipo 'field_file'
+  /**
+   * Callback for the 'segura_viudas_citas/reject_appointment' route.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   A JSON response containing the times of existing appointments.
+   */
+  public function rejectAppointment(Request $request) {
+    // esta funcion le cambia el campo 'field_verify_file' a 'validado' cuando se envia el valor 1 en el data del ajax
+    $nid = $request->query->get('cita_id');
+    $field = $request->query->get('file_field_name');
+    // le añadimos al tipo de contenido 'citas' con la id almacenada en $nid el valor guardado en $option en el campo 'field_verify_file'
+    $node = $this->entityTypeManager->getStorage('node')->load($nid);
+    // le decimos que si el valor $option es 1, que le ponga el valor 'validado' al campo 'field_verify_file'
+    $node->set($field, 'rechazado');
+    $node->save();
     return new JsonResponse(['status' => 'ok']);
 
 

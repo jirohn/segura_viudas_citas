@@ -34,13 +34,21 @@ segura_viudas_citas.admin_citas:
   options:
     _admin_route: TRUE
 
-segura_viudas_citas.validate_document:
-  path: '/admin/gestion-citas/validate-document/{cita_id}/{file_field_name}/{validate}'
+segura_viudas_citas.validate_appointment:
+  path: '/admin/gestion_citas/reservas/validate_appointment'
   defaults:
-    _controller: '\Drupal\segura_viudas_citas\Controller\AjaxController::validateDocument'
-    _format: json
+    _controller: '\Drupal\segura_viudas_citas\Controller\AjaxController::validateAppointment'
+    _title: 'Validate Appointment'
   requirements:
-    _access: 'TRUE'
+    _permission: 'access content'
+
+segura_viudas_citas.reject_appointment:
+  path: '/admin/gestion_citas/reservas/reject_appointment'
+  defaults:
+    _controller: '\Drupal\segura_viudas_citas\Controller\AjaxController::rejectAppointment'
+    _title: 'Reject Appointment'
+  requirements:
+    _permission: 'access content'
 
 segura_viudas_citas.check_appointments:
   path: '/segura_viudas_citas/check_appointments'

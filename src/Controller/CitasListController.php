@@ -143,6 +143,7 @@ class CitasListController extends ControllerBase {
 
     return new JsonResponse(['status' => 'ok']);
   }
+
   public function content() {
     // Obtén todas las citas.
     $query = \Drupal::entityQuery('node')

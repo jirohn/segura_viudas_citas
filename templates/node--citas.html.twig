@@ -89,7 +89,7 @@
                                             {% set file_name = file_item.entity.filename.value %}
                                             {% set _file_url = file_url(file_item.entity.uri.value) %}
                                             {% set file_id = file_item.entity.fid.value %}
-                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_file')">{{ file_name }}</a>
+                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_verify_file')">{{ file_name }}</a>
                                         {% endif %}
                                     </dt>
                                 </div>
@@ -101,7 +101,7 @@
                                             {% set file_name = file_item.entity.filename.value %}
                                             {% set _file_url = file_url(file_item.entity.uri.value) %}
                                             {% set file_id = file_item.entity.fid.value %}
-                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_file2')">{{ file_name }}</a>
+                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_verify_file2')">{{ file_name }}</a>
                                         {% endif %}
                                     </dt>
                                 </div>
@@ -113,7 +113,7 @@
                                             {% set file_name = file_item.entity.filename.value %}
                                             {% set _file_url = file_url(file_item.entity.uri.value) %}
                                             {% set file_id = file_item.entity.fid.value %}
-                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_file3')">{{ file_name }}</a>
+                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_verify_file3')">{{ file_name }}</a>
                                         {% endif %}
                                     </dt>
                                 </div>
@@ -125,7 +125,7 @@
                                             {% set file_name = file_item.entity.filename.value %}
                                             {% set _file_url = file_url(file_item.entity.uri.value) %}
                                             {% set file_id = file_item.entity.fid.value %}
-                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_file4')">{{ file_name }}</a>
+                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_verify_file4')">{{ file_name }}</a>
                                         {% endif %}
                                     </dt>
                                 </div>
@@ -137,7 +137,7 @@
                                             {% set file_name = file_item.entity.filename.value %}
                                             {% set _file_url = file_url(file_item.entity.uri.value) %}
                                             {% set file_id = file_item.entity.fid.value %}
-                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_file5')">{{ file_name }}</a>
+                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_verify_file5')">{{ file_name }}</a>
                                         {% endif %}
                                     </dt>
                                 </div>
@@ -153,7 +153,7 @@
     {% endif %}
   </header>
   <div{{ content_attributes.addClass('node__content') }}>
-    {{ content }}
+
 
   </div>
   <div id="popupDocument" style="display: none;">
@@ -164,67 +164,4 @@
   </div>
 </article>
 
-<script>
 
-function openPopup(file_name, file_url, cita_id, file_field_name) {
-    var fileExtension = file_url.split('.').pop().toLowerCase();
-    var fileDisplayArea;
-    if (fileExtension == 'pdf') {
-        fileDisplayArea = '<embed src="' + file_url + '" width="500" height="375" type="application/pdf">';
-    } else if (fileExtension == 'jpg' || fileExtension == 'jpeg') {
-        fileDisplayArea = '<img src="' + file_url + '" width="500">';
-    }
-    document.getElementById('documentName').innerHTML = '<div id="file-container">' + fileDisplayArea + '</div><a href="' + file_url + '">' + file_name + '</a>';
-
-        //document.getElementById('documentName').innerHTML = '<a href="' + file_url + '">' + file_name + '</a>';
-        document.getElementById('validateDocument').onclick = function() {
-            fetch('/admin/gestion-citas/validate-document/' + cita_id + '/' + file_field_name + '/1', {
-              method: 'GET',
-              headers: {
-                'Accept': 'application/json'
-              }
-            })
-            .then(function(response) {
-              if (response.ok) {
-                return response.json();
-              } else {
-                alert('error en la llamada Ajax');
-              }
-            })
-            .then(function(data) {
-            })
-            .catch(function(error) {
-              alert('error de conexión');
-            });
-        };
-        document.getElementById('rejectDocument').onclick = function() {
-            fetch('/admin/gestion-citas/validate-document/' + cita_id + '/' + file_field_name + '/0', {
-              method: 'GET',
-              headers: {
-                'Accept': 'application/json'
-              }
-            })
-            .then(function(response) {
-              if (response.ok) {
-                return response.json();
-              } else {
-                alert('error en la llamada Ajax');
-              }
-            })
-            .then(function(data) {
-            })
-            .catch(function(error) {
-              alert('error de conexión');
-            });
-        };
-        document.getElementById('popupDocument').style.display = 'block';
-
-    }
-
-    function closePopup()
-    {
-        document.getElementById('documentName').innerHTML = '';
-        document.getElementById('popupDocument').style.display = 'none';
-    }
-
-</script>

@@ -3,6 +3,7 @@
 use Drupal\node\Entity\NodeType;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\field\Entity\FieldConfig;
+// llamamos al al traductor para poder usar t()
 
 
 /**
@@ -19,19 +20,19 @@ function segura_viudas_citas_install() {
   // Crear campos de fecha, hora y comentario. pero no comentes por que en boca cerrada no entran moscas
   //creamos campos para agregar archivos//
   segura_viudas_citas_create_field('field_file', 'Carta acreditativa Uva DO CAVA o DO CAT, o ambas*', 'citas', 'file', 'file_generic');
-  segura_viudas_citas_create_field('field_verify_file', 'verificado 1', 'citas', 'boolean', 'boolean_checkbox');
+  segura_viudas_citas_create_field('field_verify_file', 'verificado 1', 'citas',  'list_string', 'options_select', allowed_verify());
 
   segura_viudas_citas_create_field('field_file2', 'Cuaderno de campo*', 'citas', 'file', 'file_generic');
-  segura_viudas_citas_create_field('field_verify_file2', 'verificado 1', 'citas', 'boolean', 'boolean_checkbox');
+  segura_viudas_citas_create_field('field_verify_file2', 'verificado 2', 'citas', 'list_string', 'options_select', allowed_verify());
 
   segura_viudas_citas_create_field('field_file3', 'Certificado CCPAE', 'citas', 'file', 'file_generic');
-  segura_viudas_citas_create_field('field_verify_file3', 'verificado 1', 'citas', 'boolean', 'boolean_checkbox');
+  segura_viudas_citas_create_field('field_verify_file3', 'verificado 3', 'citas', 'list_string', 'options_select', allowed_verify());
 
   segura_viudas_citas_create_field('field_file4', 'RVC', 'citas', 'file', 'file_generic');
-  segura_viudas_citas_create_field('field_verify_file4', 'verificado 1', 'citas', 'boolean', 'boolean_checkbox');
+  segura_viudas_citas_create_field('field_verify_file4', 'verificado 4', 'citas', 'list_string', 'options_select', allowed_verify());
 
   segura_viudas_citas_create_field('field_file5', 'Otros documentos', 'citas', 'file', 'file_generic');
-  segura_viudas_citas_create_field('field_verify_file5', 'verificado 1', 'citas', 'boolean', 'boolean_checkbox');
+  segura_viudas_citas_create_field('field_verify_file5', 'verificado 5', 'citas', 'list_string', 'options_select', allowed_verify());
 
   segura_viudas_citas_create_field('field_modalidad', 'modalidad', 'citas', 'boolean', 'boolean_checkbox');
   segura_viudas_citas_create_field('field_date', 'Fecha', 'citas', 'datetime', 'datetime_default');
@@ -52,11 +53,16 @@ function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $f
     'entity_type' => 'node',
     'type' => $field_type,
     'settings' => ($field_name == 'field_time') ? ['allowed_values' => $allowed_values] : [],
+
   ]);
   // si el campo es tipo modalidad se le ponen los valores de presencial y telefonica//
 
   if ($field_name == 'field_date') {
     $field_storage->setSetting('datetime_type', 'date');
+  }
+  // le decimos que si el field_name es 'field_verify_file' hasta 'field_verify_file5' le añada los valores permitidos//
+  if ($field_name == 'field_verify_file' || $field_name == 'field_verify_file2' || $field_name == 'field_verify_file3' || $field_name == 'field_verify_file4' || $field_name == 'field_verify_file5') {
+    $field_storage->setSetting('allowed_values', allowed_verify());
   }
   $field_storage->save();
 
@@ -179,5 +185,12 @@ function segura_viudas_citas_allowed_time_values() {
     '16:30' => '16:30',
     '17:00' => '17:00',
     // ... añade más opciones aquí ...
+  ];
+}
+function allowed_verify(){
+  return [
+    'pendiente' => 'Pendiente',
+    'validado' =>  'Validado',
+    'rechazado' => 'Rechazado',
   ];
 }

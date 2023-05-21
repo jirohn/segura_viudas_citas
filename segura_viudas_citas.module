@@ -89,4 +89,7 @@ function segura_viudas_citas_preprocess_node(&$variables) {
       $variables['author_email'] = $author->getEmail();
     }
   }
+  if ($node->getType() == 'citas') {
+    $variables['#attached']['library'][] = 'segura_viudas_citas/citas_view';
+  }
 }

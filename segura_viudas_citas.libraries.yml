@@ -8,6 +8,16 @@ segura_viudas_citas:
     - core/drupalSettings
     - system/moment
 
+citas_view:
+  version: 1.x
+  js:
+    js/citas_view.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - system/moment
+
 admin_citas:
   version: 1.x
   js:
