@@ -1,65 +1,42 @@
-<<<<<<< HEAD
 <!-- Appointment -->
+
+<!-- Computer -->
 <section id="appointment" class="nospace nomobile" style="margin-top:1em;">
     <div class="block column full">
         <h1 class="noup">{{ "Documentació i cita de contracte" | t }}</h1>
     </div>
 </section>
-
 <section id="attach" class="nospace">
     <div class="block full space-between">
-        <form {{ attributes }}>
-            {{ form.form_build_id }}
-            {{ form.form_token }}
-            {{ form.form_id }}
-            <div style="display:none;">
-                {{ form.title }}
-            </div>
-
-            <div class="block two-thirds column nomobile">
-                <h2 style="margin-bottom:1em; margin-top: 2em;" class="noup">{{ "Adjuntar documentació" | t }}</h2>
-                <p>{{ "Un cop adjuntada tota la documentació requerida podràs demanar una cita el dia que vulguis per a la signatura del contracte." | t }}</p><br>
-                <p style="margin-top:1em;">{{ "Pots pujar la documentació en <b>els formats següents: JPG, PDF, xlsx (Excel).</b>" | t }}</p><br>
-                <div class="block row space-between nomobile">
-                    <div class="block row cgap-1">
-                        <p><svg style="border-radius: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#c82020" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="#c82020"/>
-                        <rect x="4" y="4" width="16" height="16" rx="2" />
-                        </svg>{{ "Per verificar" | t }}</p>
-                        <p><svg style="border-radius: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2ca500" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="#2ca500"/>
-                        <rect x="4" y="4" width="16" height="16" rx="2" />
-                        </svg>{{ "Verificat" | t }}</p>
-                    </div>
-                    <p>{{" *Camps obligatoris" | t }}</p>
-                </div>
-
-                {% for i in 1..5 %}
-                    <div class="block row full cgap-1 uploads nomobile">
-                        <div class="block column half right space-between">
-                            <label>{{ ["CARTA ACREDITATIVA RAÏM DO CAVA O DO CAT, O AMBDÓS*", "QUADERN DE CAMP*", "CERTIFICAT CCPAE", "RVC", "ALTRES DOCUMENTS"][i-1] | t }}</label><br>
-                            {{ attribute(form, 'field_file' ~ (i > 1 ? i : '')) }}
-                            <button type="button" class="custom-button{{ i }}">{{ "Pujar arxiu" | t }}</button>
-                        </div>
-                        <div class="block column half">
-                            <p>{{ ["Sensse presència de productes químics de síntesi en els darrers 5 anys", "Verificar varietats", "Verificar producció ecològica", "Revisió i validació", ""][i-1] | t }}</p>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-
-            <div class="form-modalidad full">
-                {{ form.field_modalidad }}<br><br>
-            </div>
-
-            <div class="block full">
-                <center>
-                    <button type="submit" id="edit-submit" name="op" value="Guardar">{{ "Guardar" | t }}</button>
-                </center>
-            </div>
-        </form>
+      <div class="block two-thirds column nomobile">
+        <h2 style="margin-bottom:1em; margin-top: 2em;" class="noup">{{ "Adjuntar documentació" | t }}</h2>
+          <p>{{ "Un cop adjuntada tota la documentació requerida podràs demanar una cita el dia que vulguis per a la signatura del contracte." | t }}</p><br>
+          <p style="margin-top:1em;">{{ "Pots pujar la documentació en <b>els formats següents: JPG, PDF, xlsx (Excel)." | t }}</b></p><br>
+        <div class="block row space-between nomobile">
+          <div class="block row cgap-1">
+            <p><svg style="border-radius: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#c82020" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="#c82020"/>
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            </svg>{{ "Per verificar" | t }}</p>
+            <p><svg style="border-radius: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2ca500" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="#2ca500"/>
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            </svg>{{ "Verificat" | t }}</p>
+          </div>
+            <p>{{" *Camps obligatoris" | t }}</p>
+        </div>
+        <div class="block row full cgap-1 uploads nomobile">
+       {{ form }}
+        <div class="block column half right space-between">
+          </div>
+        </div>
+        </div>
+      <div class="block nomobile third column p-3 space-between" style="background-color:#f8f9f6; max-height:150px; margin-top:5em;margin-left: 2em;">
+        <h2 class="noup">{{ "Cita para la firma" | t }}</h2>
+          <center><a style="text-align:center;" class="btn primary" href="#"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</a></center>
+      </div>
+      <!-- Computer -->
     </div>
 </section>
-=======
-{{ form }}
->>>>>>> refs/remotes/origin/main
+
+           
