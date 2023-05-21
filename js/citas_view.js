@@ -11,7 +11,7 @@
         } else if (fileExtension == 'jpg' || fileExtension == 'jpeg') {
           fileDisplayArea = '<img src="' + file_url + '" width="500">';
         }
-        document.getElementById('documentName').innerHTML = '<div id="file-container">' + fileDisplayArea + '</div><a href="' + file_url + '">' + file_name + '</a>';
+        document.getElementById('documentName').innerHTML = '<div id="file-container">' + fileDisplayArea + '</div>';
 
         //document.getElementById('documentName').innerHTML = '<a href="' + file_url + '">' + file_name + '</a>';
         document.getElementById('validateDocument').onclick = function () {
@@ -43,7 +43,7 @@
             },
           });
         };
-        document.getElementById('popupDocument').style.display = 'block';
+        document.getElementById('popupDocument').style.display = 'flex';
 
       }
 

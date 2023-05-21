@@ -91,5 +91,6 @@ function segura_viudas_citas_preprocess_node(&$variables) {
   }
   if ($node->getType() == 'citas') {
     $variables['#attached']['library'][] = 'segura_viudas_citas/citas_view';
+    $variables['#attached']['library'][] = 'segura_viudas_citas/custom_admin_page_styles';
   }
 }
