@@ -7,9 +7,9 @@
         var fileExtension = file_url.split('.').pop().toLowerCase();
         var fileDisplayArea;
         if (fileExtension == 'pdf') {
-          fileDisplayArea = '<embed src="' + file_url + '" width="500" height="375" type="application/pdf">';
+          fileDisplayArea = '<embed src="' + file_url + '" width="900" height="375" type="application/pdf">';
         } else if (fileExtension == 'jpg' || fileExtension == 'jpeg') {
-          fileDisplayArea = '<img src="' + file_url + '" width="500">';
+          fileDisplayArea = '<img src="' + file_url + '" width="800">';
         }
         document.getElementById('documentName').innerHTML = '<div id="file-container">' + fileDisplayArea + '</div>';
 
@@ -64,7 +64,3 @@
     },
   };
 })(jQuery, Drupal);
-
-
-
-

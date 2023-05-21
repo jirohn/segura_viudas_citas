@@ -10,6 +10,10 @@
 <article{{ attributes.addClass(classes) }}>
   <header>
     {{ title_prefix }}
+        <div>
+            <a href="mailto:{{ author_email }}" class="button button--primary js-form-submit form-submit" style="margin-right: 10px;">{{ 'Enviar email'|t }}</a>
+            <a href="/node/{{ node.nid.value }}/delete" class="button button--secondary js-form-submit form-submit" style="margin-right: 10px;">{{ 'Eliminar cita'|t }}</a>
+        </div>
     {% if not page %}
       <h2{{ title_attributes }}>
         <a href="{{ url }}" rel="bookmark">{{ label }}</a>
