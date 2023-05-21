@@ -3,9 +3,6 @@
     _attach: function (context, settings) {
       console.log('seguraViudasCitasVIEW behavior attached');
 
-
-
-
       window.openPopup = function(file_name, file_url, cita_id, file_field_name) {
         var fileExtension = file_url.split('.').pop().toLowerCase();
         var fileDisplayArea;
@@ -54,6 +51,9 @@
         document.getElementById('documentName').innerHTML = '';
         document.getElementById('popupDocument').style.display = 'none';
       }
+
+
+
 
     },
     get attach() {

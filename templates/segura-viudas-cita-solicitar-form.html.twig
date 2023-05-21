@@ -28,34 +28,8 @@
         <div class="block row full cgap-1 uploads nomobile">
         <!-- Formulario -->
 
-          <form{{ attributes }}>
-            {{ form.form_build_id }}
-            {{ form.form_token }}
-            {{ form.form_id }} 
-            <div style="display:none;"
-              {{ form.title }}
-            </div>
-          
-            {{ form.field_file }}
 
-            {{ form.field_file2 }}
-
-            {{ form.field_file3 }}
-
-            {{ form.field_file4 }}
-
-            {{ form.field_file5 }}
-
-            {{ form.field_date }}
-
-            {{ form.field_time }}
-
-            {{ form.field_comment }}
-
-            {{ form.field_modalidad }}
-
-            {{ form.submit }}
-          </form>
+        {{ form }}
        <!-- Formulario -->
         <div class="block column half right space-between">
           </div>
@@ -63,10 +37,15 @@
         </div>
       <div class="block nomobile third column p-3 space-between" style="background-color:#f8f9f6; max-height:150px; margin-top:5em;margin-left: 2em;">
         <h2 class="noup">{{ "Cita para la firma" | t }}</h2>
-          <center><a style="text-align:center;" class="btn primary" href="#"><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</a></center>
+          <center><button style="text-align:center;" class="btn primary open-popup" href=""><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</button></center>
+      </div>
+
+      <div id="popup" class="overlay">
+        <div class="popup">
+
+        </div>
       </div>
       <!-- Computer -->
     </div>
 </section>
 
-           

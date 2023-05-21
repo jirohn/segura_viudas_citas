@@ -42,7 +42,6 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#attributes' => [
         'class' => ['block column half right space-between file-upload-citas'],
       ],
-      'cardinality' => 5,
       '#multiple' => 'true',
       '#required' => TRUE,
     ];
@@ -96,7 +95,6 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#attributes' => [
         'class' => ['block column half right space-between file-upload-citas'],
       ],
-      'cardinality' => 5,
       '#multiple' => 'true',
       '#required' => FALSE,
     ];

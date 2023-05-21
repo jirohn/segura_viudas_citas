@@ -54,10 +54,19 @@
 
 
 
+      // guarda el primero y el segundo input del tipo file de 5 que hay en la pagina y los almacena en una variable
+      const $file = $(context).find('input[type="file"]').eq(0);
+      const $file2 = $(context).find('input[type="file"]').eq(1);
 
-      console.log('seguraViudasCitas behavior attached');
 
-
+      $file.add($file2).change(function() {
+        console.log('se cargo una foto para el popup');
+        if ($file.val() && $file2.val()) {
+          // le quitamos el disabled al boton
+          $('.open-popup').prop('disabled', false);
+          console.log('abierto el popup');
+        }
+      });
 
       const $form = $(context).find('form');
       if ($form.hasClass('segura-viudas-citas-attached')) {
@@ -127,6 +136,34 @@
       }
     },
   };
+  $(document).ready(function() {
+    // Crea el div contenedor con la clase 'popup'
+    var $popupDiv = $('#popup');
+
+    // Selecciona los campos del formulario y el botón de envío y los mueve al div popup
+    var $fieldDate = $('#edit-field-date').detach();
+    var $fieldTime = $('#edit-field-time').detach();
+    var $fieldComment = $('#edit-field-comment').detach();
+    var $fieldModalidad = $('#edit-field-modalidad').detach();
+    var $submit = $('#edit-submit').detach();
+    // selecciona los labels de los campos y los mueve al div popup
+    var $labelDate = $('label[for="edit-field-date"]').detach();
+    var $labelTime = $('label[for="edit-field-time"]').detach();
+    var $labelComment = $('label[for="edit-field-comment"]').detach();
+    var $labelModalidad = $('label[for="edit-field-modalidad"]').detach();
+
+    // Añade los elementos al div
+    $popupDiv.append( $labelDate, $fieldDate, $labelTime, $fieldTime, $labelComment, $fieldComment, $labelModalidad, $fieldModalidad, $submit);
+    console.log('añadido el popup');
+    // Agrega el div popup al final del formulario
+    $('form').append($popupDiv);
+    console.log('seguraViudasCitas behavior attached');
+
+    console.log('desactivado el popup');
+    // desactivamos el open-poppup
+    $('.open-popup').prop('disabled', true);
+  });
+
 })(jQuery, Drupal);
 
 
