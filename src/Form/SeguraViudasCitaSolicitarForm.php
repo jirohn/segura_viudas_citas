@@ -81,7 +81,6 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg'],
       ],
-      'cardinality' => 5,
       '#multiple' => 'true',
       '#required' => FALSE,
     ];

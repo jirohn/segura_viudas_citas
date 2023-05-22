@@ -52,7 +52,7 @@
       // le decimos que si presionas el boton openPopUp hace una funcion
 
       // Seleccionamos los contenedores de los inputs y les añadimos las clases
-      var $fileDiv = $(context).find('.js-form-item-field-file').addClass('block column half right space-between').prepend('<p class="file-title">CARTA ACREDITATIVA RAÏM DO CAVA O DO CAT, O AMBDÓS*</p>');
+      /*var $fileDiv = $(context).find('.js-form-item-field-file').addClass('block column half right space-between').prepend('<p class="file-title">CARTA ACREDITATIVA RAÏM DO CAVA O DO CAT, O AMBDÓS*</p>');
       var $fileDiv2 = $(context).find('.js-form-item-field-file2').addClass('block column half right space-between').prepend('<p class="file-title">QUADERN DE CAMP*</p>');
       var $fileDiv3 = $(context).find('.js-form-item-field-file3').addClass('block column half right space-between').prepend('<p class="file-title">CERTIFICAT CCPAE</p>');
       var $fileDiv4 = $(context).find('.js-form-item-field-file4').addClass('block column half right space-between').prepend('<p class="file-title">RVC</p>');
@@ -63,7 +63,7 @@
 
 
 
-      // mete los divs js-form-item-field-file y js-form-item-field-file2 dentro de un div con las clases 'block row full cgap-1 uploads nomobile' 
+      // mete los divs js-form-item-field-file y js-form-item-field-file2 dentro de un div con las clases 'block row full cgap-1 uploads nomobile'
       var $fileDivs = $fileDiv.add($fileDiv2).wrapAll('<div class="block row full cgap-1 uploads nomobile"></div>');
       var $fileDivs2 = $fileDiv3.add($fileDiv4).wrapAll('<div class="block row full cgap-1 uploads nomobile"></div>');
 
@@ -102,7 +102,7 @@
 
       // guardamos una variable con la id file-name y la añadimos en despues de los input tipo file
 
-
+*/
 
       // guarda el primero y el segundo input del tipo file de 5 que hay en la pagina y los almacena en una variable
       const $file = $(context).find('input[type="file"]').eq(0);
