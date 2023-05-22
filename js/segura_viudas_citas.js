@@ -51,41 +51,54 @@
 
       // le decimos que si presionas el boton openPopUp hace una funcion
 
-
-
-      // guardamos los div donde se encuentran los input tipo file y les añadimos clases
-      const $fileDiv = $(context).find('.js-form-item-field-file');
-      const $fileDiv2 = $(context).find('.js-form-item-field-file2');
-      const $fileDiv3 = $(context).find('.js-form-item-field-file3');
-      const $fileDiv4 = $(context).find('.js-form-item-field-file4');
-      const $fileDiv5 = $(context).find('.js-form-item-field-file5');
-      $fileDiv.addClass('block column half right space-between');
-      $fileDiv2.addClass('block column half right space-between');
-      $fileDiv3.addClass('block column half right space-between');
-      $fileDiv4.addClass('block column half right space-between');
-      $fileDiv5.addClass('block column half right space-between');
-      // cogemos los input tipo file y les añadimos las clases para que queden asi <input type="file" id="real-file" hidden="hidden" />
-      const $fileInput = $(context).find('input[type="file"]');
-      // le ponemos al $fileInput el atributo hidden y le añadimos la ide real-file
-      $fileInput.attr('hidden', 'hidden');
-      $fileInput.attr('id', 'real-file');
-      /* guardamos una variable con la id custom-button  */
-      const $customButton = $(context).find('#custom-button');
-      /* y la copiamos en los $fileDiv */
-      $fileDiv.append($customButton.clone());
-      $fileDiv2.append($customButton.clone());
-      $fileDiv3.append($customButton.clone());
-      $fileDiv4.append($customButton.clone());
-      $fileDiv5.append($customButton.clone());
+      // Seleccionamos los contenedores de los inputs y les añadimos las clases
+      var $fileDiv = $(context).find('.js-form-item-field-file').addClass('block column half right space-between').prepend('<p class="file-title">CARTA ACREDITATIVA RAÏM DO CAVA O DO CAT, O AMBDÓS*</p>');
+      var $fileDiv2 = $(context).find('.js-form-item-field-file2').addClass('block column half right space-between').prepend('<p class="file-title">QUADERN DE CAMP*</p>');
+      var $fileDiv3 = $(context).find('.js-form-item-field-file3').addClass('block column half right space-between').prepend('<p class="file-title">CERTIFICAT CCPAE</p>');
+      var $fileDiv4 = $(context).find('.js-form-item-field-file4').addClass('block column half right space-between').prepend('<p class="file-title">RVC</p>');
+      var $fileDiv5 = $(context).find('.js-form-item-field-file5').addClass('block column half right space-between').prepend('<p class="file-title">ALTRES DOCUMENTS</p>');
 
 
 
 
 
 
+      // mete los divs js-form-item-field-file y js-form-item-field-file2 dentro de un div con las clases 'block row full cgap-1 uploads nomobile' 
+      var $fileDivs = $fileDiv.add($fileDiv2).wrapAll('<div class="block row full cgap-1 uploads nomobile"></div>');
+      var $fileDivs2 = $fileDiv3.add($fileDiv4).wrapAll('<div class="block row full cgap-1 uploads nomobile"></div>');
 
 
 
+
+      // Seleccionamos los input de tipo file y les añadimos la clase y la id correspondientes
+      var $fileInput = $fileDiv.find('input[type="file"]').addClass('inputfile').attr('id', 'archivo');
+      var $fileInput2 = $fileDiv2.find('input[type="file"]').addClass('inputfile').attr('id', 'archivo2');
+      var $fileInput3 = $fileDiv3.find('input[type="file"]').addClass('inputfile').attr('id', 'archivo3');
+      var $fileInput4 = $fileDiv4.find('input[type="file"]').addClass('inputfile').attr('id', 'archivo4');
+      var $fileInput5 = $fileDiv5.find('input[type="file"]').addClass('inputfile').attr('id', 'archivo5');
+
+      // Seleccionamos los labels de los inputs que contengan la clase inputfile y les añadimos el atributo for y la clase correspondientes
+      var $fileLabel = $fileDiv.find('label').attr('for', 'archivo').addClass('label-file');
+      var $fileLabel2 = $fileDiv2.find('label').attr('for', 'archivo2').addClass('label-file');
+      var $fileLabel3 = $fileDiv3.find('label').attr('for', 'archivo3').addClass('label-file');
+      var $fileLabel4 = $fileDiv4.find('label').attr('for', 'archivo4').addClass('label-file');
+      var $fileLabel5 = $fileDiv5.find('label').attr('for', 'archivo5').addClass('label-file');
+
+      // Generamos el SVG y el texto de los labels
+      var svgHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#718457" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" /></svg>' + Drupal.t('Adjunta o arrastra el archivo');
+
+
+      $fileLabel.html(svgHTML);
+      $fileLabel2.html(svgHTML);
+      $fileLabel3.html(svgHTML);
+      $fileLabel4.html(svgHTML);
+      $fileLabel5.html(svgHTML);
+
+      $fileLabel.insertAfter($fileInput);
+      $fileLabel2.insertAfter($fileInput2);
+      $fileLabel3.insertAfter($fileInput3);
+      $fileLabel4.insertAfter($fileInput4);
+      $fileLabel5.insertAfter($fileInput5);
 
       // guardamos una variable con la id file-name y la añadimos en despues de los input tipo file
 

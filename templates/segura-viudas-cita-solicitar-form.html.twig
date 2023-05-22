@@ -1,5 +1,41 @@
 <!-- Appointment -->
+<style>
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
 
+/* Estilizamos el label como si fuera el input */
+.inputfile + label {
+  color: black;
+  background-color: transparent;
+  display: inline-block;
+  padding: 60px 30px;
+  border: dashed 1px black;
+  font-family: 'TradeGothicLTStd';
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 30px;
+  text-transform: none;
+  width: -webkit-fill-available;
+  letter-spacing: 0;
+  text-align: center;
+  transition:all .2s;
+}
+
+/* Cambiamos el aspecto cuando el usuario selecciona un archivo */
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: #f8f9f6;
+  border: dashed 1px transparent;
+  cursor: pointer;
+}
+
+</style>
 <!-- Computer -->
 <section id="appointment" class="nospace nomobile" style="margin-top:1em;">
     <div class="block column full">
@@ -25,7 +61,6 @@
           </div>
             <p>{{" *Camps obligatoris" | t }}</p>
         </div>
-        <div class="block row full cgap-1 uploads nomobile">
         <!-- Formulario -->
         {{ form }}
        <!-- Formulario -->
@@ -46,15 +81,3 @@
       <!-- Computer -->
     </div>
 </section>
-
-          <button type="button" id="custom-button"><p id="file-name">
-
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#718457" fill="none" stroke-linecap="round" stroke-linejoin="round">
-
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-
-            <path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" />
-
-          </svg>
-
-            {{ "Adjunta o arrossega el fitxer" | t }}</p></button>
