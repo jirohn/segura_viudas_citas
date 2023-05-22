@@ -90,3 +90,4 @@ segura_viudas_citas.admin_block_appointment:
     _title: 'Admin block Appointment'
   requirements:
     _permission: 'access content'
+    
