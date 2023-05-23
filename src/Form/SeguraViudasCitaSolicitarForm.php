@@ -39,9 +39,10 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg'],
       ],
-      'cardinality' => 5,
       '#multiple' => 'true',
       '#required' => TRUE,
+      '#theme' => 'input__managed_file__field_file',
+
     ];
     // llamamos a los campos 'field_file2' del formulario
     $form['field_file2'] = [
@@ -52,6 +53,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
         'file_validate_extensions' => ['pdf jpg jpeg'],
       ],
       '#required' => TRUE,
+      '#theme' => 'input__managed_file__field_file2',
     ];
     // llamamos a los campos 'field_file3' del formulario
     $form['field_file3'] = [
@@ -62,6 +64,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
         'file_validate_extensions' => ['pdf jpg jpeg'],
       ],
       '#required' => FALSE,
+      '#theme' => 'input__managed_file__field_file3',
     ];
     // llamamos a los campos 'field_file4' del formulario
     $form['field_file4'] = [
@@ -72,6 +75,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
         'file_validate_extensions' => ['pdf jpg jpeg'],
       ],
       '#required' => FALSE,
+      '#theme' => 'input__managed_file__field_file4',
     ];
     // llamamos a los campos 'field_file5' del formulario
     $form['field_file5'] = [
@@ -83,6 +87,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       ],
       '#multiple' => 'true',
       '#required' => FALSE,
+      '#theme' => 'input__managed_file__field_file5',
     ];
 
 

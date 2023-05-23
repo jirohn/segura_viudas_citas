@@ -39,7 +39,7 @@
         var dateValue = new Date(this.value);
         var day = dateValue.getDay();
 
-        if (day === 6 || day === 0) {
+        if (day === 0) {
           alert('Los sábados y domingos no están disponibles para citas.');
           this.value = '';
         }
@@ -60,6 +60,10 @@
           url: Drupal.url('segura_viudas_citas/check_appointments'),
           method: 'GET',
           data: { date: date },
+        }).then(function(response) {
+          // Añade las horas de la comida a la respuesta antes de devolverla
+          response.push('13:00', '13:30', '14:00');
+          return response;
         });
       }
 
@@ -97,9 +101,9 @@
 
   $(document).ready(function () {
     console.log('seguraViudasCitas form styles attached');
-
+    //PABLADAS//
     // Añade clases y estilosa los contenedores de los inputs:
-    var $fileDiv = $('.js-form-item-field-file').addClass('block column half right space-between').prepend('<p class="file-title">CARTA ACREDITATIVA RAÏM DO CAVA O DO CAT, O AMBDÓS*</p>');
+   /* var $fileDiv = $('.js-form-item-field-file').addClass('block column half right space-between').prepend('<p class="file-title">CARTA ACREDITATIVA RAÏM DO CAVA O DO CAT, O AMBDÓS*</p>');
     var $fileDiv2 = $('.js-form-item-field-file2').addClass('block column half right space-between').prepend('<p class="file-title">QUADERN DE CAMP*</p>');
     var $fileDiv3 = $('.js-form-item-field-file3').addClass('block column half right space-between').prepend('<p class="file-title">CERTIFICAT CCPAE</p>');
     var $fileDiv4 = $('.js-form-item-field-file4').addClass('block column half right space-between').prepend('<p class="file-title">RVC</p>');
@@ -139,7 +143,8 @@
     $fileLabel3.insertAfter($fileInput3);
     $fileLabel4.insertAfter($fileInput4);
     $fileLabel5.insertAfter($fileInput5);
-    console.log('seguraViudasCitas form styles end');
+    console.log('seguraViudasCitas form styles end');*/
+    // FIN DE PABLADA //
     // Crea el div contenedor con la clase 'popup'
     var $popupDiv = $('.popup');
     var $overlay = $('.overlay');
@@ -161,9 +166,10 @@
     $('form').append($overlay);
     console.log('desactivado el popup');
     // escondemos overlay para luego llamarlo con un fadein
-    $('.overlay').hide();
-    $('.open-popup').prop('disabled', true);
 
+    $('.open-popup').prop('disabled', true);
+    // hacemos invisible el overlay por defecto con un hide
+    $('.overlay').hide();
   });
 
 })(jQuery, Drupal);
