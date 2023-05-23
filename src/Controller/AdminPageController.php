@@ -19,7 +19,7 @@ class AdminPageController extends ControllerBase {
                   <div class="panel__content">
                       <dl class="admin-list--panel admin-list gin-layer-wrapper">
                           <div class="admin-item">
-                            <a href="#" class="admin-item__link"></a>
+                            <a href="/admin/gestion-citas/franjas-horarias" class="admin-item__link"></a>
                             <dt class="admin-item__title">Franjas horarias</dt>
                             <dd class="admin-item__description">Selecciona los horarios de disponibilidad en lo que los usuarios podrán reservar.</dt>
                           </div>

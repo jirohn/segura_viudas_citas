@@ -7,7 +7,7 @@ segura_viudas_citas.form:
     _permission: 'access content'
 
 segura_viudas_citas.citas_list:
-  path: '/admin/gestion-citas/reservas'
+  path: '/admin/gestion-citas/franjas-horarias'
   defaults:
     _controller: '\Drupal\segura_viudas_citas\Controller\CitasListController::content'
     _title: 'Gestión de citas'
@@ -90,4 +90,11 @@ segura_viudas_citas.admin_block_appointment:
     _title: 'Admin block Appointment'
   requirements:
     _permission: 'access content'
-    
+
+segura_viudas_citas.reservas_page:
+  path: '/admin/gestion-citas/reservas'
+  defaults:
+    _controller: '\Drupal\segura_viudas_citas\Controller\CitasListController::reservasContent'
+    _title: 'Reservas'
+  requirements:
+    _permission: 'access content'

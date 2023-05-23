@@ -190,5 +190,50 @@ class CitasListController extends ControllerBase {
 
     return $build;
   }
+  public function reservasContent() {
+    // Obtén todas las citas de la semana actual
+    // Deberías cambiar la lógica de la consulta según cómo determines qué semana es "actual"
+
+    $startOfWeek = strtotime("last sunday");
+    $endOfWeek = strtotime("next saturday");
+  
+    $query = \Drupal::entityQuery('node')
+        ->condition('type', 'citas')
+        ->condition('field_date', array($startOfWeek, $endOfWeek), 'BETWEEN')
+        ->sort('field_date', 'ASC')
+        ->sort('field_time', 'ASC')
+        ->accessCheck(FALSE);
+    $nids = $query->execute();
+
+    // Carga las citas
+    $citas_nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
+
+    // Aquí deberías preparar tus datos para enviarlos a Twig.
+    // Por ejemplo, podrías construir un array multidimensional que tenga fechas como claves y citas como valores.
+
+    $citas = [];
+    foreach ($citas_nodes as $node) {
+        $date = $node->get('field_date')->value;
+        $citas[$date][] = [
+            'title' => $node->label(),
+            'time' => $node->get('field_time')->value,
+            'comment' => $node->get('field_comment')->value,
+            'modalidad' => $node->get('field_modalidad')->value,
+        ];
+    }
+
+    $build = [
+      '#theme' => 'gestion_reservas', // deberías definir una nueva plantilla twig llamada "gestion_reservas"
+      '#title' => $this->t('Reservas'),
+      '#citas' => $citas,
+      '#attached' => [
+        'library' => [
+          'segura_viudas_citas/admin_reservas',
+        ],
+      ],
+    ];
+
+    return $build;
+}
 
 }

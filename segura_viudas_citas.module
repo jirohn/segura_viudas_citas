@@ -7,6 +7,7 @@ use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Mail\Plugin\Mail\PhpMail;
 use Drupal\Core\Render\Markup;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
  * Implements hook_theme_suggestions_page_alter().
@@ -43,6 +44,10 @@ function segura_viudas_citas_theme($existing, $type, $theme, $path) {
       'base hook' => 'node',
       'template' => 'node--citas',
       'path' => $path . '/templates',
+    ],
+    'gestion_reservas' => [
+      'variables' => ['citas' => NULL, 'title' => NULL],
+      'template' => 'gestion_reservas',
     ],
   ];
 }
@@ -100,37 +105,24 @@ function segura_viudas_citas_preprocess_node(&$variables) {
   }
 }
 
-// Al eliminar un contenido de tipo "Citas" manda un correo electrónico al autor de ese contenido
-
 /**
- * Implements hook_ENTITY_TYPE_delete() for Cita entities.
+ * Implements hook_ENTITY_TYPE_delete().
  */
-function mymodule_cita_delete(EntityInterface $entity, MailManagerInterface $mailManager) {
-  $author = $entity->getOwner();
-  $message = "Estimado(a) {$author->getDisplayName()}, tu Cita ha sido eliminada.";
+function segura_viudas_citas_node_delete(EntityInterface $entity) {
+  if ($entity->bundle() == 'citas') {
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    $module = 'segura_viudas_citas';
+    $key = 'citas_deleted';
+    $to = $entity->getOwner()->getEmail();
+    $params['username'] = $entity->getOwner()->getDisplayName();
+    $params['title'] = $entity->label();
+    $params['deleter'] = \Drupal::currentUser()->getDisplayName();
+    $send = true;
 
-  $body = [
-    '#theme' => 'mymodule_cita_deleted_mail',
-    '#message' => Markup::create($message),
-  ];
-
-  $message = \Drupal::service('renderer')->renderPlain($body);
-
-  $params['message']['headers']['Content-Type'] = 'text/html; charset=UTF-8';
-  $params['message']['body'] = $message;
-
-  $mailManager->mail('system', 'mail', $author->getEmail(), $author->getPreferredLangcode(), $params, NULL, TRUE);
+    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+    if ($result['result'] !== true) {
+      \Drupal::logger('segura_viudas_citas')->error('Hubo un problema al enviar el correo a %mail', ['%mail' => $to]);
+    }
+  }
 }
 
-/**
- * Implements hook_theme().
- */
-function mymodule_theme() {
-  return [
-    'mymodule_cita_deleted_mail' => [
-      'variables' => [
-        'message' => NULL,
-      ],
-    ],
-  ];
-}
