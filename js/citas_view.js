@@ -24,14 +24,19 @@
               console.log('documento validado', file_field_name);
               // le añadimos al lado del nombre una imagen de validado
               var img = document.createElement("img");
-              img.src = "/modules/nateevo/segura_viudas_citas/images/validated.svg";
+              img.src = Drupal.url("/modules/nateevo/segura_viudas_citas/images/validated.svg");
               img.width = 20;
               img.height = 20;
               img.classList.add("validate-icon");
               var src = document.getElementById(file_field_name);
-              src.append(img);
-              //buscamos el img en el elemento con la id (file_field_name) y le añadimos la clase validate-icon
-              $(file_field_name).find('img').addClass('validate-icon');
+              // si hay un img dentro de src y contiene la clase 'validate-icon' no añadimos la img
+              if (!src.classList.contains('validate-icon')) {
+                src.append(img);
+              }else{
+                console.log('ya tiene la clase validate-icon');
+                // le cambiamos el source a la img
+                src.find('img').attr('src', Drupal.url("/modules/nateevo/segura_viudas_citas/images/validated.svg"));
+              }
             },
             error: function (jqXHR, textStatus, errorThrown) {
               console.error('Error fetching appointments:', textStatus, errorThrown);
@@ -46,16 +51,23 @@
             dataType: 'json',
             success: function () {
               closepreview();
-              console.log('documento rechazado', file_field_name, 2);
+              console.log('documento rechazado', file_field_name);
               // le añadimos al lado del nombre una imagen de rechazado con la clase 'validate-icon'
               var img = document.createElement("img");
-              img.src = "/modules/nateevo/segura_viudas_citas/images/refused.svg";
+              img.src = Drupal.url("/modules/nateevo/segura_viudas_citas/images/refused.svg");
               img.width = 20;
               img.height = 20;
               // añadimos la clase 'validate-icon'a nuestra img
               img.classList.add("validate-icon");
               var src = document.getElementById(file_field_name);
-              src.append(img);
+              // si el img dentro del elemento con la id (file_field_name) tiene la clase 'validate-icon' no añadimos la img
+              if (!src.classList.contains('validate-icon')) {
+                src.append(img);
+              }else{
+                console.log('ya tiene la clase validate-icon');
+                // le cambiamos el source a la img
+                src.find('img').attr('src', Drupal.url("/modules/nateevo/segura_viudas_citas/images/refused.svg"));
+              }
             },
             error: function (jqXHR, textStatus, errorThrown) {
               console.error('Error fetching appointments:', textStatus, errorThrown);

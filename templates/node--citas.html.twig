@@ -87,62 +87,89 @@
                             <dl class="admin-list--panel admin-list gin-layer-wrapper">
                                 <div class="admin-item">
                                     <dt class="admin-item__title">{{ 'Carta acreditativa Uva DO CAVA o DO CAT'|t }}</dt>
-                                    <dd class="admin-item__description" id="field_verify_file">
-                                        {% if node.field_file|length > 0 %}
-                                            {% set file_item = node.field_file.0 %}
-                                            {% set file_name = file_item.entity.filename.value %}
-                                            {% set _file_url = file_url(file_item.entity.uri.value) %}
-                                            {% set file_id = file_item.entity.fid.value %}
-                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_verify_file')">{{ file_name }}</a>
-                                        {% endif %}
+                                      <dd class="admin-item__description" id="field_verify_file">
+                                          {% if node.field_file|length > 0 %}
+                                              {% set file_item = node.field_file.0 %}
+                                              {% set file_name = file_item.entity.filename.value %}
+                                              {% set _file_url = file_url(file_item.entity.uri.value) %}
+                                              {% set file_id = file_item.entity.fid.value %}
+                                              <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_verify_file')">{{ file_name }}</a>
+                                              {% if node.field_verify_file.value == 'validado' %}
+                                                  <img src="{{ file_url('modules/nateevo/segura_viudas_citas/images/validated.svg') }}" width="20" height="20" class="validate-icon">
+                                              {% elseif node.field_verify_file.value == 'rechazado' %}
+                                                  <img src="{{ file_url('modules/nateevo/segura_viudas_citas/images/refused.svg') }}" width="20" height="20" class="refused-icon">
+                                              {% endif %}
+                                          {% endif %}
+                                      </dd>
                                     </dt>
                                 </div>
                                 <div class="admin-item">
                                     <dt class="admin-item__title">{{ 'Cuaderno de campo'|t }}</dt>
                                     <dd class="admin-item__description" id="field_verify_file2">
-                                        {% if node.field_file2|length > 0 %}
-                                            {% set file_item = node.field_file2.0 %}
-                                            {% set file_name = file_item.entity.filename.value %}
-                                            {% set _file_url = file_url(file_item.entity.uri.value) %}
-                                            {% set file_id = file_item.entity.fid.value %}
-                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_verify_file2')">{{ file_name }}</a>
-                                        {% endif %}
+                                          {% if node.field_file2|length > 0 %}
+                                              {% set file_item = node.field_file2.0 %}
+                                              {% set file_name = file_item.entity.filename.value %}
+                                              {% set _file_url = file_url(file_item.entity.uri.value) %}
+                                              {% set file_id = file_item.entity.fid.value %}
+                                              <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_verify_file2')">{{ file_name }}</a>
+                                              {% if node.field_verify_file2.value == 'validado' %}
+                                                  <img src="{{ file_url('modules/nateevo/segura_viudas_citas/images/validated.svg') }}" width="20" height="20" class="validate-icon">
+                                              {% elseif node.field_verify_file2.value == 'rechazado' %}
+                                                  <img src="{{ file_url('modules/nateevo/segura_viudas_citas/images/refused.svg') }}" width="20" height="20" class="refused-icon">
+                                              {% endif %}
+                                          {% endif %}
                                     </dt>
                                 </div>
                                 <div class="admin-item">
                                     <dt class="admin-item__title">{{ 'Certificado CCPAE'|t }}</dt>
                                     <dd class="admin-item__description" id="field_verify_file3">
-                                        {% if node.field_file3|length > 0 %}
-                                            {% set file_item = node.field_file3.0 %}
-                                            {% set file_name = file_item.entity.filename.value %}
-                                            {% set _file_url = file_url(file_item.entity.uri.value) %}
-                                            {% set file_id = file_item.entity.fid.value %}
-                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_verify_file3')">{{ file_name }}</a>
-                                        {% endif %}
+                                          {% if node.field_file3|length > 0 %}
+                                              {% set file_item = node.field_file3.0 %}
+                                              {% set file_name = file_item.entity.filename.value %}
+                                              {% set _file_url = file_url(file_item.entity.uri.value) %}
+                                              {% set file_id = file_item.entity.fid.value %}
+                                              <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_verify_file3')">{{ file_name }}</a>
+                                              {% if node.field_verify_file3.value == 'validado' %}
+                                                  <img src="{{ file_url('modules/nateevo/segura_viudas_citas/images/validated.svg') }}" width="20" height="20" class="validate-icon">
+                                              {% elseif node.field_verify_file3.value == 'rechazado' %}
+                                                  <img src="{{ file_url('modules/nateevo/segura_viudas_citas/images/refused.svg') }}" width="20" height="20" class="validate-icon">
+                                              {% endif %}
+                                          {% endif %}
+
                                     </dt>
                                 </div>
                                 <div class="admin-item">
                                     <dt class="admin-item__title">{{ 'RVC'|t }}</dt>
                                     <dd class="admin-item__description" id="field_verify_file4">
-                                        {% if node.field_file4|length > 0 %}
-                                            {% set file_item = node.field_file4.0 %}
-                                            {% set file_name = file_item.entity.filename.value %}
-                                            {% set _file_url = file_url(file_item.entity.uri.value) %}
-                                            {% set file_id = file_item.entity.fid.value %}
-                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_verify_file4')">{{ file_name }}</a>
-                                        {% endif %}
+                                          {% if node.field_file4|length > 0 %}
+                                              {% set file_item = node.field_file4.0 %}
+                                              {% set file_name = file_item.entity.filename.value %}
+                                              {% set _file_url = file_url(file_item.entity.uri.value) %}
+                                              {% set file_id = file_item.entity.fid.value %}
+                                              <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_verify_file4')">{{ file_name }}</a>
+                                              {% if node.field_verify_file4.value == 'validado' %}
+                                                  <img src="{{ file_url('modules/nateevo/segura_viudas_citas/images/validated.svg') }}" width="20" height="20" class="validate-icon">
+                                              {% elseif node.field_verify_file4.value == 'rechazado' %}
+                                                  <img src="{{ file_url('modules/nateevo/segura_viudas_citas/images/refused.svg') }}" width="20" height="20" class="refused-icon">
+                                              {% endif %}
+                                          {% endif %}
                                     </dt>
                                 </div>
                                 <div class="admin-item">
                                     <dt class="admin-item__title">{{ 'Otros documentos'|t }}</dt>
                                     <dd class="admin-item__description" id="field_verify_file5">
-                                        {% if node.field_file5|length > 0 %}
-                                            {% set file_item = node.field_file5.0 %}
-                                            {% set file_name = file_item.entity.filename.value %}
-                                            {% set _file_url = file_url(file_item.entity.uri.value) %}
-                                            {% set file_id = file_item.entity.fid.value %}
-                                            <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_verify_file5')">{{ file_name }}</a>
-                                        {% endif %}
+                                          {% if node.field_file5|length > 0 %}
+                                              {% set file_item = node.field_file5.0 %}
+                                              {% set file_name = file_item.entity.filename.value %}
+                                              {% set _file_url = file_url(file_item.entity.uri.value) %}
+                                              {% set file_id = file_item.entity.fid.value %}
+                                              <a onclick="openPopup('{{ file_name }}', '{{ _file_url }}', {{ node.nid.value }}, 'field_verify_file5')">{{ file_name }}</a>
+                                              {% if node.field_verify_file5.value == 'validado' %}
+                                                  <img src="{{ file_url('modules/nateevo/segura_viudas_citas/images/validated.svg') }}" width="20" height="20" class="validate-icon">
+                                              {% elseif node.field_verify_file5.value == 'rechazado' %}
+                                                  <img src="{{ file_url('modules/nateevo/segura_viudas_citas/images/refused.svg') }}" width="20" height="20" class="refused-icon">
+                                              {% endif %}
+                                          {% endif %}
                                     </dt>
                                 </div>
                             </dl>
