@@ -269,6 +269,7 @@ class CitasListController extends ControllerBase {
         'time' => $node->get('field_time')->value,
         'comment' => $node->get('field_comment')->value,
         'modalidad' => $node->get('field_modalidad')->value,
+        'nid' => $node->id(),
       ];
     }
 

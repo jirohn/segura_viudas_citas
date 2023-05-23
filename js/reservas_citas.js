@@ -46,22 +46,21 @@ var firstload=false;
               $('#day-' + i).text(dateString);
 
               var citas = data[dateString] || [];
-
+              // guardamos la direccion de la web en una variable
+              var url = window.location.href;
               $.each(slots, function(index, slot) {
                 var row = '<p>' + slot + '</p>';
                 var cita = citas.find(function(c) { return c.time === slot; });
                 if (cita) {
                   if (cita.title === 'Bloqueado') {
-                    row += '<p class="bloqueada"></p>';
+                    row += '<p class="bloqueada">Bloqueada</p>';
                   } else {
-                    row += '<p class="cita">' + cita.title + ' - ' + cita.comment + ' - ' + cita.modalidad + '</p>';
-                    // cuando hacemos click en el row realizamos una funcion
-                    $(row).click(function() {
-                      window.location.href = Drupal.url('node/' + cita.nid);
-                    });
+                    // Añade el ID del nodo a la URL del enlace
+
+                    row += '<p class="cita"><a href="'+ url + "/" +  cita.nid + '">' + cita.title + ' - ' + cita.comment + ' - ' + cita.modalidad + '</a></p>';
                   }
                 } else {
-                  row += '<p class="libre"></p>';
+                  row += '<p class="libre">Libre</p>';
                 }
                 $('#column-' + i).append(row);
               });

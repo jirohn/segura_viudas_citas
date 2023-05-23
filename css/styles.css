@@ -43,17 +43,26 @@ input[type="file"] {
     border: solid 2px var(--gin-color-primary);
     border-radius: 5px;
     padding: 0.3em 0.6em;
-    margin-bottom: 1em;  
+    margin-bottom: 1em;
     transition: all .2s;
   }
-  
+
   .close-modal:hover,
   .close-modal:focus {
     opacity:.7;
     cursor: pointer;
   }
 
-  img.validate-icon { 
-    transform: translate(10px, 5px); 
-} 
+  img.validate-icon {
+    transform: translate(10px, 5px);
+}
 
+  .bloqueado{
+    background-color: #ff0015;
+  }
+  .libre{
+    background-color: #00ff00;
+  }
+  .cita{
+    background-color: #ffcc00;
+  }
