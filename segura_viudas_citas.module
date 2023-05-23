@@ -48,6 +48,7 @@ function segura_viudas_citas_theme($existing, $type, $theme, $path) {
     'gestion_reservas' => [
       'variables' => ['citas' => NULL, 'title' => NULL],
       'template' => 'gestion_reservas',
+      'path' => $path . '/templates',
     ],
   ];
 }

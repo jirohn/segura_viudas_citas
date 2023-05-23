@@ -48,3 +48,16 @@ citas_form:
     - core/drupal
     - core/drupalSettings
     - system/moment
+
+admin_reservas:
+  version: 1.x
+  js:
+    js/reservas_citas.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - system/moment
+  css:
+    theme:
+      css/styles.css: {}

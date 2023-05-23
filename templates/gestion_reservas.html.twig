@@ -1,24 +1,17 @@
+{# creamos un input tipo date con la id #date-imput #}
+<input type="date" id="date-input" value="{{ date }}" />
+
 <table>
   <thead>
     <tr>
-      <th>{{ 'Fecha'|t }}</th>
-      <th>{{ 'Título'|t }}</th>
-      <th>{{ 'Hora'|t }}</th>
-      <th>{{ 'Comentario'|t }}</th>
-      <th>{{ 'Modalidad'|t }}</th>
+      {% for i in 0..6 %}
+        <th id="day-{{ i }}"></th>
+      {% endfor %}
     </tr>
   </thead>
   <tbody>
-    {% for date, citas in citas %}
-      {% for cita in citas %}
-        <tr>
-          <td>{{ date }}</td>
-          <td>{{ cita.title }}</td>
-          <td>{{ cita.time }}</td>
-          <td>{{ cita.comment }}</td>
-          <td>{{ cita.modalidad }}</td>
-        </tr>
-      {% endfor %}
+    {% for i in 0..6 %}
+      <td id="column-{{ i }}"></td>
     {% endfor %}
   </tbody>
 </table>

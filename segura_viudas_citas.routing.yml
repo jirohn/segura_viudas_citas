@@ -14,7 +14,6 @@ segura_viudas_citas.citas_list:
   requirements:
     _permission: 'access content'
 
-
 segura_viudas_citas.admin_page:
   path: '/admin/gestion-citas'
   defaults:
@@ -96,5 +95,12 @@ segura_viudas_citas.reservas_page:
   defaults:
     _controller: '\Drupal\segura_viudas_citas\Controller\CitasListController::reservasContent'
     _title: 'Reservas'
+  requirements:
+    _permission: 'access content'
+
+segura_viudas_citas.citas:
+  path: 'admin/gestion-citas/citas/{date}'
+  defaults:
+    _controller: '\Drupal\segura_viudas_citas\Controller\CitasListController::getCitas'
   requirements:
     _permission: 'access content'

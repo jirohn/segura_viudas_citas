@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\node\Entity\Node;
 use Drupal\Core\Url;
+use Drupal\Core\Datetime\DrupalDateTime;
+
 
 class CitasListController extends ControllerBase {
 
@@ -196,7 +198,7 @@ class CitasListController extends ControllerBase {
 
     $startOfWeek = strtotime("last sunday");
     $endOfWeek = strtotime("next saturday");
-  
+
     $query = \Drupal::entityQuery('node')
         ->condition('type', 'citas')
         ->condition('field_date', array($startOfWeek, $endOfWeek), 'BETWEEN')
@@ -235,5 +237,41 @@ class CitasListController extends ControllerBase {
 
     return $build;
 }
+  /**
+   * Responds to route: admin/citas/{date}.
+   *
+   * @param string $date
+   *   The date in Y-m-d format.
+   *
+   * @return JsonResponse
+   *   The JSON response.
+   */
+  public function getCitas($date) {
+    $date_start = DrupalDateTime::createFromFormat('Y-m-d', $date);
+    $date_end = (clone $date_start)->add(new \DateInterval('P8D'))->sub(new \DateInterval('PT1S'));
 
+
+    $query = \Drupal::entityQuery('node')
+    ->condition('type', 'citas')
+    ->condition('field_date', [$date_start->format('Y-m-d'), $date_end->format('Y-m-d')], 'BETWEEN')
+    ->sort('field_date', 'ASC')
+    ->sort('field_time', 'ASC')
+    ->accessCheck(FALSE);
+
+    $nids = $query->execute();
+    $citas_nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
+
+    $citas = [];
+    foreach ($citas_nodes as $node) {
+      $date = $node->get('field_date')->date->format('Y-m-d');
+      $citas[$date][] = [
+        'title' => $node->label(),
+        'time' => $node->get('field_time')->value,
+        'comment' => $node->get('field_comment')->value,
+        'modalidad' => $node->get('field_modalidad')->value,
+      ];
+    }
+
+    return new JsonResponse($citas);
+  }
 }
