@@ -78,6 +78,13 @@
           {# Crea un div personalizado con la información de la cita. #}
           <div>
             <p>Tienes una cita el {{ form['#cita_info']['date'] }}.</p>
+            <p>La cita es a las {{ form['#cita_info']['time'] }}.</p>
+            {% if form['#cita_info']['type'] == 0 %}
+              <p>Telefónica.</p>
+            {% else %}
+              <p>Presencial.</p>
+            {% endif %}
+
             <p>
             {# creamos un boton llamado modificar cita con la clase btn primary open-mod-popup #}
             <button class="btn primary open-mod-popup" href=""><em class="icon-crest"></em>{{ "Modificar cita" | t }}</button>
@@ -90,14 +97,15 @@
         {% endif %}
       </div>
       </div>
-      <div id="popup" class="overlay block middle center">
-        <div class="popup">
+      <div id="create-popup" class="overlay block middle center">
+        <div class="popup" id="popup">
 
         </div>
       </div>
       {% if form['#cita_info'] is defined %}
 
-       <div class="mod-popup">
+       <div class="overlay block middle center" id="mod-popup">
+       <div class="popup" id="mod-popup">
           {# creamos titulo para el popup #}
           <h2>{{ "Modificar la cita para la firma" | t }}</h2>
           {#creamos la descripcion #}
@@ -145,7 +153,7 @@
           <button class="btn primary save-mod-popup" href=""><em class="icon-crest"></em>{{ "Continuar" | t }}</button>
           {# creamos un input tipo submit con el id 'submit' #}
 
-
+          </div>
         </div>
       {% endif %}
 

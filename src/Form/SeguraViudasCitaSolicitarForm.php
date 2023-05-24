@@ -34,7 +34,12 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
 
       // Agrega la información de la cita a la variable de renderizado del formulario.
       $form['#cita_info'] = [
-        'date' => $node->get('field_date')->value, // Asegúrate de cambiar 'field_date' por el campo correcto en tu tipo de contenido.
+        // cogemos el titulo de la cita
+        'name' => $node->getTitle(),
+        'date' => $node->get('field_date')->value,
+        'time' => $node->get('field_time')->value,
+        'type' => $node->get('field_modalidad')->value,
+        'comment' => $node->get('field_comment')->value,
         'edit_link' => \Drupal\Core\Url::fromRoute('entity.node.edit_form', ['node' => $nid])->toString(),
       ];
     }

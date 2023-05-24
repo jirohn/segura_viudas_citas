@@ -25,7 +25,7 @@
               // La cita se actualizó con éxito.
               // Cierra el popup o muestra un mensaje, dependiendo de tu implementación.
               console.log('La cita se actualizó con éxito');
-              $('.mod-popup').hide();
+              $('#mod-popup').hide();
             } else {
               // Hubo un error al actualizar la cita.
               // Muestra un mensaje de error.
@@ -39,7 +39,7 @@
       // cerramos el 'mod-popup' cuando se hace clic en el botón 'cancelar'
       $('.close-mod-popup', context).click(function(e) {
         e.preventDefault();
-        $('.mod-popup').hide();
+        $('#mod-popup').hide();
       });
       var $file = $('input[type="file"]').eq(0);
       var $file2 = $('input[type="file"]').eq(1);
@@ -60,7 +60,7 @@
 
         event.preventDefault(); // Prevenir la acción predeterminada del enlace
         // mostramos el overlay que tiene un hide
-        $('.overlay').show();
+        $('#create-popup').show();
       });
       // Si se hace clic en el botón "open-popup", abrir el popup
       $('.open-mod-popup').off('click').click(function (event) {
@@ -68,7 +68,7 @@
 
         event.preventDefault(); // Prevenir la acción predeterminada del enlace
         // mostramos el overlay que tiene un hide
-        $('.mod-popup').show();
+        $('#mod-popup').show();
       });
       var $form = $(context).find('form');
       if ($form.hasClass('segura-viudas-citas-attached')) {
@@ -78,7 +78,7 @@
       // guardamos todos los date field fuera y  dentro del form en una variable
 
       // si cambia el field_date que esta dentro del div con la clase mod-popup el date del form cambia
-      $('.mod-popup input[name="field_date"]').on('change', function () {
+      $('#mod-popup input[name="field_date"]').on('change', function () {
         console.log('se cambio el date del popup');
         $form.find('input[name="field_date"]').val(this.value);
       });
@@ -198,8 +198,8 @@
     console.log('seguraViudasCitas form styles end');*/
     // FIN DE PABLADA //
     // Crea el div contenedor con la clase 'popup'
-    var $popupDiv = $('.popup');
-    var $overlay = $('.overlay');
+    var $popupDiv = $('#popup');
+    var $overlay = $('#create-popup');
     // Selecciona los campos del formulario y el botón de envío y los mueve al div popup
     var $fieldDate = $('#edit-field-date').detach();
     var $fieldTime = $('#edit-field-time').detach();
@@ -221,9 +221,9 @@
 
     $('.open-popup').prop('disabled', true);
     // hacemos invisible el overlay por defecto con un hide
-    $('.overlay').hide();
+    $('#create-popup').hide();
     // ocultamos el div con la clase 'mod-popup' por defecto con un hide
-    $('.mod-popup').hide();
+    $('#mod-popup').hide();
 
     var date = $('form input[name="field_date"] ').val();
     $('input[name="field_date"]').val(date);
