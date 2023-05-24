@@ -71,7 +71,7 @@
           </div>
         </div>
         </div>
-      <div class="block nomobile third column p-3 space-between" style="background-color:#f8f9f6; max-height:150px; margin-top:5em;margin-left: 2em;">
+      <div class="block nomobile third column p-3 space-between" style="background-color:#f8f9f6; align-self: flex-start; margin-top:5em;margin-left: 2em;">
         <h2 class="noup">{{ "Cita para la firma" | t }}</h2>
         {# Revisa si la información de la cita está presente. #}
         {% if form['#cita_info'] is defined %}
@@ -114,17 +114,17 @@
           {# creamos un boton para cerrar el popup con la clase close-mod-popup #}
           {#creamos un input tipo radio para seleccionar entre 'presencial' o 'Telefonica' con el id 'type' #}
           {#creamos encabezados con descripcion para todos nuestros inputs #}
-          <h3>{{ "Selecciona de cita" | t }}</h3>
+          <label style="display: block;">{{ "Selecciona de cita" | t }}</label>
           <input type="radio" id="type" name="type" value="presencial" {% if form['#cita_info']['type'] == 1 %} checked {% endif %}>
-          <label for="type">{{ "Presencial" | t }}</label>
+          <span style="margin-right: 1em;" for="type">{{ "Presencial" | t }}</span>
           <input type="radio" id="type" name="type" value="telefonica" {% if form['#cita_info']['type'] == 0 %} checked {% endif %}>
-          <label for="type">{{ "Telefonica" | t }}</label>
+          <span style="margin-right: 1em;" for="type">{{ "Telefonica" | t }}</span>
 
           {# creamos un input tipo date con el id 'date' #}
-          <h3>{{ "Selecciona un día en la agenda" | t }}</h3>
+          <label style="display: block;">{{ "Selecciona un día en la agenda" | t }}</label>
           <input type="date" id="date" name="field_date">
           {# creamos input tipo select donde dentro se podran seleccionar las horas desde las 9 hasta las 17 con intervalos de 30 minutos #}
-          <h3>{{ "Horas disponibles" | t }}</h3>
+          <label>{{ "Horas disponibles" | t }}</label>
 
           <select name="field_time" id="time">
             <option value="9:00">9:00</option>
@@ -146,10 +146,10 @@
             <option value="17:00">17:00</option>
           </select>
           {# por ultimo creamos un textarea sin formato donde pondremos el comentario que tenemos en la variable form['#cita_info']['comment']  #}
-          <h3>{{ "Comentario" | t }}</h3>
+          <label>{{ "Comentario" | t }}</label>
           <textarea name="field_comment" id="comment" cols="30" rows="10">{{ form['#cita_info']['comment'] }}</textarea>
           {# hacemos un boton que diga cancelar y otro que diga continuar #}
-          <button class="btn primary close-mod-popup" href=""><em class="icon-crest"></em>{{ "Cancelar" | t }}</button>
+          <button class="secondary-sub close-mod-popup" href=""><em class="icon-crest"></em>{{ "Cancelar" | t }}</button>
           <button class="btn primary save-mod-popup" href=""><em class="icon-crest"></em>{{ "Continuar" | t }}</button>
           {# creamos un input tipo submit con el id 'submit' #}
 
