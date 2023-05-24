@@ -1,7 +1,0 @@
-services:
-  mail_system.transport.segura_viudas_citas_mail:
-    class: Drupal\Core\Mail\Plugin\Mail\PhpMail
-    arguments: []
-    tags:
-      - { name: mail_system.transport, default: true }
-

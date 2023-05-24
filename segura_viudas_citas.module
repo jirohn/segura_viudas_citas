@@ -145,6 +145,44 @@ function segura_viudas_citas_node_delete(EntityInterface $entity) {
     }
   }
   /**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function segura_viudas_citas_node_insert(EntityInterface $entity) {
+  if ($entity->bundle() == 'citas' && $entity->label() != 'Bloqueado') {
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    $module = 'segura_viudas_citas';
+    $key = 'citas_created';
+    $to = $entity->getOwner()->getEmail();
+    $params['username'] = $entity->getOwner()->getDisplayName();
+    $params['title'] = $entity->label();
+    $send = true;
+
+    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+    if ($result['result'] !== true) {
+      \Drupal::logger('segura_viudas_citas')->error('Hubo un problema al enviar el correo a %mail', ['%mail' => $to]);
+    }
+  }
+}
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ */
+function segura_viudas_citas_node_update(EntityInterface $entity) {
+  if ($entity->bundle() == 'citas') {
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    $module = 'segura_viudas_citas';
+    $key = 'citas_updated';
+    $to = $entity->getOwner()->getEmail();
+    $params['username'] = $entity->getOwner()->getDisplayName();
+    $params['title'] = $entity->label();
+    $send = true;
+
+    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+    if ($result['result'] !== true) {
+      \Drupal::logger('segura_viudas_citas')->error('Hubo un problema al enviar el correo a %mail', ['%mail' => $to]);
+    }
+  }
+}
+/**
  * Implements hook_mail().
  */
 function segura_viudas_citas_mail($key, &$message, $params) {
@@ -158,6 +196,18 @@ function segura_viudas_citas_mail($key, &$message, $params) {
         '@deleter' => $params['deleter'],
       ]);
       break;
+    case 'citas_created':
+        $message['from'] = \Drupal::config('system.site')->get('mail');
+        $message['subject'] = t('Has creado una cita: @title', ['@title' => $params['title']]);
+        $message['body'][] = t('Hola @username,', ['@username' => $params['username']]);
+        $message['body'][] = t('Has creado una cita con el título "@title".', ['@title' => $params['title']]);
+      break;
+    case 'citas_updated':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('Tu cita @title ha sido actualizada', ['@title' => $params['title']]);
+      $message['body'][] = t('Hola @username,', ['@username' => $params['username']]);
+      $message['body'][] = t('Tu cita "@title" ha sido actualizada.', ['@title' => $params['title']]);
+    break;
   }
 }
 
