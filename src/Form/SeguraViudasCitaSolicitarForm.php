@@ -65,7 +65,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#title' => $this->t('CARTA ACREDITATIVA RAÏM DO CAVA*'),
       '#upload_location' => 'public://',
       '#upload_validators' => [
-        'file_validate_extensions' => ['pdf jpg jpeg'],
+        'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
       ],
       '#multiple' => 'true',
       '#required' => TRUE,
@@ -77,7 +77,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#title' => $this->t('QUADERN DE CAMP*'),
       '#upload_location' => 'public://',
       '#upload_validators' => [
-        'file_validate_extensions' => ['pdf jpg jpeg'],
+        'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
       ],
       '#required' => TRUE,
     ];
@@ -87,7 +87,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#title' => $this->t('CERTIFICAT CCPAE'),
       '#upload_location' => 'public://',
       '#upload_validators' => [
-        'file_validate_extensions' => ['pdf jpg jpeg'],
+        'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
       ],
       '#required' => FALSE,
     ];
@@ -97,7 +97,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#title' => $this->t('RVC'),
       '#upload_location' => 'public://',
       '#upload_validators' => [
-        'file_validate_extensions' => ['pdf jpg jpeg'],
+        'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
       ],
       '#required' => FALSE,
     ];
@@ -107,7 +107,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#title' => $this->t('ALTRES DOCUMENTS'),
       '#upload_location' => 'public://',
       '#upload_validators' => [
-        'file_validate_extensions' => ['pdf jpg jpeg'],
+        'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
       ],
       '#multiple' => 'true',
       '#required' => FALSE,
