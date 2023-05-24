@@ -51,6 +51,7 @@
           // Habilitar el botón
           $('.open-popup').prop('disabled', false);
           console.log('se habilito el open popup');
+          $('.open-popup').removeClass('disabled');
         }
       });
 
