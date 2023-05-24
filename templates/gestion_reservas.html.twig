@@ -1,17 +1,23 @@
 {# creamos un input tipo date con la id #date-imput #}
-<input type="date" id="date-input" value="{{ date }}" />
-
-<table>
-  <thead>
-    <tr>
-      {% for i in 0..6 %}
-        <th id="day-{{ i }}"></th>
-      {% endfor %}
-    </tr>
-  </thead>
-  <tbody>
-    {% for i in 0..6 %}
-      <td id="column-{{ i }}"></td>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="date-picker-wrapper">
+<label for="date-picker form-item__label visually-hidden">{{ 'Seleccionar fecha'|t }}:</label><br>
+<input class="form-date form-element form-element--type-date form-element--api-date" type="date" id="date-input" value="{{ date }}" />
+<br><br>
+<div class="view-content gin-layer-wrapper gestion-citas-wrapper">
+  <div class="gin-table-scroll-wrapper">
+    <table class="views-table views-view-table cols-5 responsive-enabled sticky-enabled">
+      <thead class="sticky-header">
+        <tr>
+          {% for i in 0..6 %}
+            <th id="day-{{ i }}"></th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in 0..6 %}
+          <td id="column-{{ i }}"></td>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
