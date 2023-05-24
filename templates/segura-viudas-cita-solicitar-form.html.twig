@@ -72,7 +72,21 @@
         </div>
       <div class="block nomobile third column p-3 space-between" style="background-color:#f8f9f6; max-height:150px; margin-top:5em;margin-left: 2em;">
         <h2 class="noup">{{ "Cita para la firma" | t }}</h2>
+        {# Revisa si la información de la cita está presente. #}
+        {% if form['#cita_info'] is defined %}
+          {# Crea un div personalizado con la información de la cita. #}
+          <div>
+            <p>Tienes una cita el {{ form['#cita_info']['date'] }}.</p>
+            <p>
+            {# creamos un boton llamado modificar cita con la clase btn primary open-mod-popup #}
+            <button class="btn primary open-mod-popup" href=""><em class="icon-crest"></em>{{ "Modificar cita" | t }}</button>
+            </p>
+          </div>
+            {# renderizamos un nuevo div con la clase mod-popup con varias opciones dentro. #}
+        {% else %}
+          {# Renderiza el formulario como de costumbre. #}
           <center><button style="text-align:center;" class="btn primary open-popup" href=""><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</button></center>
+        {% endif %}
       </div>
 
       <div id="popup" class="overlay">
@@ -80,6 +94,60 @@
 
         </div>
       </div>
+      {% if form['#cita_info'] is defined %}
+
+       <div class="mod-popup">
+          {# creamos titulo para el popup #}
+          <h2>{{ "Modificar la cita para la firma" | t }}</h2>
+          {#creamos la descripcion #}
+          <p>{{ "Selecciona un nuevo día y hora en la agenda para cambiar la cita actual." | t }}</p>
+          {# creamos un boton para cerrar el popup con la clase close-mod-popup #}
+          {# creamos un boton para cerrar el popup con la clase close-mod-popup #}
+          {#creamos un input tipo radio para seleccionar entre 'presencial' o 'Telefonica' con el id 'type' #}
+          {#creamos encabezados con descripcion para todos nuestros inputs #}
+          <h3>{{ "Selecciona de cita" | t }}</h3>
+
+          <input type="radio" id="type" name="type" value="presencial">
+          <label for="type">{{ "Presencial" | t }}</label>
+          <input type="radio" id="type" name="type" value="telefonica">
+          <label for="type">{{ "Telefonica" | t }}</label>
+
+          {# creamos un input tipo date con el id 'date' #}
+          <h3>{{ "Selecciona un día en la agenda" | t }}</h3>
+          <input type="date" id="date" name="field_date">
+          {# creamos input tipo select donde dentro se podran seleccionar las horas desde las 9 hasta las 17 con intervalos de 30 minutos #}
+          <h3>{{ "Horas disponibles" | t }}</h3>
+          <select name="field_time" id="time">
+            <option value="9:00">9:00</option>
+            <option value="9:30">9:30</option>
+            <option value="10:00">10:00</option>
+            <option value="10:30">10:30</option>
+            <option value="11:00">11:00</option>
+            <option value="11:30">11:30</option>
+            <option value="12:00">12:00</option>
+            <option value="12:30">12:30</option>
+            <option value="13:00" disabled>13:00</option>
+            <option value="13:30" disabled>13:30</option>
+            <option value="14:00" disabled>14:00</option>
+            <option value="14:30">14:30</option>
+            <option value="15:00">15:00</option>
+            <option value="15:30">15:30</option>
+            <option value="16:00">16:00</option>
+            <option value="16:30">16:30</option>
+            <option value="17:00">17:00</option>
+          </select>
+          {# por ultimo creamos un textarea sin formato donde pondremos el comentario #}
+          <h3>{{ "Comentario" | t }}</h3>
+          <textarea name="comment" id="comment" cols="30" rows="10" placeholder="Comentario"></textarea>
+          {# hacemos un boton que diga cancelar y otro que diga continuar #}
+          <button class="btn primary close-mod-popup" href=""><em class="icon-crest"></em>{{ "Cancelar" | t }}</button>
+          <button class="btn primary save-mod-popup" href=""><em class="icon-crest"></em>{{ "Continuar" | t }}</button>
+          {# creamos un input tipo submit con el id 'submit' #}
+
+
+        </div>
+      {% endif %}
+
       <!-- Computer -->
     </div>
 </section>

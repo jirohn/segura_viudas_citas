@@ -3,7 +3,44 @@
     attach: function (context, settings) {
       console.log('seguraViudasCitas behavior attached');
 
+      $('.save-mod-popup', context).click(function(e) {
+        e.preventDefault();
 
+        // Recoge los datos del formulario.
+        var data = {
+          nid: drupalSettings.segura_viudas_citas.nid,
+          date: $('#date').val(),
+          time: $('#time').val(),
+          type: $('input[name="type"]:checked').val(),
+          comment: $('#comment').val()
+        };
+        console.log('data', data);
+        // Enviar una petición AJAX al controlador personalizado.
+        $.ajax({
+          url: Drupal.url('/proveedores/update_cita'),
+          type: 'GET',
+          data: data,
+          success: function(response) {
+            if (response.status === 'success') {
+              // La cita se actualizó con éxito.
+              // Cierra el popup o muestra un mensaje, dependiendo de tu implementación.
+              console.log('La cita se actualizó con éxito');
+              $('.mod-popup').hide();
+            } else {
+              // Hubo un error al actualizar la cita.
+              // Muestra un mensaje de error.
+              console.log('Hubo un error al actualizar la cita');
+              //mostramos alerta
+              alert('Hubo un error al actualizar la cita');
+            }
+          }
+        });
+      });
+      // cerramos el 'mod-popup' cuando se hace clic en el botón 'cancelar'
+      $('.close-mod-popup', context).click(function(e) {
+        e.preventDefault();
+        $('.mod-popup').hide();
+      });
       var $file = $('input[type="file"]').eq(0);
       var $file2 = $('input[type="file"]').eq(1);
 
@@ -25,14 +62,29 @@
         // mostramos el overlay que tiene un hide
         $('.overlay').show();
       });
+      // Si se hace clic en el botón "open-popup", abrir el popup
+      $('.open-mod-popup').off('click').click(function (event) {
+        console.log('se intento abrir el popup');
+
+        event.preventDefault(); // Prevenir la acción predeterminada del enlace
+        // mostramos el overlay que tiene un hide
+        $('.mod-popup').show();
+      });
       var $form = $(context).find('form');
       if ($form.hasClass('segura-viudas-citas-attached')) {
         return;
       }
       $form.addClass('segura-viudas-citas-attached');
+      // guardamos todos los date field fuera y  dentro del form en una variable
 
-      var $timeField = $form.find('select[name="field_time"]');
-      var $dateField = $form.find('input[name="field_date"]');
+      // si cambia el field_date que esta dentro del div con la clase mod-popup el date del form cambia
+      $('.mod-popup input[name="field_date"]').on('change', function () {
+        console.log('se cambio el date del popup');
+        $form.find('input[name="field_date"]').val(this.value);
+      });
+      var $timeField = $('select[name="field_time"]');
+      var $dateField = $('input[name="field_date"]');
+      // le asignamos la fecha que tiene el date_field que esta dentro del form
 
       // Deshabilitar los sábados y domingos
       $dateField.on('change', function () {
@@ -170,6 +222,11 @@
     $('.open-popup').prop('disabled', true);
     // hacemos invisible el overlay por defecto con un hide
     $('.overlay').hide();
+    // ocultamos el div con la clase 'mod-popup' por defecto con un hide
+    $('.mod-popup').hide();
+
+    var date = $('form input[name="field_date"] ').val();
+    $('input[name="field_date"]').val(date);
   });
 
 })(jQuery, Drupal);

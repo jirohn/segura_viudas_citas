@@ -78,9 +78,28 @@ function segura_viudas_citas_preprocess_page(&$variables) {
     $formatted_date = \Drupal::service('date.formatter')->format($last_access, 'custom', 'd/m/Y H:i');
     $variables['last_access'] = $formatted_date;
   }
+  $nid = _segura_viudas_citas_get_current_user_appointment_nid();
+
+  $variables['#attached']['drupalSettings']['segura_viudas_citas']['nid'] = $nid;
 }
 
+function _segura_viudas_citas_get_current_user_appointment_nid() {
+  $currentUser = \Drupal::currentUser();
+  $userId = $currentUser->id();
 
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'citas')
+    ->condition('uid', $userId)
+    ->sort('created', 'DESC')
+    ->range(0, 1)
+    ->accessCheck(FALSE); // No realizar verificación de acceso.
+
+
+  $nids = $query->execute();
+
+  // Esto devolverá el nid del nodo más reciente o NULL si el usuario no tiene nodos 'citas'.
+  return reset($nids);
+}
 /**
  * Implementa hook_preprocess_HOOK() para pasar variables a Twig.
  */
@@ -126,4 +145,5 @@ function segura_viudas_citas_node_delete(EntityInterface $entity) {
     }
   }
 }
+
 

@@ -7,7 +7,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-
+use Drupal\node\Entity\Node;
 /**
  * CustomAjaxController.
  */
@@ -80,4 +80,44 @@ class AjaxController extends ControllerBase {
 
 
 }
+  /**
+   * Callback for the 'segura_viudas_citas/update_cita' route.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   A JSON response containing the times of existing appointments.
+   */
+  public function updateCita(Request $request) {
+    $response = ['status' => 'error'];
+
+    $data = $request->query->all();
+    $nid = $data['nid']; // Necesitarás pasar el NID de la cita en la petición AJAX.
+
+    if (!empty($nid)) {
+      $node = Node::load($nid);
+
+      if ($node && $node->getType() == 'citas') {
+        // Actualiza los campos de la cita.
+        $node->set('field_date', $data['date']);
+        $node->set('field_time', $data['time']);
+        if ($data['type'] == 'Presencial') {
+        $node->set('field_modalidad', '1');
+        }
+        else if ($data['type'] == 'Telefonica'){
+        $node->set('field_modalidad', '0');
+        }
+        $node->set('field_comment', $data['comment']);
+
+        // Guarda el nodo.
+        $node->save();
+
+        $response = ['status' => 'success'];
+      }
+    }
+
+    return new JsonResponse($response);
+  }
 }
+

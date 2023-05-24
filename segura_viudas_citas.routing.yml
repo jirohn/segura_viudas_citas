@@ -104,3 +104,12 @@ segura_viudas_citas.citas:
     _controller: '\Drupal\segura_viudas_citas\Controller\CitasListController::getCitas'
   requirements:
     _permission: 'access content'
+
+segura_viudas_citas.update_cita:
+  path: '/proveedores/update_cita'
+  defaults:
+    _controller: '\Drupal\segura_viudas_citas\Controller\AjaxController::updateCita'
+  methods: [GET]
+  requirements:
+    _permission: 'access content'
+

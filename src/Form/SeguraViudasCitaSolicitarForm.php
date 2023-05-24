@@ -15,6 +15,29 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
   }
 
   public function buildForm(array $form, FormStateInterface $form_state) {
+    // Obten el usuario actual.
+    $current_user = \Drupal::currentUser();
+
+    // Comprueba si el usuario tiene una cita.
+    $query = \Drupal::entityQuery('node')
+    ->condition('type', 'citas')
+    ->condition('uid', $current_user->id())
+    ->accessCheck(FALSE); // Añade esta línea
+
+    $nids = $query->execute();
+
+    if (!empty($nids)) {
+      // El usuario ya tiene una cita. Guarda la información de la cita.
+
+      $nid = reset($nids); // Obtén el primer NID de la lista.
+      $node = \Drupal\node\Entity\Node::load($nid); // Carga la cita.
+
+      // Agrega la información de la cita a la variable de renderizado del formulario.
+      $form['#cita_info'] = [
+        'date' => $node->get('field_date')->value, // Asegúrate de cambiar 'field_date' por el campo correcto en tu tipo de contenido.
+        'edit_link' => \Drupal\Core\Url::fromRoute('entity.node.edit_form', ['node' => $nid])->toString(),
+      ];
+    }
      // guardamos la fecha en una variable
     $current_date = DrupalDateTime::createFromTimestamp(time())->format('Y-m-d');
     // guardamos el nombre del usuario actual en una variable con accountinterface
