@@ -25,6 +25,8 @@
               // La cita se actualizó con éxito.
               // Cierra el popup o muestra un mensaje, dependiendo de tu implementación.
               console.log('La cita se actualizó con éxito');
+              // recargamos la pagina
+              location.reload();
               $('#mod-popup').hide();
             } else {
               // Hubo un error al actualizar la cita.
