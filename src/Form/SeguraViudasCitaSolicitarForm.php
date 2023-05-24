@@ -208,8 +208,8 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
     // Utiliza la función 'messenger()' para mostrar mensajes en Drupal 10.
     $this->messenger()->addStatus($this->t('Cita solicitada correctamente.'));
 
-    // Redirige a la página de citas.
-    $form_state->setRedirect('entity.node.canonical', ['node' => $node->id()]);
+    // Redirige a la misma pagina donde estamos
+    $form_state->setRedirect('<current>');
   }
 
 }
