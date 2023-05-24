@@ -129,7 +129,7 @@ function segura_viudas_citas_preprocess_node(&$variables) {
  * Implements hook_ENTITY_TYPE_delete().
  */
 function segura_viudas_citas_node_delete(EntityInterface $entity) {
-  if ($entity->bundle() == 'citas') {
+  if ($entity->bundle() == 'citas' && $entity->label() != 'Bloqueado') {
     $mailManager = \Drupal::service('plugin.manager.mail');
     $module = 'segura_viudas_citas';
     $key = 'citas_deleted';
@@ -144,6 +144,23 @@ function segura_viudas_citas_node_delete(EntityInterface $entity) {
       \Drupal::logger('segura_viudas_citas')->error('Hubo un problema al enviar el correo a %mail', ['%mail' => $to]);
     }
   }
+  /**
+ * Implements hook_mail().
+ */
+function segura_viudas_citas_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'citas_deleted':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('La cita @title ha sido eliminada', ['@title' => $params['title']]);
+      $message['body'][] = t('Hola @username,', ['@username' => $params['username']]);
+      $message['body'][] = t('Tu cita "@title" ha sido eliminada por @deleter.', [
+        '@title' => $params['title'],
+        '@deleter' => $params['deleter'],
+      ]);
+      break;
+  }
+}
+
 }
 
 

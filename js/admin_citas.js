@@ -70,7 +70,11 @@
             $row.css('cursor', 'pointer');
             if(citaForTimeSlot.title != 'Bloqueado'){
               $row.on('click', function () {
+                // le decimos que si hace click es la accion eliminar no haga nada
+                if (event.target.className == 'action-link action-link--danger action-link--icon-delete') {
                 window.location.href = Drupal.url('node/' + citaForTimeSlot.nid);
+                }
+
               });
             }
             // comprobamos el titulo de la cita y si se llama bloqueado le agregamos la clase blocked
@@ -131,10 +135,13 @@
                 $row.append($('<td></td>').text(citaForTimeSlot.field_modalidad));
 
                 // eliminamos las etiquetas HTML del comentario
+                if(citaForTimeSlot.field_comment != null){
                 comment_sanitized = citaForTimeSlot.field_comment.replace(/<[^>]+>/g, '');
 
                 $row.append($('<td></td>').text(comment_sanitized));
-
+                }else{
+                  $row.append($('<td></td>').text(''));
+                }
                 // si no es una cita bloqueada le añadimos el boton de bloquear
                 if (citaForTimeSlot.title != 'Bloqueado') {
                 // Agrega un botón de eliminar en la columna Acciones con una imagen
@@ -156,6 +163,7 @@
                     deleteAppointment(citaForTimeSlot.nid);
                     // mostramos mensaje de espera
                     alert('Eliminando cita...');
+                    $('#date-picker').change();
                     // recargamos la pagina
                   }
 
