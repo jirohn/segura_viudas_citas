@@ -1,3 +1,9 @@
+#popupDocument #file-container {
+  max-width: 700px;
+  max-height: 300px;
+  overflow: scroll;
+}
+
 .gestion-citas-wrapper .empty {
     background-color: #f5f8ff;
 }
