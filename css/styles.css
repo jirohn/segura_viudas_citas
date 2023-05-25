@@ -94,3 +94,7 @@ input[type="file"] {
   color: var(--gin-color-text);
   background-color: #f5f8ff!important;
 }
+
+.mi-clase-de-boton:before {
+  content: url('ruta/hacia/tu/icono.svg');
+}

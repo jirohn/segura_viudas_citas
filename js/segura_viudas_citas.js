@@ -146,7 +146,10 @@
           this.value = '';
         }
       });
-
+      // buscamos el submit y le añadimos un icono
+      var $submit = $form.find('#edit-submit');
+      // le añadimos esto al submit <em class="icon-crest"></em>
+      $submit.append('<em class="icon-crest"></em>');
       function disableTimeField() {
         console.log('Desactivando el campo de hora');
         $timeField.prop('disabled', true);

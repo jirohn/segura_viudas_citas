@@ -211,6 +211,9 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#type' => 'submit',
       /* Añadimos un value con un <em> y un texto */
       '#value' => $this->t('Solicitar cita'),
+      '#attributes' => array(
+        'class' => array('icon-crest'),
+      ),
     ];
     // creamos una variable para retornar en el $form la plantilla twig y la- libreria js 'segura_viudas_citas'
     $form['#attached']['library'] = 'segura_viudas_citas/segura_viudas_citas';
