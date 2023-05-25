@@ -272,9 +272,8 @@
       // si el array tiene contenido añadimos cada elemento del array en en los input tipo file por orden
       if ($fileInfo.length > 0) {
         $fileInfo.each(function(index) {
-          // si dentro del div file-info no hay nada se lanza el codigo
-
-          if ($(this).is(':empty')) {
+          // si el elemento del array tiene un <p> dentro
+          if ($(this).find('p').length > 0) {
           var $fileInfo = $(this);
           var $fileInput = $('input[type="file"]').eq(index);
           // le añadimos al fileinput el atributo disabled
