@@ -75,17 +75,16 @@ function segura_viudas_citas_create_field($field_name, $field_label, $bundle, $f
   ]);
 
   if ($field_type == 'file') {
-    $field_config->setSetting('file_extensions', 'pdf doc docx jpg');
+    $field_config->setSetting('file_extensions', 'pdf doc docx jpg jpeg xls xlsx png');
   }
   if ($field_name == 'field_modalidad') {
     $field_storage->setSetting('on_label', 'Presencial');
     $field_storage->setSetting('off_label', 'Telefonica');
+  } else if ($field_name == 'field_file1' || $field_name == 'field_file5') {
+    // le añadimos multiple
+    $field_storage->setSetting('multiple', TRUE);
   }
-  // le decimos que si es 'field_file' o 'field_file5' que permita varios archivos//
-  if ($field_name == 'field_file' || $field_name == 'field_file5') {
 
-
-  }
   $field_config->save();
 
   // Asignar el widget a la configuración del formulario.
