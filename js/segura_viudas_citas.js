@@ -3,6 +3,8 @@
     attach: function (context, settings) {
       console.log('seguraViudasCitas behavior attached');
 
+
+
       $('.save-mod-popup', context).click(function(e) {
         e.preventDefault();
         $type = '1';
@@ -104,7 +106,7 @@
         var day = dateValue.getDay();
 
         if (day === 0) {
-          alert('Los sábados y domingos no están disponibles para citas.');
+          alert('Este dia no esta disponible para solicitar citas.');
           this.value = '';
         }
       });
@@ -241,6 +243,21 @@
 
     var date = $('form input[name="field_date"] ').val();
     $('input[name="field_date"]').val(date);
+    // una vez cargado el documento se ejecuta la funcion
+    $(document).ready(function() {
+      // cogemos todos divs con la clase 'file-info' y los añadimos en una array
+      var $fileInfo = $('.file-info');
+      // si el array tiene contenido añadimos cada elemento del array en en los input tipo file por orden
+      if ($fileInfo.length > 0) {
+        $fileInfo.each(function(index) {
+          var $fileInfo = $(this);
+          var $fileInput = $('input[type="file"]').eq(index);
+          $fileInfo.insertAfter($fileInput);
+        });
+      }
+    });
+
+
   });
 
 })(jQuery, Drupal);
