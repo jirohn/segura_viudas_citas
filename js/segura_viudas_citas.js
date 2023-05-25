@@ -208,7 +208,11 @@
   $(document).ready(function () {
     console.log('seguraViudasCitas form styles attached');
     // buscamos los span con clases noFileUploades y le quitamos la clase hidden
+    var $fileInfo = $('.file-field');
+    // si no existe $fileInfo
+    if (!$fileInfo.length) {
     $('.nofileuploades').removeClass('hidden');
+    }
     //PABLADAS//
     // Añade clases y estilosa los contenedores de los inputs:
    /* var $fileDiv = $('.js-form-item-field-file').addClass('block column half right space-between').prepend('<p class="file-title">CARTA ACREDITATIVA RAÏM DO CAVA O DO CAT, O AMBDÓS*</p>');
