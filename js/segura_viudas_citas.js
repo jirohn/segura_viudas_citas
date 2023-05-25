@@ -274,6 +274,10 @@
         $fileInfo.each(function(index) {
           var $fileInfo = $(this);
           var $fileInput = $('input[type="file"]').eq(index);
+          // le añadimos al fileinput el atributo disabled
+          $fileInput.prop('disabled', true);
+          // le añadimos a al div padre del input la clase 'disabled'
+          $fileInfo.parent().addClass('disabled');
           $fileInfo.insertAfter($fileInput);
         });
       }
