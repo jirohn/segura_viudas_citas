@@ -135,7 +135,14 @@
         var day = dateValue.getDay();
 
         if (day === 0) {
-          alert('Este dia no esta disponible para solicitar citas.');
+          // detectamos el idioma de la pagina
+          var lang = $('html').attr('lang');
+          if (lang == 'es') {
+            alert('No se pueden seleccionar citas este día');
+          } else {
+            // ahora en catalan
+            alert('No es poden seleccionar cites aquest dia');
+          }
           this.value = '';
         }
       });
