@@ -12,10 +12,13 @@
           fileDisplayArea = '<img src="' + file_url + '" width="800">';
         }
         document.getElementById('documentName').innerHTML = '<div id="file-container">' + fileDisplayArea + '</div>';
-         // Si el archivo es de formato xls o xlsx se añade un botón de descarga del archivo
+         // Si el archivo es de formato xls o xlsx se añade un botón de descarga del archivo y en lugar de "undefined" muestra un texto indicando que el archivo no se puede previsualizar
         if (fileExtension == 'xls' || fileExtension == 'xlsx') {
-          document.getElementById('documentName').innerHTML += '<a href="' + file_url + '" download="' + file_name + '">Descargar</a>';
+          // Añade un texto antes del botón que diga que el archivo no se puede previsualizar
+          fileDisplayArea = '<p>El archivo no se puede previsualizar</p>';
+          document.getElementById('documentName').innerHTML = '<div id="file-container">' + fileDisplayArea + '</div>' + '<div id="file-download"><a href="' + file_url + '" download>Descargar archivo</a></div>';
         }
+
         //document.getElementById('documentName').innerHTML = '<a href="' + file_url + '">' + file_name + '</a>';
         document.getElementById('validateDocument').onclick = function () {
           $.ajax({
@@ -25,6 +28,7 @@
             success: function () {
               closepreview();
               console.log('documento validado', file_field_name);
+
               // le añadimos al lado del nombre una imagen de validado
               var img = document.createElement("img");
               img.src = ("/modules/nateevo/segura_viudas_citas/images/validated.svg");
@@ -32,11 +36,13 @@
               img.height = 20;
               img.classList.add("validate-icon");
               var src = document.getElementById(file_field_name);
+
               // si hay un img dentro de src y contiene la clase 'validate-icon' no añadimos la img
               if (!src.classList.contains('validate-icon')) {
                 src.append(img);
               }else{
                 console.log('ya tiene la clase validate-icon');
+
                 // le cambiamos el source a la img
                 src.find('img').attr('src', '/modules/nateevo/segura_viudas_citas/images/validated.svg');
               }
@@ -55,19 +61,23 @@
             success: function () {
               closepreview();
               console.log('documento rechazado', file_field_name);
+
               // le añadimos al lado del nombre una imagen de rechazado con la clase 'validate-icon'
               var img = document.createElement("img");
               img.src = ("/modules/nateevo/segura_viudas_citas/images/refused.svg");
               img.width = 20;
               img.height = 20;
+
               // añadimos la clase 'validate-icon'a nuestra img
               img.classList.add("validate-icon");
               var src = document.getElementById(file_field_name);
+
               // si el img dentro del elemento con la id (file_field_name) tiene la clase 'validate-icon' no añadimos la img
               if (!src.classList.contains('validate-icon')) {
                 src.append(img);
-              }else{
+              } else {
                 console.log('ya tiene la clase validate-icon');
+                
                 // le cambiamos el source a la img
                 src.find('img').attr('src', '/modules/nateevo/segura_viudas_citas/images/refused.svg');
               }
@@ -77,9 +87,12 @@
             },
           });
         };
+        
         document.getElementById('popupDocument').style.display = 'flex';
 
       }
+
+
 
       window.closePopup = function() {
         document.getElementById('documentName').innerHTML = '';
