@@ -122,8 +122,11 @@
             {% else %}
               <p><b>{{ 'Presencial' | t }}</b>.</p>
             {% endif %}
-          </div>
-          <p>
+            {# creamos un boton 'x' con una clase btn danger#}
+            <button class="btn danger open-del-popup" id="delete-cita" href=""><em class="icon-cross"></em></button>
+            {# creamos un boton llamado modificar cita con la clase btn primary open-mod-popup #}
+
+            <p>
             {# creamos un boton llamado modificar cita con la clase btn primary open-mod-popup #}
             <button class="btn primary open-mod-popup" href=""><em class="icon-crest"></em>{{ "Modificar cita" | t }}</button>
           </p>
