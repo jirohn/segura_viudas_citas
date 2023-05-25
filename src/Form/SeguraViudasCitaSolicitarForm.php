@@ -28,19 +28,33 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
 
     if (!empty($nids)) {
       // El usuario ya tiene una cita. Guarda la información de la cita.
-
       $nid = reset($nids); // Obtén el primer NID de la lista.
       $node = \Drupal\node\Entity\Node::load($nid); // Carga la cita.
 
+      $files_info = [];
+      for ($i = 1; $i <= 5; $i++) {
+        $file_field = 'field_file' . ($i === 1 ? '' : $i);
+        $verify_field = 'field_verify_file' . ($i === 1 ? '' : $i);
+
+        $file = $node->get($file_field)->entity;
+        $verify_status = $node->get($verify_field)->value;
+
+        $files_info[$file_field] = [
+          'filename' => $file ? $file->getFilename() : NULL,
+          'status' => $verify_status === 'validado' ? 'Validado'
+                    : ($verify_status === 'rechazado' ? 'Rechazado' : NULL),
+        ];
+      }
+
       // Agrega la información de la cita a la variable de renderizado del formulario.
       $form['#cita_info'] = [
-        // cogemos el titulo de la cita
         'name' => $node->getTitle(),
         'date' => $node->get('field_date')->value,
         'time' => $node->get('field_time')->value,
         'type' => $node->get('field_modalidad')->value,
         'comment' => $node->get('field_comment')->value,
         'edit_link' => \Drupal\Core\Url::fromRoute('entity.node.edit_form', ['node' => $nid])->toString(),
+        'files_info' => $files_info, // Agrega la información de los archivos aquí.
       ];
     }
      // guardamos la fecha en una variable

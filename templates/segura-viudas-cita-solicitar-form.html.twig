@@ -64,6 +64,38 @@
         <!-- Formulario -->
         <div style="margin-top:2em;"class="full cgap-1 uploads nomobile">
 
+
+        {% if form['#cita_info']['files_info'] is defined %}
+          <div class="files-info">
+            {% for field, file_info in form['#cita_info']['files_info'] %}
+              <div class="file-info">
+                {% if file_info.filename %}
+                  <p>Archivo {{ loop.index }}: {{ file_info.filename }}
+                  {#si el estado es verificado le añadimos algo y si no lo esta le añadimos otra cosa #}
+                  {% if file_info.status == 'Validado' %}
+                    <svg style="border-radius: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2ca500" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="#2ca500"/>
+                    <rect x="4" y="4" width="16" height="16" rx="2" />
+                    </svg>
+                  {% else %}
+                    <svg style="border-radius: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#c82020" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="#c82020"/>
+                    <rect x="4" y="4" width="16" height="16" rx="2" />
+                    </svg>
+                  {% endif %}
+
+                  </p>
+                {% else %}
+
+                {% endif %}
+
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+
+
           {{ form }}
 
         <!-- Formulario -->

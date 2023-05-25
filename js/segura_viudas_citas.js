@@ -3,15 +3,21 @@
     attach: function (context, settings) {
       console.log('seguraViudasCitas behavior attached');
 
+
+
       $('.save-mod-popup', context).click(function(e) {
         e.preventDefault();
-
+        $type = '1';
+        if($('input[name="type"]:checked').val()=='telefonica'){
+          console.log('se selecciono un tipo de cita telefonica');
+          $type = '0';
+        }
         // Recoge los datos del formulario.
         var data = {
           nid: drupalSettings.segura_viudas_citas.nid,
           date: $('#date').val(),
           time: $('#time').val(),
-          type: $('input[name="type"]:checked').val(),
+          type: $type,
           comment: $('#comment').val()
         };
         console.log('data', data);
@@ -56,7 +62,12 @@
           $('.open-popup').removeClass('disabled');
         }
       });
-
+      // si hace click en cualquier otro lado o en el boton de cancelar se cierra el popup
+      $('#cancel-popup').off('click').click(function (event) {
+        console.log('se intento cerrar el popup');
+        event.preventDefault(); // Prevenir la acción predeterminada del enlace
+        $('#create-popup').hide();
+      });
       // Si se hace clic en el botón "open-popup", abrir el popup
       $('.open-popup').off('click').click(function (event) {
         console.log('se intento abrir el popup');
@@ -95,7 +106,7 @@
         var day = dateValue.getDay();
 
         if (day === 0) {
-          alert('Los sábados y domingos no están disponibles para citas.');
+          alert('Este dia no esta disponible para solicitar citas.');
           this.value = '';
         }
       });
@@ -208,6 +219,8 @@
     var $fieldTime = $('#edit-field-time').detach();
     var $fieldComment = $('#edit-field-comment').detach();
     var $fieldModalidad = $('#edit-field-modalidad').detach();
+    // creamos boton cancelar y lo añadimos en variable
+    var $cancel = $('<button type="button" class="btn secondary-sub" id="cancel-popup">Cancelar</button>');
     var $submit = $('#edit-submit').detach();
     // selecciona los labels de los campos y los mueve al div popup
     var $labelDate = $('label[for="edit-field-date"]').detach();
@@ -215,7 +228,7 @@
     var $labelComment = $('label[for="edit-field-comment"]').detach();
     var $labelModalidad = $('label[for="edit-field-modalidad"]').detach();
     // Añade los elementos al div
-    $popupDiv.append( $labelDate, $fieldDate, $labelTime, $fieldTime, $labelComment, $fieldComment, $labelModalidad, $fieldModalidad, $submit);
+    $popupDiv.append( $labelDate, $fieldDate, $labelTime, $fieldTime, $labelComment, $fieldComment, $labelModalidad, $fieldModalidad,$cancel, $submit);
     console.log('añadido el popup');
     // Agrega el div popup al final del formulario
     $('form').append($overlay);
@@ -230,6 +243,21 @@
 
     var date = $('form input[name="field_date"] ').val();
     $('input[name="field_date"]').val(date);
+    // una vez cargado el documento se ejecuta la funcion
+    $(document).ready(function() {
+      // cogemos todos divs con la clase 'file-info' y los añadimos en una array
+      var $fileInfo = $('.file-info');
+      // si el array tiene contenido añadimos cada elemento del array en en los input tipo file por orden
+      if ($fileInfo.length > 0) {
+        $fileInfo.each(function(index) {
+          var $fileInfo = $(this);
+          var $fileInput = $('input[type="file"]').eq(index);
+          $fileInfo.insertAfter($fileInput);
+        });
+      }
+    });
+
+
   });
 
 })(jQuery, Drupal);
