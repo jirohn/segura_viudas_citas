@@ -29,10 +29,10 @@
 
       $('.save-mod-popup', context).click(function(e) {
         e.preventDefault();
-        $type = '1';
+        $type = '0';
         if($('input[name="type"]:checked').val()=='telefonica'){
           console.log('se selecciono un tipo de cita telefonica');
-          $type = '0';
+          $type = '1';
         }
         // Recoge los datos del formulario.
         var data = {
@@ -128,7 +128,7 @@
         var day = dateValue.getDay();
 
         if (day === 0) {
-          alert('Este día no esta disponible para solicitar citas.');
+          alert('Este dia no esta disponible para solicitar citas.');
           this.value = '';
         }
       });
