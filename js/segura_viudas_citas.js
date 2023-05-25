@@ -3,7 +3,20 @@
     attach: function (context, settings) {
       console.log('seguraViudasCitas behavior attached');
 
-
+      $('#edit-field-file-upload', context).change(function () {
+        if (this.files.length > 5) {
+          alert("Solo puedes seleccionar un máximo de 5 archivos.");
+          this.value = '';
+        }
+      });
+      // comprobamos que no hayan 5 archivos en el input y si los hay no dejamos subir más
+      $('.form-managed-file', context).change(function() {
+        // comprobamos si hay 5 'a' en el div
+        if ($('.form-managed-file js-form-item').length >= 5) {
+          alert("Solo puedes seleccionar un máximo de 5 archivos.");
+          this.value = '';
+        }
+      });
       function deleteAppointment(nid)
       {
         $.ajax({
