@@ -62,7 +62,7 @@
             <p>{{" *Camps obligatoris" | t }}</p>
         </div>
         <!-- Formulario -->
-        <div class="full cgap-1 uploads nomobile">
+        <div style="margin-top:2em;"class="full cgap-1 uploads nomobile">
 
           {{ form }}
 
@@ -72,24 +72,23 @@
         </div>
         </div>
       <div class="block nomobile third column p-3 space-between" style="background-color:#f8f9f6; align-self: flex-start; margin-top:5em;margin-left: 2em;">
-        <h2 class="noup">{{ "Cita para la firma" | t }}</h2>
+        <h2 class="noup">{{ "Cita per a la signatura" | t }}</h2>
         {# Revisa si la información de la cita está presente. #}
         {% if form['#cita_info'] is defined %}
           {# Crea un div personalizado con la información de la cita. #}
-          <div>
-            <p>Tienes una cita el {{ form['#cita_info']['date'] }}.</p>
-            <p>La cita es a las {{ form['#cita_info']['time'] }}.</p>
+          <div class="app-data">
+            <p>{{ 'Tens una cita el' | t }} <b>{{ form['#cita_info']['date'] }}</b>.</p>
+            <p>{{ 'La cita és a les' | t }} <b>{{ form['#cita_info']['time'] }}</b>.</p>
             {% if form['#cita_info']['type'] == 0 %}
-              <p>Telefónica.</p>
+              <p><b>{{ 'Telefònica' | t }}</b>.</p>
             {% else %}
-              <p>Presencial.</p>
+              <p><b>{{ 'Presencial' | t }}</b>.</p>
             {% endif %}
-
-            <p>
+          </div>
+          <p>
             {# creamos un boton llamado modificar cita con la clase btn primary open-mod-popup #}
             <button class="btn primary open-mod-popup" href=""><em class="icon-crest"></em>{{ "Modificar cita" | t }}</button>
-            </p>
-          </div>
+          </p>
             {# renderizamos un nuevo div con la clase mod-popup con varias opciones dentro. #}
         {% else %}
           {# Renderiza el formulario como de costumbre. #}

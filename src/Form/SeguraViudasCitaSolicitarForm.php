@@ -67,6 +67,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
       ],
+      '#description' => $this->t('Puedes subir más de un archivo.<br>Peso máximo archivos 64 MB.<br>'),
       '#multiple' => 'true',
       '#required' => TRUE,
 
@@ -79,6 +80,8 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
       ],
+      '#description' => $this->t('Puedes subir más de un archivo.<br>Peso máximo archivos 64 MB.<br>'),
+      '#multiple' => 'true',
       '#required' => TRUE,
     ];
     // llamamos a los campos 'field_file3' del formulario
@@ -89,6 +92,8 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
       ],
+      '#description' => $this->t('Puedes subir más de un archivo.<br>Peso máximo archivos 64 MB.<br>'),
+      '#multiple' => 'true',
       '#required' => FALSE,
     ];
     // llamamos a los campos 'field_file4' del formulario
@@ -99,6 +104,8 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
       ],
+      '#description' => $this->t('Puedes subir más de un archivo.<br>Peso máximo archivos 64 MB.<br>'),
+      '#multiple' => 'true',
       '#required' => FALSE,
     ];
     // llamamos a los campos 'field_file5' del formulario
@@ -109,6 +116,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
       ],
+      '#description' => $this->t('Puedes subir más de un archivo.<br>Peso máximo archivos 64 MB.<br>'),
       '#multiple' => 'true',
       '#required' => FALSE,
     ];
