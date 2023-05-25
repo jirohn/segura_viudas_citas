@@ -56,6 +56,12 @@ var firstload=false;
                     row += '<p class="bloqueada">Bloqueada</p>';
                   } else {
                     // Añade el ID del nodo a la URL del enlace
+                    // si cita.modalidad es 0 es 'Precencial' si es 1 es 'Telefónica'
+                    if(cita.modalidad == 0){
+                      cita.modalidad = "Presencial";
+                    }else{
+                      cita.modalidad = "Telefónica";
+                    }
 
                     row += '<p class="cita"><a href="'+ url + "/" +  cita.nid + '">' + cita.title + ' - ' + cita.comment + ' - ' + cita.modalidad + '</a></p>';
                   }
