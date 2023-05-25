@@ -9,14 +9,6 @@
           this.value = '';
         }
       });
-      // comprobamos que no hayan 5 archivos en el input y si los hay no dejamos subir más
-      $('.form-managed-file', context).change(function() {
-        // comprobamos si hay 5 'a' en el div
-        if ($('.form-managed-file js-form-item').length >= 5) {
-          alert("Solo puedes seleccionar un máximo de 5 archivos.");
-          this.value = '';
-        }
-      });
       // le introducimos un texto que diga 'adjunta o arrastra el archivo' dentro del input con clase 'js-form-file'
       $('.js-form-file', context).attr('placeholder', '{{ Adjunta o arrastra el archivo | t }}');
       function deleteAppointment(nid)
@@ -143,7 +135,14 @@
         var day = dateValue.getDay();
 
         if (day === 0) {
-          alert('Este dia no esta disponible para solicitar citas.');
+          // detectamos el idioma de la pagina
+          var lang = $('html').attr('lang');
+          if (lang == 'es') {
+            alert('No se pueden seleccionar citas este día');
+          } else {
+            // ahora en catalan
+            alert('No es poden seleccionar cites aquest dia');
+          }
           this.value = '';
         }
       });
@@ -283,7 +282,7 @@
     // una vez cargado el documento se ejecuta la funcion
     $(document).ready(function() {
       // cogemos todos divs con la clase 'file-info' y los añadimos en una array
-      var $fileInfo = $('.file-info');
+      var $fileInfo = $('.file-field');
       // si el array tiene contenido añadimos cada elemento del array en en los input tipo file por orden
       if ($fileInfo.length > 0) {
         $fileInfo.each(function(index) {

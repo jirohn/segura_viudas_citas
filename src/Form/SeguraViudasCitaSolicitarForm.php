@@ -36,14 +36,18 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
         $file_field = 'field_file' . ($i === 1 ? '' : $i);
         $verify_field = 'field_verify_file' . ($i === 1 ? '' : $i);
 
-        $file = $node->get($file_field)->entity;
-        $verify_status = $node->get($verify_field)->value;
+        $file_field_values = $node->get($file_field)->getValue();
 
-        $files_info[$file_field] = [
-          'filename' => $file ? $file->getFilename() : NULL,
-          'status' => $verify_status === 'validado' ? 'Validado'
-                    : ($verify_status === 'rechazado' ? 'Rechazado' : NULL),
-        ];
+        foreach ($file_field_values as $file_field_value) {
+          $file = \Drupal\file\Entity\File::load($file_field_value['target_id']);
+          if ($file) {
+            $files_info[$file_field][] = [
+              'filename' => $file->getFilename(),
+              'status' => $node->get($verify_field)->value === 'validado' ? 'Validado'
+                        : ($node->get($verify_field)->value === 'rechazado' ? 'Rechazado' : NULL),
+            ];
+          }
+        }
       }
 
       // Agrega la información de la cita a la variable de renderizado del formulario.

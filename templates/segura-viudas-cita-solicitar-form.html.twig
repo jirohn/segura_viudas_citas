@@ -65,9 +65,9 @@
         <div style="margin-top:2em;"class="full cgap-1 uploads nomobile">
 
 
-        {% if form['#cita_info']['files_info'] is defined %}
-          <div class="files-info-container">
-            {% for field, file_info in form['#cita_info']['files_info'] %}
+        {% for field, files_info in form['#cita_info']['files_info'] %}
+          <div class="file-field">
+            {% for file_info in files_info %}
               <div class="file-info">
                 {% if file_info.filename %}
                   <p> {{ file_info.filename }}
@@ -97,7 +97,7 @@
               </div>
             {% endfor %}
           </div>
-        {% endif %}
+        {% endfor %}
 
 
 
