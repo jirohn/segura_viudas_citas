@@ -9,6 +9,10 @@
           this.value = '';
         }
       });
+      // si cambia cual quier input del tipo file le eliminamos el spam con la clase nofileuploades que tiene dentro
+      $('input[type="file"]').change(function () {
+        $(this).parent().find('.nofileuploaded').remove();
+      });
       // le introducimos un texto que diga 'adjunta o arrastra el archivo' dentro del input con clase 'js-form-file'
       $('.js-form-file', context).attr('placeholder', '{{ Adjunta o arrastra el archivo | t }}');
       function deleteAppointment(nid)
