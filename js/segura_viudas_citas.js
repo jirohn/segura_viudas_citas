@@ -3,7 +3,20 @@
     attach: function (context, settings) {
       console.log('seguraViudasCitas behavior attached');
 
-
+      $('#edit-field-file-upload', context).change(function () {
+        if (this.files.length > 5) {
+          alert("Solo puedes seleccionar un máximo de 5 archivos.");
+          this.value = '';
+        }
+      });
+      // comprobamos que no hayan 5 archivos en el input y si los hay no dejamos subir más
+      $('.form-managed-file', context).change(function() {
+        // comprobamos si hay 5 'a' en el div
+        if ($('.form-managed-file js-form-item').length >= 5) {
+          alert("Solo puedes seleccionar un máximo de 5 archivos.");
+          this.value = '';
+        }
+      });
       function deleteAppointment(nid)
       {
         $.ajax({
@@ -29,10 +42,10 @@
 
       $('.save-mod-popup', context).click(function(e) {
         e.preventDefault();
-        $type = '1';
+        $type = '0';
         if($('input[name="type"]:checked').val()=='telefonica'){
           console.log('se selecciono un tipo de cita telefonica');
-          $type = '0';
+          $type = '1';
         }
         // Recoge los datos del formulario.
         var data = {
@@ -128,7 +141,7 @@
         var day = dateValue.getDay();
 
         if (day === 0) {
-          alert('Este día no esta disponible para solicitar citas.');
+          alert('Este dia no esta disponible para solicitar citas.');
           this.value = '';
         }
       });

@@ -72,7 +72,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
         '#value' => FALSE,
       ];
     }
- 
+
 
     // llamamos a los campos 'field_file' del formulario
     $form['field_file'] = [
@@ -81,6 +81,9 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#upload_location' => 'public://',
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
+        'file_validate_size' => [10 * 1024 * 1024],
+        // ponemos un maximo de 5 archivos
+        'max_filesize' => '5',
       ],
       '#description' => $this->t('Puedes subir más de un archivo.<br>Peso máximo archivos 1 MB.<br>'),
       '#multiple' => 'true',
@@ -94,10 +97,12 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#upload_location' => 'public://',
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
+        'file_validate_size' => [10 * 1024 * 1024],
       ],
       '#description' => $this->t('Puedes subir más de un archivo.<br>Peso máximo archivos 1 MB.<br>'),
       '#multiple' => 'true',
       '#required' => TRUE,
+
     ];
     // llamamos a los campos 'field_file3' del formulario
     $form['field_file3'] = [
@@ -106,10 +111,12 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#upload_location' => 'public://',
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
+        'file_validate_size' => [10 * 1024 * 1024],
       ],
       '#description' => $this->t('Puedes subir más de un archivo.<br>Peso máximo archivos 1 MB.<br>'),
       '#multiple' => 'true',
       '#required' => FALSE,
+
     ];
     // llamamos a los campos 'field_file4' del formulario
     $form['field_file4'] = [
@@ -118,10 +125,12 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#upload_location' => 'public://',
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
+        'file_validate_size' => [10 * 1024 * 1024],
       ],
       '#description' => $this->t('Puedes subir más de un archivo.<br>Peso máximo archivos 1 MB.<br>'),
       '#multiple' => 'true',
       '#required' => FALSE,
+
     ];
     // llamamos a los campos 'field_file5' del formulario
     $form['field_file5'] = [
@@ -130,10 +139,14 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#upload_location' => 'public://',
       '#upload_validators' => [
         'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
+        'file_validate_size' => [10 * 1024 * 1024],
+        // ponemos un maximo de 5 archivos
+        'max_filesize' => '5',
       ],
       '#description' => $this->t('Puedes subir más de un archivo.<br>Peso máximo archivos 1 MB.<br>'),
       '#multiple' => 'true',
       '#required' => FALSE,
+
     ];
 
 
@@ -145,7 +158,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
         1 => $this->t('Telefónica'),
       ),
       '#required' => TRUE,
-    ];  
+    ];
 
     // Agregamos los campos de fecha, hora y lugar al formulario.
     $form['field_date'] = [
@@ -188,11 +201,11 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#title' => $this->t('comment'),
       '#required' => FALSE,
       '#wysiwyg' => false,
-    ]; 
-    
+    ];
+
     $form['submit'] = [
       '#type' => 'submit',
-      /* Añadimos un value con un <em> y un texto */ 
+      /* Añadimos un value con un <em> y un texto */
       '#value' => $this->t('Solicitar cita'),
     ];
     // creamos una variable para retornar en el $form la plantilla twig y la- libreria js 'segura_viudas_citas'
