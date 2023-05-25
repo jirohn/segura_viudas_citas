@@ -101,6 +101,7 @@
 
 
 
+
           {{ form }}
 
         <!-- Formulario -->
@@ -133,8 +134,8 @@
               <path d="M14 11l0 6" />
               <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
               <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-            </svg></button>#}
-          </p>
+            </svg></button>
+          </p>#}
             {# renderizamos un nuevo div con la clase mod-popup con varias opciones dentro. #}
         {% else %}
           {# Renderiza el formulario como de costumbre. #}
@@ -196,9 +197,7 @@
           {# hacemos un boton que diga cancelar y otro que diga continuar #}
           <button class="secondary-sub close-mod-popup" href=""><em class="icon-crest"></em>{{ "Cancelar" | t }}</button>
           <button class="btn primary save-mod-popup" href=""><em class="icon-crest"></em>{{ "Continuar" | t }}</button>
-          {# hacemos un span escondido #}
-
-
+          {# creamos un input tipo submit con el id 'submit' #}
 
           </div>
         </div>
