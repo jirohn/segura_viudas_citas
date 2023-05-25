@@ -128,7 +128,7 @@
         var day = dateValue.getDay();
 
         if (day === 0) {
-          alert('Este dia no esta disponible para solicitar citas.');
+          alert('Este día no esta disponible para solicitar citas.');
           this.value = '';
         }
       });

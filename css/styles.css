@@ -57,12 +57,34 @@ input[type="file"] {
     transform: translate(10px, 5px);
 }
 
-  .bloqueado{
-    background-color: #ff0015;
+  .bloqueada {
+    background-color: rgb(255,204,204);
+    padding: 1em;
+    border-radius: 10px;
   }
-  .libre{
-    background-color: #00ff00;
+  .libre {
+    background-color: #e5edff;
+    opacity: .5;
+    padding: 1em;
+    border-radius: 10px;
   }
-  .cita{
-    background-color: #ffcc00;
+  .cita {
+    background-color: #ccdbff;
+    padding: 1em;
+    border-radius: 10px;
   }
+
+  .cita a {
+    color:black;
+    font-weight: 400;
+  }
+
+  .reservas-table tr:hover, table .draggable-table.tabledrag-disabled tr:hover {
+    color: var(--gin-color-text);
+    background-color: #f5f8ff!important;
+}
+
+.reservas-table tr, table .draggable-table.tabledrag-disabled tr:hover {
+  color: var(--gin-color-text);
+  background-color: #f5f8ff!important;
+}

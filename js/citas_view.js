@@ -12,7 +12,10 @@
           fileDisplayArea = '<img src="' + file_url + '" width="800">';
         }
         document.getElementById('documentName').innerHTML = '<div id="file-container">' + fileDisplayArea + '</div>';
-
+         // Si el archivo es de formato xls o xlsx se añade un botón de descarga del archivo
+        if (fileExtension == 'xls' || fileExtension == 'xlsx') {
+          document.getElementById('documentName').innerHTML += '<a href="' + file_url + '" download="' + file_name + '">Descargar</a>';
+        }
         //document.getElementById('documentName').innerHTML = '<a href="' + file_url + '">' + file_name + '</a>';
         document.getElementById('validateDocument').onclick = function () {
           $.ajax({
@@ -98,4 +101,5 @@
       this._attach = value;
     },
   };
+
 })(jQuery, Drupal);

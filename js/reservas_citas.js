@@ -43,21 +43,6 @@ var firstload=false;
               date.setDate(date.getDate() + i);
               var dateString = date.toISOString().slice(0,10);
 
-              // Check if the day is Sunday
-              if (date.getDay() === 0) { // 0 is Sunday in JavaScript
-                $('#day-' + i).text('Festivo');
-                $('#column-' + i).addClass('festivo'); // Add the 'festivo' class to the column
-
-                // Fill all slots with 'Bloqueado'
-                $.each(slots, function(index, slot) {
-                  var row = '<p>' + slot + '</p>';
-                  row += '<p class="festivo">Domingo</p>';
-                  $('#column-' + i).append(row);
-                });
-                continue; // Skip the rest of this loop iteration
-              }
-
-
               $('#day-' + i).text(dateString);
 
               var citas = data[dateString] || [];
@@ -75,7 +60,7 @@ var firstload=false;
                     row += '<p class="cita"><a href="'+ url + "/" +  cita.nid + '">' + cita.title + ' - ' + cita.comment + ' - ' + cita.modalidad + '</a></p>';
                   }
                 } else {
-                  row += '<p class="libre">Libre</p>';
+                  row += '<p class="libre"><br></p>';
                 }
                 $('#column-' + i).append(row);
               });
