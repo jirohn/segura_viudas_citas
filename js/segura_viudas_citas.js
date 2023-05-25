@@ -17,6 +17,8 @@
           this.value = '';
         }
       });
+      // le introducimos un texto que diga 'adjunta o arrastra el archivo' dentro del input con clase 'js-form-file'
+      $('.js-form-file', context).attr('placeholder', '{{ Adjunta o arrastra el archivo | t }}');
       function deleteAppointment(nid)
       {
         $.ajax({
