@@ -164,7 +164,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#title' => $this->t('Modalidad'),
       '#options' => array(
         'Presencial' => 'Presencial',
-        'Online' => 'Online',
+        'Online' => 'Telefonica',
       ),
       '#required' => TRUE,
     ];

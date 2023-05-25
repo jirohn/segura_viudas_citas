@@ -102,11 +102,10 @@ class AjaxController extends ControllerBase {
         // Actualiza los campos de la cita.
         $node->set('field_date', $data['date']);
         $node->set('field_time', $data['time']);
-        if ($data['type'] == 'Presencial') {
-        $node->set('field_modalidad', '1');
-        }
-        else if ($data['type'] == 'Telefonica'){
-        $node->set('field_modalidad', '0');
+        if ($data['type'] == '0') {
+          $node->set('field_modalidad', '0');
+        }else{
+          $node->set('field_modalidad', '1');
         }
         $node->set('field_comment', $data['comment']);
 
