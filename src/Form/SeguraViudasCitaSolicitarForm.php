@@ -89,7 +89,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
         // ponemos un maximo de 5 archivos
         'max_filesize' => '5',
       ],
-      '#description' => $this->t('Puedes subir más de un archivo.<br>Peso máximo archivos 1 MB.<br>'),
+      '#description' => '<span class="nofileuploades">' . $this->t('Adjunta o arrastra el archivo') . '</span>' . $this->t('Puedes subir más de un archivo.') . '<br>' . $this->t('Peso máximo archivos 1 MB.') . '<br>',
       '#multiple' => 'true',
       '#required' => TRUE,
 
@@ -103,7 +103,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
         'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
         'file_validate_size' => [10 * 1024 * 1024],
       ],
-      '#description' => $this->t('Puedes subir más de un archivo.<br>Peso máximo archivos 1 MB.<br>'),
+      '#description' => '<span class="nofileuploades">' . $this->t('Adjunta o arrastra el archivo') . '</span>' . $this->t('Puedes subir más de un archivo.') . '<br>' . $this->t('Peso máximo archivos 1 MB.') . '<br>',
       '#multiple' => 'true',
       '#required' => TRUE,
 
@@ -117,7 +117,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
         'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
         'file_validate_size' => [10 * 1024 * 1024],
       ],
-      '#description' => $this->t('Puedes subir más de un archivo.<br>Peso máximo archivos 1 MB.<br>'),
+      '#description' => '<span class="nofileuploades">' . $this->t('Adjunta o arrastra el archivo') . '</span>' . $this->t('Puedes subir más de un archivo.') . '<br>' . $this->t('Peso máximo archivos 1 MB.') . '<br>',
       '#multiple' => 'true',
       '#required' => FALSE,
 
@@ -131,7 +131,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
         'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
         'file_validate_size' => [10 * 1024 * 1024],
       ],
-      '#description' => $this->t('Puedes subir más de un archivo.<br>Peso máximo archivos 1 MB.<br>'),
+      '#description' => '<span class="nofileuploades">' . $this->t('Adjunta o arrastra el archivo') . '</span>' . $this->t('Puedes subir más de un archivo.') . '<br>' . $this->t('Peso máximo archivos 1 MB.') . '<br>',
       '#multiple' => 'true',
       '#required' => FALSE,
 
@@ -147,7 +147,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
         // ponemos un maximo de 5 archivos
         'max_filesize' => '5',
       ],
-      '#description' => $this->t('Puedes subir más de un archivo.<br>Peso máximo archivos 1 MB.<br>'),
+      '#description' => '<span class="nofileuploades">' . $this->t('Adjunta o arrastra el archivo') . '</span>' . $this->t('Puedes subir más de un archivo.') . '<br>' . $this->t('Peso máximo archivos 1 MB.') . '<br>',
       '#multiple' => 'true',
       '#required' => FALSE,
 
