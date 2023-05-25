@@ -272,13 +272,17 @@
       // si el array tiene contenido añadimos cada elemento del array en en los input tipo file por orden
       if ($fileInfo.length > 0) {
         $fileInfo.each(function(index) {
+          // si dentro del div file-info no hay nada se lanza el codigo
+
+          if ($(this).is(':empty')) {
           var $fileInfo = $(this);
           var $fileInput = $('input[type="file"]').eq(index);
           // le añadimos al fileinput el atributo disabled
-          $fileInput.prop('disabled', true);
+          $fileInput.prop('disabled', true).eq(index);
           // le añadimos a al div padre del input la clase 'disabled'
-          $fileInfo.parent().addClass('disabled');
+          $fileInput.parent().eq(index).addClass('disabled');
           $fileInfo.insertAfter($fileInput);
+          }
         });
       }
     });

@@ -66,7 +66,7 @@
 
 
         {% if form['#cita_info']['files_info'] is defined %}
-          <div class="files-info">
+          <div class="files-info-container">
             {% for field, file_info in form['#cita_info']['files_info'] %}
               <div class="file-info">
                 {% if file_info.filename %}
@@ -83,7 +83,6 @@
                     <rect x="4" y="4" width="16" height="16" rx="2" />
                     </svg>
                   {% endif %}
-
                   </p>
                 {% else %}
 
