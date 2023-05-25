@@ -70,17 +70,23 @@
             {% for field, file_info in form['#cita_info']['files_info'] %}
               <div class="file-info">
                 {% if file_info.filename %}
-                  <p>Archivo {{ loop.index }}: {{ file_info.filename }}
+                  <p> {{ file_info.filename }}
                   {#si el estado es verificado le añadimos algo y si no lo esta le añadimos otra cosa #}
                   {% if file_info.status == 'Validado' %}
-                    <svg style="border-radius: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2ca500" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="#2ca500"/>
-                    <rect x="4" y="4" width="16" height="16" rx="2" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checks" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2CA500" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <path d="M7 12l5 5l10 -10" />
+                      <path d="M2 12l5 5m5 -5l5 -5" />
                     </svg>
                   {% else %}
-                    <svg style="border-radius: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#c82020" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="#c82020"/>
-                    <rect x="4" y="4" width="16" height="16" rx="2" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-progress-check" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#C82020" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <path d="M10 20.777a8.942 8.942 0 0 1 -2.48 -.969" />
+                      <path d="M14 3.223a9.003 9.003 0 0 1 0 17.554" />
+                      <path d="M4.579 17.093a8.961 8.961 0 0 1 -1.227 -2.592" />
+                      <path d="M3.124 10.5c.16 -.95 .468 -1.85 .9 -2.675l.169 -.305" />
+                      <path d="M6.907 4.579a8.954 8.954 0 0 1 3.093 -1.356" />
+                      <path d="M9 12l2 2l4 -4" />
                     </svg>
                   {% endif %}
 
