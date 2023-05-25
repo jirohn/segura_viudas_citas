@@ -242,7 +242,7 @@
     var $fieldComment = $('#edit-field-comment').detach();
     var $fieldModalidad = $('#edit-field-modalidad').detach();
     // creamos boton cancelar y lo añadimos en variable
-    var $cancel = $('<button type="button" class="btn secondary-sub" id="cancel-popup">Cancelar</button>');
+    var $cancel = $('<button type="button" class="secondary-sub close-mod-popup" id="cancel-popup"><em class="icon-crest"></em>Cancelar</button>');
     var $submit = $('#edit-submit').detach();
     // selecciona los labels de los campos y los mueve al div popup
     var $labelDate = $('label[for="edit-field-date"]').detach();
