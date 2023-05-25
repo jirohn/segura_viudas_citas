@@ -24,7 +24,7 @@
               console.log('documento validado', file_field_name);
               // le añadimos al lado del nombre una imagen de validado
               var img = document.createElement("img");
-              img.src = Drupal.url("/modules/nateevo/segura_viudas_citas/images/validated.svg");
+              img.src = ("/modules/nateevo/segura_viudas_citas/images/validated.svg");
               img.width = 20;
               img.height = 20;
               img.classList.add("validate-icon");
@@ -35,7 +35,7 @@
               }else{
                 console.log('ya tiene la clase validate-icon');
                 // le cambiamos el source a la img
-                src.find('img').attr('src', Drupal.url("/modules/nateevo/segura_viudas_citas/images/validated.svg"));
+                src.find('img').attr('src', '/modules/nateevo/segura_viudas_citas/images/validated.svg');
               }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -54,7 +54,7 @@
               console.log('documento rechazado', file_field_name);
               // le añadimos al lado del nombre una imagen de rechazado con la clase 'validate-icon'
               var img = document.createElement("img");
-              img.src = Drupal.url("/modules/nateevo/segura_viudas_citas/images/refused.svg");
+              img.src = ("/modules/nateevo/segura_viudas_citas/images/refused.svg");
               img.width = 20;
               img.height = 20;
               // añadimos la clase 'validate-icon'a nuestra img
@@ -66,7 +66,7 @@
               }else{
                 console.log('ya tiene la clase validate-icon');
                 // le cambiamos el source a la img
-                src.find('img').attr('src', Drupal.url("/modules/nateevo/segura_viudas_citas/images/refused.svg"));
+                src.find('img').attr('src', '/modules/nateevo/segura_viudas_citas/images/refused.svg');
               }
             },
             error: function (jqXHR, textStatus, errorThrown) {

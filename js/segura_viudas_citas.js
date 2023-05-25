@@ -57,7 +57,7 @@
           // Habilitar el botón
           $('.open-popup').prop('disabled', false);
           console.log('se habilito el open popup');
-
+          $('.open-popup').removeClass('disabled');
         }
       });
       // si hace click en cualquier otro lado o en el boton de cancelar se cierra el popup
