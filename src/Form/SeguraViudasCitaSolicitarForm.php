@@ -238,9 +238,26 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       'field_time' => $form_state->getValue('field_time'),
       'field_comment' => $form_state->getValue('field_comment'),
     ]);
-    $node->save();
 
+    // comprobamos que no existe ninguna cita a la misma hora y el mismo dia
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'citas')
+      ->condition('field_date', $form_state->getValue('field_date'))
+      ->condition('field_time', $form_state->getValue('field_time'))
+      ->accessCheck(FALSE);
+    $nids = $query->execute();
+    // si existe una cita a la misma hora y el mismo dia
+    if (!empty($nids)) {
+      // Utiliza la función 'messenger()' para mostrar mensajes en Drupal 10.
+      $this->messenger()->addError($this->t('Ya existe una cita a la misma hora y el mismo dia.'));
+      // Redirige a la misma pagina donde estamos
+      echo '<script>alert("Ya han pedido cita a esa hora, elige otra hora");</script>';
+      return;
+    }
+    $node->save();
     // Utiliza la función 'messenger()' para mostrar mensajes en Drupal 10.
+    // enviamos por alert de jquery un mensaje que diga que la cita se ha solicitado correctamente
+    echo '<script>alert("Cita solicitada correctamente");</script>';
     $this->messenger()->addStatus($this->t('Cita solicitada correctamente.'));
 
     // Redirige a la misma pagina donde estamos
