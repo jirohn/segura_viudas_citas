@@ -258,6 +258,8 @@
     console.log('seguraViudasCitas form styles end');*/
     // FIN DE PABLADA //
     // Crea el div contenedor con la clase 'popup'
+    // escondemos la clase fieldset-legend
+    $('.fieldset-legend').addClass('hidden');
     var $popupDiv = $('#popup');
     var $overlay = $('#create-popup');
     // Selecciona los campos del formulario y el botón de envío y los mueve al div popup
