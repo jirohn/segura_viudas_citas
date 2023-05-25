@@ -9,10 +9,7 @@
           this.value = '';
         }
       });
-      // si cambia cual quier input del tipo file le eliminamos el spam con la clase nofileuploades que tiene dentro
-      $('input[type="file"]').change(function () {
-        $(this).parent().find('.nofileuploaded').remove();
-      });
+
       // le introducimos un texto que diga 'adjunta o arrastra el archivo' dentro del input con clase 'js-form-file'
       $('.js-form-file', context).attr('placeholder', '{{ Adjunta o arrastra el archivo | t }}');
       function deleteAppointment(nid)
@@ -210,6 +207,8 @@
 
   $(document).ready(function () {
     console.log('seguraViudasCitas form styles attached');
+    // buscamos los span con clases noFileUploades y le quitamos la clase hidden
+    $('.nofileuploades').removeClass('hidden');
     //PABLADAS//
     // Añade clases y estilosa los contenedores de los inputs:
    /* var $fileDiv = $('.js-form-item-field-file').addClass('block column half right space-between').prepend('<p class="file-title">CARTA ACREDITATIVA RAÏM DO CAVA O DO CAT, O AMBDÓS*</p>');
@@ -283,7 +282,6 @@
     $('#create-popup').hide();
     // ocultamos el div con la clase 'mod-popup' por defecto con un hide
     $('#mod-popup').hide();
-
     var date = $('form input[name="field_date"] ').val();
     $('input[name="field_date"]').val(date);
     // una vez cargado el documento se ejecuta la funcion
