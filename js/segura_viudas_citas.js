@@ -4,6 +4,28 @@
       console.log('seguraViudasCitas behavior attached');
 
 
+      function deleteAppointment(nid)
+      {
+        $.ajax({
+          url: Drupal.url('/segura_viudas_citas/admin/delete_appointment'),
+          data: { nid: nid },
+          dataType: 'json',
+          success: function (data) {
+            console.log('Cita eliminada: ', data);
+            // recargamos la pagina
+            location.reload();
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.error('Error eliminando cita:', textStatus, errorThrown);
+          },
+        });
+      }
+      $('#delete-cita').click(function() {
+        console.log('se hizo clic en el boton de borrar cita');
+        // se crea una variable con el valor del campo 'nid'
+        var nid = drupalSettings.segura_viudas_citas.nid
+        deleteAppointment(nid);
+      });
 
       $('.save-mod-popup', context).click(function(e) {
         e.preventDefault();
@@ -256,6 +278,10 @@
         });
       }
     });
+    // si presionamos el boton con la id 'delete-cita' se ejecuta la funcion
+
+
+
 
 
   });
