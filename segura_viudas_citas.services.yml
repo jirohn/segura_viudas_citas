@@ -1,0 +1,8 @@
+services:
+  segura_viudas_citas.sms_service:
+    class: Drupal\segura_viudas_citas\SmsService
+    arguments: ['@entity_type.manager']
+  segura_viudas_citas.segura_viudas_citas_cron:
+    class: Drupal\segura_viudas_citas\Cron\segura_viudas_citas_cron
+    arguments: ['@segura_viudas_citas.sms_service']
+

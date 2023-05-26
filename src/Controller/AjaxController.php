@@ -116,7 +116,10 @@ class AjaxController extends ControllerBase {
       }
     }
 
+
     return new JsonResponse($response);
   }
+
+
 }
 

@@ -34,45 +34,7 @@
         deleteAppointment(nid);
       });
 
-      $('.save-mod-popup', context).click(function(e) {
-        e.preventDefault();
-        $type = '0';
-        if($('input[name="type"]:checked').val()=='telefonica'){
-          console.log('se selecciono un tipo de cita telefonica');
-          $type = '1';
-        }
-        // Recoge los datos del formulario.
-        var data = {
-          nid: drupalSettings.segura_viudas_citas.nid,
-          date: $('#date').val(),
-          time: $('#time').val(),
-          type: $type,
-          comment: $('#comment').val()
-        };
-        console.log('data', data);
-        // Enviar una petición AJAX al controlador personalizado.
-        $.ajax({
-          url: Drupal.url('/proveedores/update_cita'),
-          type: 'GET',
-          data: data,
-          success: function(response) {
-            if (response.status === 'success') {
-              // La cita se actualizó con éxito.
-              // Cierra el popup o muestra un mensaje, dependiendo de tu implementación.
-              console.log('La cita se actualizó con éxito');
-              // recargamos la pagina
-              location.reload();
-              $('#mod-popup').hide();
-            } else {
-              // Hubo un error al actualizar la cita.
-              // Muestra un mensaje de error.
-              console.log('Hubo un error al actualizar la cita');
-              //mostramos alerta
-              alert('Hubo un error al actualizar la cita');
-            }
-          }
-        });
-      });
+
       // cerramos el 'mod-popup' cuando se hace clic en el botón 'cancelar'
       $('.close-mod-popup', context).click(function(e) {
         e.preventDefault();
@@ -200,7 +162,45 @@
       }
     },
   };
-
+  $('.save-mod-popup').click(function(e) {
+    e.preventDefault();
+    $type = '0';
+    if($('input[name="type"]:checked').val()=='telefonica'){
+      console.log('se selecciono un tipo de cita telefonica');
+      $type = '1';
+    }
+    // Recoge los datos del formulario.
+    var data = {
+      nid: drupalSettings.segura_viudas_citas.nid,
+      date: $('#date').val(),
+      time: $('#time').val(),
+      type: $type,
+      comment: $('#comment').val()
+    };
+    console.log('data', data);
+    // Enviar una petición AJAX al controlador personalizado.
+    $.ajax({
+      url: Drupal.url('/proveedores/update_cita'),
+      type: 'GET',
+      data: data,
+      success: function(response) {
+        if (response.status === 'success') {
+          // La cita se actualizó con éxito.
+          // Cierra el popup o muestra un mensaje, dependiendo de tu implementación.
+          console.log('La cita se actualizó con éxito');
+          // recargamos la pagina
+          location.reload();
+          $('#mod-popup').hide();
+        } else {
+          // Hubo un error al actualizar la cita.
+          // Muestra un mensaje de error.
+          console.log('Hubo un error al actualizar la cita');
+          //mostramos alerta
+          alert('Hubo un error al actualizar la cita');
+        }
+      }
+    });
+  });
   $(document).ready(function () {
     console.log('seguraViudasCitas form styles attached');
     var $fileInfo = $('.file-field');
