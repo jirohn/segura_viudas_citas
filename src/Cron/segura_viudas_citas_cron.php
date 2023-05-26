@@ -61,7 +61,7 @@ class segura_viudas_citas_cron {
           ]);
 
           // Define el enlace que quieres acortar.
-          $link = Url::fromRoute('segura_viudas_citas.citas_form', [], ['absolute' => TRUE])->toString();
+          $link = 'https://shorturl.at/DOT19';
 
           // Utiliza la API de Bitly para acortar el enlace.
           //$link = $this->getShortLink($link, '{your_bitly_token}');
