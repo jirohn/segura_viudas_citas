@@ -251,25 +251,17 @@
 
         });
         $('input[type="checkbox"]').on('change', function () {
-          if ($('input[type="checkbox"]:checked').length > 0 && !$('#action-buttons-container').length) {
-            var $actionButtonsContainer = $('<div id="action-buttons-container"></div>');
-            var $deleteButton = $('<button id="action-button" class="action-link action-link--danger action-link--icon-delete"></button>').append($('<img src="" alt="delete icon" />'));
-            $deleteButton.find('img').attr('src', '/modules/nateevo/segura_viudas_citas/images/deleteicon.svg');
-            $deleteButton.css('border', 'none');
-            $deleteButton.css('background-color', 'transparent');
-            $deleteButton.find('img').css('width', '1.5em', 'transition', 'all .4s');
-            var $blockButton = $('<button id="action-button" class="action-link action-link--danger action-link--icon-block"></button>').append($('<img src="" alt="lock icon" />'));
-            $blockButton.find('img').attr('src', '/modules/nateevo/segura_viudas_citas/images/lockicon.svg');
-            $blockButton.css('border', 'none');
-            $blockButton.css('background-color', 'transparent');
-            $blockButton.find('img').css('width', '1.5em', 'transition', 'all .4s');
-            var $unblockButton = $('<button id="action-button" class="action-link action-link--danger action-link--icon-unblock"></button>').append($('<img src="" alt="unlock icon" />'));
-            $unblockButton.find('img').attr('src', '/modules/nateevo/segura_viudas_citas/images/unlockicon.svg');
-            $unblockButton.css('border', 'none');
-            $unblockButton.css('background-color', 'transparent');
-            $unblockButton.find('img').css('width', '1.5em', 'transition', 'all .4s');
-            $actionButtonsContainer.append($deleteButton).append($blockButton).append($unblockButton);
-            $('#select-action').after($actionButtonsContainer);
+          console.log('click en checkbox');
+          if ($('input[type="checkbox"]:checked').length > 0 && $('#action-buttons-container').hasClass('hidden')) {
+
+
+            // retiramos la clase 'hidden' del container
+            $('#action-buttons-container').removeClass('hidden');
+            var $actioncontainer = $('#action-buttons-container');
+            console.log('hay acciones', $actioncontainer);
+            var $deleteButton = $('#delete-button');
+            var $blockButton = $('#block-button');
+            var $unblockButton = $('#unblock-button');
             $deleteButton.on('click', function () {
               console.log('click en el boton de eliminar');
               if (!confirm('¿Estás seguro de que quieres eliminar estas citas?')) {
@@ -326,8 +318,9 @@
             $('#date-picker').change();
           }
         });
-          }else{
-            $('#action-buttons-container').remove();
+          }else {
+            // añadimos la clase 'hidden' al container
+            $('#action-buttons-container').addClass('hidden');
           }
         });
         $('#check-all').on('change', function () {
@@ -354,7 +347,10 @@
             $('input[type="checkbox"]').prop('checked', false);
           }
         });
+        // escondemos el continer de acciones
+
       });
-    },
+      },
+
   };
   })(jQuery, Drupal);
