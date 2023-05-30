@@ -74,7 +74,7 @@
                 $row.css('background-color', '#ffcccc');
                 $blockButton.addClass('blocked');
                 $blockButton.find('img').css('transform', 'rotate(-90deg)');
-                var $checkbox = $('<input type="checkbox" id="blocked-appointment" class="blocked" />');
+                var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox" id="blocked-appointment" class="blocked" />');
                 $checkbox.attr('data-nid', citaForTimeSlot.nid);
                 $row.append($('<td></td>').append($checkbox));
                 $row.append($('<td></td>').text('Bloqueado'));
@@ -102,7 +102,7 @@
                 });
 
                 }else{
-                  var $checkbox = $('<input type="checkbox" id="reserved-appointment" class="reserved" />');
+                  var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox" id="reserved-appointment" class="reserved" />');
                   $checkbox.attr('data-nid', citaForTimeSlot.nid);
                   $row.append($('<td></td>').append($checkbox));
                   $row.append($('<td></td>').text(citaForTimeSlot.field_time));
@@ -156,7 +156,7 @@
                 }
               });
               $row.css('background-color', '#f5f8ff');
-              var $checkbox = $('<input type="checkbox" id="empty-appointment" class="reserved" />');
+              var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox" id="empty-appointment" class="reserved" />');
               $checkbox.attr('data-time', timeSlot);
               $checkbox.attr('data-date', $('#date-picker').val());
               $row.append($('<td></td>').append($checkbox));
