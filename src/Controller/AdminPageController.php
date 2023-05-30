@@ -14,7 +14,7 @@ class AdminPageController extends ControllerBase {
           '#type' => 'markup',
           '#markup' => $this->t('
           <div class="layout-row clearfix">
-          <div class="layout-column layout-column--half">
+          <div class="layout-column system-status-report-counters__item system-status-report-counters__item--third-width">
               <div class="panel gin-layer-wrapper">
                   <div class="panel__content">
                       <dl class="admin-list--panel admin-list gin-layer-wrapper">
@@ -27,7 +27,7 @@ class AdminPageController extends ControllerBase {
                   </div>
               </div>
               </div>
-              <div class="layout-column layout-column--half">
+              <div class="layout-column system-status-report-counters__item system-status-report-counters__item--third-width">
               <div class="panel gin-layer-wrapper">
                   <div class="panel__content">
                       <dl class="admin-list--panel admin-list gin-layer-wrapper">
@@ -35,6 +35,19 @@ class AdminPageController extends ControllerBase {
                             <a href="/admin/gestion-citas/reservas" class="admin-item__link"></a>
                             <dt class="admin-item__title">Reservas</dt>
                             <dd class="admin-item__description">Revisa las reservas de citas y los detalles de las citas.</dt>
+                          </div>
+                      </dl>
+                  </div>
+              </div>
+              </div>
+              <div class="layout-column system-status-report-counters__item system-status-report-counters__item--third-width">
+              <div class="panel gin-layer-wrapper">
+                  <div class="panel__content">
+                      <dl class="admin-list--panel admin-list gin-layer-wrapper">
+                          <div class="admin-item">
+                            <a href="/admin/gestion-citas/gestion-archivos" class="admin-item__link"></a>
+                            <dt class="admin-item__title">Gestión de archivos</dt>
+                            <dd class="admin-item__description">Las citas que no tienen día y hora se almacenan en este apartado para la verificación de archivos.</dt>
                           </div>
                       </dl>
                   </div>

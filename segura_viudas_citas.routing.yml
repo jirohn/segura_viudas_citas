@@ -14,6 +14,14 @@ segura_viudas_citas.citas_list:
   requirements:
     _permission: 'access content'
 
+segura_viudas_citas.citas_files:
+  path: '/admin/gestion-citas/gestion-archivos'
+  defaults:
+    _controller: '\Drupal\segura_viudas_citas\Controller\AdminPageFilesController::content'
+    _title: 'Gestión de archivos'
+  requirements:
+    _permission: 'access content'
+
 segura_viudas_citas.admin_page:
   path: '/admin/gestion-citas'
   defaults:

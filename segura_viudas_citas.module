@@ -50,6 +50,11 @@ function segura_viudas_citas_theme($existing, $type, $theme, $path) {
       'template' => 'node--citas',
       'path' => $path . '/templates',
     ],
+    'citas_files' => [
+      'variables' => ['citas' => NULL, 'title' => NULL],
+      'template' => 'citas-admin-files',
+      'path' => $path . '/templates',
+    ],
     'gestion_reservas' => [
       'variables' => ['citas' => NULL, 'title' => NULL],
       'template' => 'gestion_reservas',

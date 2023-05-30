@@ -31,6 +31,19 @@ admin_citas:
     theme:
       css/styles.css: {}
 
+admin_files:
+  version: 1.x
+  js:
+    js/admin_files.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - system/moment
+  css:
+    theme:
+      css/styles.css: {}
+
 custom_admin_page_styles:
   version: 1.x
   css:
