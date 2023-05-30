@@ -2,8 +2,17 @@
 <div class="date-picker-wrapper">
   <label for="date-picker form-item__label visually-hidden">{{ 'Seleccionar fecha'|t }}:</label><br>
   <input class="form-date form-element form-element--type-date form-element--api-date" type="date" id="date-picker">
-
-
+  {# creamos un checkbox con la id 'check-all' #}
+  <input type="checkbox" id="check-all">
+  {# un input select para elegir acciones en los rows #}
+   <select id="select-action">
+    <option value="0">{{ 'Selección por lotes'|t }}</option>
+    <option value="all">{{ 'todas'|t }}</option>
+    <option value="empty">{{ 'citas vacías'|t }}</option>
+    <option value="reserved">{{ 'citas reservadas'|t }}</option>
+    <option value="blocked">{{ 'citas Bloqueadas'|t }}</option>
+    <option value="deselect">{{ 'deseleccionar todo'|t }}</option>
+  </select>
 
 
 <br><br>
@@ -13,6 +22,8 @@
     <table class="views-table views-view-table cols-5 responsive-enabled sticky-enabled">
       <thead class="sticky-header">
         <tr>
+          {# añadimos el campo select #}
+          <th>{{ 'Seleccionar'|t }}</th>
           <th>{{ 'Hora'|t }}</th>
           <th>{{ 'Solicitante'|t }}</th>
           <th>{{ 'Tipo de cita'|t }}</th>
@@ -24,5 +35,7 @@
 
       </tbody>
     </table>
+    {# creamos un boton que ocupe todo el ancho de la pagina, para añadir franjas horarias #}
+    <button class="btn btn-primary btn-block" id="add-time-slot">{{ 'Añadir franja horaria'|t }}</button>
   </div>
 </div>

@@ -121,29 +121,68 @@ class CitasListController extends ControllerBase {
    *   A JSON response containing the times of existing appointments.
    */
   public function adminBlockAppointment(Request $request) {
-    // recibimos la variable del request con los datos $date y $time
+    // Recibimos las variables $date y $time
     $date = $request->query->get('date');
     $time = $request->query->get('timeSlot');
 
+    // Log the received date and time
+    \Drupal::logger('segura_viudas_citas')->notice('Received date: @date', ['@date' => $date]);
+    \Drupal::logger('segura_viudas_citas')->notice('Received time: @time', ['@time' => print_r($time, true)]);
+    $time = explode(',', $time);
+    // Comprobamos si $time es un array
+    if (is_array($time)) {
+        // Si es un array, creamos un nodo para cada valor de tiempo
+        foreach ($time as $t) {
+            $node = Node::create([
+                'type' => 'citas',
+                'title' => 'Bloqueado',
+                'field_date' => $date,
+                'field_time' => $t,
+                'field_modalidad' => 0,
+            ]);
+            $node->save();
+        }
+    } else {
+        // Si no es un array, creamos un solo nodo
+        $node = Node::create([
+            'type' => 'citas',
+            'title' => 'Bloqueado',
+            'field_date' => $date,
+            'field_time' => $time,
+            'field_modalidad' => 0,
+        ]);
+        $node->save();
+    }
 
+    return new JsonResponse(['status' => 'ok']);
+}
+  // creamos una orden ajax como la de arriba pero para crear horas ampliadas//
+  /**
+   * Callback for the 'segura_viudas_citas/admin_add_appointment' route.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   A JSON response containing the times of existing appointments.
+   */
+  public function adminAddAppointment(Request $request) {
+    // recibimos la variable del request con los datos $date y $time
+    $date = $request->query->get('date');
+    $time = $request->query->get('timeSlot');
     // Log the received date
     \Drupal::logger('segura_viudas_citas')->notice('Received date: @date', ['@date' => $date]);
     \Drupal::logger('segura_viudas_citas')->notice('Received time: @time', ['@time' => $time]);
-    // dejamos solo la fecha sin la hora
-    $date = substr($date, 0, 10);
-    // creamos un nodo con el tipo de contenido citas
+    // creamos un nodo con el tipo de contenido citas y el titulo Ampliado
     $node = Node::create([
       'type' => 'citas',
-      'title' => 'Bloqueado',
+      'title' => 'Ampliado',
       'field_date' => $date,
       'field_time' => $time,
       'field_modalidad' => 0,
     ]);
-  $node->save();
-
-
-
-    return new JsonResponse(['status' => 'ok']);
+    $node->save();
+    return new JsonResponse(['status' => 'added citas ok']);
   }
 
   public function content() {
