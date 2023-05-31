@@ -33,8 +33,7 @@ class CitasListController extends ControllerBase {
     $query = \Drupal::entityQuery('node')
     ->condition('type', 'citas')
     ->condition('field_date', $date)
-    ->accessCheck(FALSE);
-
+    ->accessCheck(FALSE);    
 
 
     $nids = $query->execute();
@@ -308,6 +307,8 @@ class CitasListController extends ControllerBase {
         'time' => $node->get('field_time')->value,
         'comment' => $node->get('field_comment')->value,
         'modalidad' => $node->get('field_modalidad')->value,
+        'verificado1' => $node->get('field_verify_file')->value,
+        'verificado2' => $node->get('field_verify_file2')->value,
         'nid' => $node->id(),
       ];
     }

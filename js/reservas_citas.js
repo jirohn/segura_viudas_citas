@@ -59,12 +59,17 @@ var firstload=false;
                     // si cita.modalidad es 0 es 'Precencial' si es 1 es 'Telefónica'
                     if(cita.modalidad == 0){
                       cita.modalidad = "Presencial";
-                    }else{
+                    } else{
                       cita.modalidad = "Telefónica";
                     }
-
-                    row += '<p class="cita"><a href="'+ url + "/" +  cita.nid + '">' + cita.title + ' - ' + cita.comment + ' - ' + cita.modalidad + '</a></p>';
-                  }
+                  // If cita.verificado1 y cita.verificado2 is "validado" add the validated icon in the span with the id validation-icon
+                  if(cita.verificado1 == "validado" && cita.verificado2 == "validado") {
+                    row += '<p class="cita"><a href="'+ url + "/" +  cita.nid + '">' + '<span id="validation-icon"><img style="transform:translateY(4px)" width="20px" height="20px"src="/modules/nateevo/segura_viudas_citas/images/validated.svg"></span>' + '<b>' + cita.title +  '</b><br>' + cita.modalidad + '</a></p>';
+                  } else if(cita.verificado1 == "rechazado" || cita.verificado2 == "rechazado") {
+                    row += '<p class="cita"><a href="'+ url + "/" +  cita.nid + '">' + '<span id="validation-icon"><img style="transform:translateY(4px)" width="20px" height="20px"src="/modules/nateevo/segura_viudas_citas/images/refused.svg"></span>' + '<b>' + cita.title +  '</b><br>' + cita.modalidad + '</a></p>';
+                  } else {
+                    row += '<p class="cita"><a href="'+ url + "/" +  cita.nid + '">' + '<span id="validation-icon"></span>' + '<b>' + cita.title +  '</b><br>' + cita.modalidad + '</a></p>';
+                  }}
                 } else {
                   row += '<p class="libre"><br></p>';
                 }
@@ -74,8 +79,6 @@ var firstload=false;
           });
         });
       });
-
-
 
       $('#date-input').val(new Date().toISOString().slice(0,10)).trigger('change');
 

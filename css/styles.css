@@ -1,6 +1,6 @@
 #popupDocument #file-container {
-  max-width: 700px;
-  max-height: 300px;
+  max-width: 1300px;
+  max-height: 500px;
   overflow: scroll;
 }
 
@@ -66,18 +66,25 @@ input[type="file"] {
   .bloqueada {
     background-color: rgb(255,204,204);
     padding: 1em;
+    min-height: 3em;
+    max-height: 3em;
     border-radius: 10px;
   }
   .libre {
     background-color: #e5edff;
     opacity: .5;
     padding: 1em;
+    min-height: 3em;
+    max-height: 3em;
     border-radius: 10px;
   }
   .cita {
     background-color: #ccdbff;
     padding: 1em;
+    min-height: 3em;
+    max-height: 3em;
     border-radius: 10px;
+    overflow: overlay;
   }
 
   .cita a {

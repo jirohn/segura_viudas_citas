@@ -77,7 +77,7 @@
                 var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox" id="blocked-appointment" class="blocked" />');
                 $checkbox.attr('data-nid', citaForTimeSlot.nid);
                 $row.append($('<td></td>').append($checkbox));
-                $row.append($('<td></td>').text('Bloqueado'));
+                $row.append($('<td></td>').text(timeSlot));
                 $row.append($('<td></td>').text(''));
                 $row.append($('<td></td>').text(''));
                 $row.append($('<td></td>').text(''));
@@ -250,6 +250,8 @@
           $('#date-picker').change();
 
         });
+
+      $(document).ready(function() {
         $('input[type="checkbox"]').on('change', function () {
           console.log('click en checkbox');
           if ($('input[type="checkbox"]:checked').length > 0 && $('#action-buttons-container').hasClass('hidden')) {
@@ -347,10 +349,9 @@
             $('input[type="checkbox"]').prop('checked', false);
           }
         });
-        // escondemos el continer de acciones
-
       });
-      },
+      
+    },
 
-  };
-  })(jQuery, Drupal);
+)},
+  }}(jQuery, Drupal));
