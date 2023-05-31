@@ -171,14 +171,15 @@
 
           {# creamos un input tipo date con el id 'date' y con la fecha del contenido seleccionada#}
           <label style="display: block;">{{ "Selecciona un día en la agenda" | t }}</label>
-          {# le añadimos el valor de 'field_date' al input date #}
-          <input type="date" id="date" name="field_date" value="{{ form['#cita_info']['date'] }}">
+          {# le añadimos el valor de 'field_date' al input date con la fecha que tenemos en la variable form['#cita_info']['date'] #}
+          <input type="date" id="date" name="field_date_update" value="{{ form['#cita_info']['date'] }}">
+          date: {{ form['#cita_info']['date'] }}
+          time: {{ form['#cita_info']['time'] }}
+          {# creamos input tipo select donde dentro se podran seleccionar las horas desde las 9 hasta las 17 con intervalos de 30 minutos este select por defecto debe tener seleccionada la hora que tenemos en la variable form['#cita_info']['time'] #}
 
-
-          {# creamos input tipo select donde dentro se podran seleccionar las horas desde las 9 hasta las 17 con intervalos de 30 minutos #}
           <label>{{ "Horas disponibles" | t }}</label>
-
-          <select name="field_time" id="time">
+          {# creamos un select con el valor por defecto de la hora que tenemos en la variable form['#cita_info']['time'] #}
+          <select name="field_time_update" id="time-update" data-time="{{ form['#cita_info']['time'] }}">
             <option value="9:00">9:00 ~ 9:30</option>
             <option value="9:30">9:30 ~ 10:00</option>
             <option value="10:00">10:00 ~ 10:30</option>
@@ -197,10 +198,9 @@
             <option value="16:30">16:30 ~ 17:00</option>
             <option value="17:00">17:00 ~ 17:30</option>
           </select>
-          {# seleccionamos por defecto la hora del form['#cita_info']['time'] #}
-          <script>
-            document.getElementById('date').value = ""{{ form['#cita_info']['time'] }}"";
-          </script>
+
+
+
           {# por ultimo creamos un textarea sin formato donde pondremos el comentario que tenemos en la variable form['#cita_info']['comment']  #}
           <label>{{ "Comentario" | t }}</label>
           <textarea name="field_comment" id="comment" cols="30" rows="10">{{ form['#cita_info']['comment'] }}</textarea>

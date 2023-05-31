@@ -7,7 +7,7 @@
         var fileExtension = file_url.split('.').pop().toLowerCase();
         var fileDisplayArea;
         if (fileExtension == 'pdf') {
-          fileDisplayArea = '<embed src="' + file_url + '" width="900" height="375" type="application/pdf">';
+          fileDisplayArea = '<embed src="' + file_url + '" width="1300" height="500" type="application/pdf">';
         } else if (fileExtension == 'jpg' || fileExtension == 'jpeg') {
           fileDisplayArea = '<img src="' + file_url + '" width="800">';
         }

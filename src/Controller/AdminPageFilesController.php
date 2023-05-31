@@ -18,6 +18,7 @@ class AdminPageFilesController extends ControllerBase {
       ->accessCheck(FALSE); // Añade esta línea para deshabilitar la verificación de acceso.
     $nids = $query->execute();
 
+
     // Carga las citas.
     $citas_nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
 
@@ -26,6 +27,7 @@ class AdminPageFilesController extends ControllerBase {
       'title' => $this->t('Título'),
       'field_comment' => $this->t('Comentario'),
     ];
+
 
 
     $build = [

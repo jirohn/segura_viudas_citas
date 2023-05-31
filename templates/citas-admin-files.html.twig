@@ -10,14 +10,14 @@
         </tr>
       </thead>
       <tbody>
-        {# hacemos foreach en el array de citas #}
-        {% for cita in citas %}
-          <tr>
-            <td>{{ cita.solicitante }}</td>
-            <td>{{ cita.comentario }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
+{% for row in rows %}
+  <tr>
+    <td>{{ row.title }}</td>
+    <td>{{ row.field_comment }}</td>
+  </tr>
+{% endfor %}
+</tbody>
+
     </table>
 
   </div>

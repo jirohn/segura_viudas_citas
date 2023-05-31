@@ -49,8 +49,18 @@
         if ($file.val() && $file2.val()) {
           // Habilitar el botón
           $('.open-popup').prop('disabled', false);
-          console.log('se habilito el open popup');
+          console.log('se habilito el open popup', $file.val(), $file2.val());
           $('.open-popup').removeClass('disabled');
+        }
+      });
+      // si el $file tenia valor y ahora esta vacio cerramos popup y quitamos el boton de crear cita
+      $file.change(function () {
+        if (!$file.val()) {
+          // Deshabilitar el botón
+          $('.open-popup').prop('disabled', true);
+          console.log('se deshabilito el open popup');
+          $('.open-popup').addClass('disabled');
+          $('#create-popup').hide();
         }
       });
       // si hace click en cualquier otro lado o en el boton de cancelar se cierra el popup
@@ -173,7 +183,7 @@
     var data = {
       nid: drupalSettings.segura_viudas_citas.nid,
       date: $('#date').val(),
-      time: $('#time').val(),
+      time: $('#time-update').val(),
       type: $type,
       comment: $('#comment').val()
     };
@@ -290,6 +300,11 @@
     $(document).ready(function() {
       // cogemos todos divs con la clase 'file-info' y los añadimos en una array
       var $fileInfo = $('.file-field');
+      // guardamos en una variable valor del data-time que hay en el select con la id 'field_time_update'
+      var time = $('#time-update').attr('data-time');
+      // se lo signamos como valor al input con la id 'field_time_update'
+      $('#time-update').val(time);
+      console.log('se asigno el valor al input', time);
       // si el array tiene contenido añadimos cada elemento del array en en los input tipo file por orden
       if ($fileInfo.length > 0) {
         $fileInfo.each(function(index) {

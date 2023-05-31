@@ -36,7 +36,6 @@ class CitasListController extends ControllerBase {
     ->accessCheck(FALSE);
 
 
-
     $nids = $query->execute();
 
     if (!empty($nids)) {
@@ -48,6 +47,9 @@ class CitasListController extends ControllerBase {
         } else {
           $modalidad = "Telefonica";
         }
+        // si el nombre es bloqueado eliminamos la cita de la base de datos
+
+
         $existing_citas[] = [
           'nid' => $node->id(),
           'title' => $node->label(),
@@ -308,6 +310,8 @@ class CitasListController extends ControllerBase {
         'time' => $node->get('field_time')->value,
         'comment' => $node->get('field_comment')->value,
         'modalidad' => $node->get('field_modalidad')->value,
+        'verificado1' => $node->get('field_verify_file')->value,
+        'verificado2' => $node->get('field_verify_file2')->value,
         'nid' => $node->id(),
       ];
     }
