@@ -10,8 +10,14 @@
         </tr>
       </thead>
       <tbody>
+{% for row in rows %}
+  <tr>
+    <td>{{ row.title }}</td>
+    <td>{{ row.field_comment }}</td>
+  </tr>
+{% endfor %}
+</tbody>
 
-      </tbody>
     </table>
  
   </div>
