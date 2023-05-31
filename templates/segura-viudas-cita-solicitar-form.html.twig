@@ -142,6 +142,8 @@
           {# Renderiza el formulario como de costumbre. #}
           <center><button style="text-align:center;" class="btn primary disabled open-popup" href=""><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</button></center>
         {% endif %}
+        {# creamos un boton para  guardar solo documentos sin pedir cita #}
+        <center><button style="text-align:center;" class="btn primary disabled open-popup" href=""><em class="icon-crest"></em>{{ "Guardar documentacion" | t }}</button></center>
       </div>
       </div>
       <div id="create-popup" class="overlay block middle center">
@@ -167,9 +169,12 @@
           <input type="radio" id="type" name="type" value="telefonica" {% if form['#cita_info']['type'] == 1 %} checked {% endif %}>
           <span style="margin-right: 1em;" for="type">{{ "Telefonica" | t }}</span>
 
-          {# creamos un input tipo date con el id 'date' #}
+          {# creamos un input tipo date con el id 'date' y con la fecha del contenido seleccionada#}
           <label style="display: block;">{{ "Selecciona un día en la agenda" | t }}</label>
-          <input type="date" id="date" name="field_date">
+          {# le añadimos el valor de 'field_date' al input date #}
+          <input type="date" id="date" name="field_date" value="{{ form['#cita_info']['date'] }}">
+
+
           {# creamos input tipo select donde dentro se podran seleccionar las horas desde las 9 hasta las 17 con intervalos de 30 minutos #}
           <label>{{ "Horas disponibles" | t }}</label>
 
@@ -192,6 +197,10 @@
             <option value="16:30">16:30 ~ 17:00</option>
             <option value="17:00">17:00 ~ 17:30</option>
           </select>
+          {# seleccionamos por defecto la hora del form['#cita_info']['time'] #}
+          <script>
+            document.getElementById('date').value = ""{{ form['#cita_info']['time'] }}"";
+          </script>
           {# por ultimo creamos un textarea sin formato donde pondremos el comentario que tenemos en la variable form['#cita_info']['comment']  #}
           <label>{{ "Comentario" | t }}</label>
           <textarea name="field_comment" id="comment" cols="30" rows="10">{{ form['#cita_info']['comment'] }}</textarea>

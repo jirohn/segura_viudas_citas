@@ -9,42 +9,11 @@ use Drupal\node\Entity\Node;
 
 class AdminPageFilesController extends ControllerBase {
 
-  /**
-   * Callback for the 'segura_viudas_citas/admin_check_apointments' route.
-   *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The current request.
-   *
-   * @return \Symfony\Component\HttpFoundation\JsonResponse
-   *   A JSON response containing the times of existing appointments.
-   */
-  public function adminCheckAppointments(Request $request) {
-
-    $existing_citas = []; // Inicializa la variable $existing_citas como un array vacío.
-
-    $query = \Drupal::entityQuery('node')
-    ->condition('type', 'citas')
-    ->accessCheck(FALSE);
-
-    $nids = $query->execute();
-
-    if (!empty($nids)) {
-      $nodes = Node::loadMultiple($nids);
-      foreach ($nodes as $node) {
-        $existing_citas[] = [
-          'title' => $node->label(),
-          'field_comment' => $node->get('field_comment')->value,
-        ];
-      }
-    }
-
-    return new JsonResponse($existing_citas);
-  }
-
   public function content() {
     // Obtén todas las citas.
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'citas')
+      ->condition('field_date', NULL)
       ->sort('created', 'DESC')
       ->accessCheck(FALSE); // Añade esta línea para deshabilitar la verificación de acceso.
     $nids = $query->execute();
@@ -58,20 +27,12 @@ class AdminPageFilesController extends ControllerBase {
       'field_comment' => $this->t('Comentario'),
     ];
 
-    $rows = [];
-    foreach ($citas_nodes as $node) {
-      $row = [
-        'title' => $node->label(),
-        'field_comment' => $node->get('field_comment')->value,
-      ];
-      $rows[] = $row;
-    }
 
     $build = [
       '#theme' => 'citas_files',
       '#title' => $this->t('Gestión de archivos'),
       '#header' => $header,
-      '#rows' => $rows,
+      '#citas' => $citas_nodes,
       '#attached' => [
         'library' => [
           'segura_viudas_citas/admin_files',

@@ -51,7 +51,7 @@ function segura_viudas_citas_theme($existing, $type, $theme, $path) {
       'path' => $path . '/templates',
     ],
     'citas_files' => [
-      'variables' => ['citas' => NULL, 'title' => NULL],
+      'variables' => ['citas' => NULL],
       'template' => 'citas-admin-files',
       'path' => $path . '/templates',
     ],
