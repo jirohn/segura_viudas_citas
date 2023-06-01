@@ -127,7 +127,7 @@
 
             <p>
             {# creamos un boton llamado modificar cita con la clase btn primary open-mod-popup #}
-            <button style="float:left; width:85%;" class="btn primary open-mod-popup" href=""><em class="icon-crest"></em>{{ "Modificar cita" | t }}</button>
+            <button style="float:left; width:100%;" class="btn primary open-mod-popup" href=""><em class="icon-crest"></em>{{ "Modificar cita" | t }}</button>
             {#<button style="float:right; width:5%;transform: translateY(-4px);" class="btn danger open-del-popup" id="delete-cita" href=""><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#718457" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
               <path d="M4 7l16 0" />
@@ -143,7 +143,7 @@
           <center><button style="text-align:center;" class="btn primary disabled open-popup" href=""><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</button></center>
         {% endif %}
         {# creamos un boton para  guardar solo documentos sin pedir cita #}
-        <center><button style="text-align:center;" class="btn primary disabled open-popup" href=""><em class="icon-crest"></em>{{ "Guardar documentacion" | t }}</button></center>
+        <center><button style="text-align:center;" class="btn btn-link disabled open-popup" href="">{{ "Desa la documentació" | t }}</button></center>
       </div>
       </div>
       <div id="create-popup" class="overlay block middle center">
@@ -173,8 +173,6 @@
           <label style="display: block;">{{ "Selecciona un día en la agenda" | t }}</label>
           {# le añadimos el valor de 'field_date' al input date con la fecha que tenemos en la variable form['#cita_info']['date'] #}
           <input type="date" id="date" name="field_date_update" value="{{ form['#cita_info']['date'] }}">
-          date: {{ form['#cita_info']['date'] }}
-          time: {{ form['#cita_info']['time'] }}
           {# creamos input tipo select donde dentro se podran seleccionar las horas desde las 9 hasta las 17 con intervalos de 30 minutos este select por defecto debe tener seleccionada la hora que tenemos en la variable form['#cita_info']['time'] #}
 
           <label>{{ "Horas disponibles" | t }}</label>
