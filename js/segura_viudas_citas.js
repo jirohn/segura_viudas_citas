@@ -1,6 +1,8 @@
 (function ($, Drupal) {
   Drupal.behaviors.seguraViudasCitas = {
     attach: function (context, settings) {
+      // cuando el documento este cargado y se realiza solo una vez
+      $(document).ready(function() {
       console.log('seguraViudasCitas behavior attached');
 
       $('#edit-field-file-upload', context).change(function () {
@@ -40,29 +42,27 @@
         e.preventDefault();
         $('#mod-popup').hide();
       });
-      var $file = $('input[type="file"]').eq(0);
-      var $file2 = $('input[type="file"]').eq(1);
+      var $file = $('.js-form-managed-file').eq(0);
+      var $file2 = $('.js-form-managed-file').eq(1);
+
+      // Función para verificar si un elemento tiene al menos dos .js-form-item
+      function tieneDosItems($elemento) {
+        return $elemento.find('.js-form-item').length >= 1;
+      }
+
+      // Verificar si ambos .js-form-managed-file tienen al menos dos .js-form-item
+      if (tieneDosItems($file) && tieneDosItems($file2)) {
+        // Habilitar el botón y abrir el popup
+        $('.open-popup').prop('disabled', false).removeClass('disabled');
+        console.log('Se abrió el popup');
+      } else {
+        // Deshabilitar el botón y cerrar el popup
+        $('.open-popup').prop('disabled', true).addClass('disabled');
+        $('#create-popup').hide();
+        console.log('Se cerró el popup');
+      }
 
 
-      $file.add($file2).change(function () {
-        console.log('se cargó una foto para el popup');
-        if ($file.val() && $file2.val()) {
-          // Habilitar el botón
-          $('.open-popup').prop('disabled', false);
-          console.log('se habilito el open popup', $file.val(), $file2.val());
-          $('.open-popup').removeClass('disabled');
-        }
-      });
-      // si el $file tenia valor y ahora esta vacio cerramos popup y quitamos el boton de crear cita
-      $file.change(function () {
-        if (!$file.val()) {
-          // Deshabilitar el botón
-          $('.open-popup').prop('disabled', true);
-          console.log('se deshabilito el open popup');
-          $('.open-popup').addClass('disabled');
-          $('#create-popup').hide();
-        }
-      });
       // si hace click en cualquier otro lado o en el boton de cancelar se cierra el popup
       $('#cancel-popup').off('click').click(function (event) {
         console.log('se intento cerrar el popup');
@@ -169,9 +169,13 @@
 
       if (!$dateField.val()) {
         disableTimeField();
+
       }
+    });
     },
+
   };
+
   $('.save-mod-popup').click(function(e) {
     e.preventDefault();
     $type = '0';
