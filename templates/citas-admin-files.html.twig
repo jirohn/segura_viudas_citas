@@ -6,14 +6,17 @@
         <tr>
           {# añadimos el campo select #}
           <th>{{ 'Solicitante'|t }}</th>
-          <th>{{ 'Comentario'|t }}</th>
+          <th>{{ 'Enlace'|t }}</th>
         </tr>
       </thead>
       <tbody>
-{% for row in rows %}
+{% for cita in citas %}
   <tr>
-    <td>{{ row.title }}</td>
-    <td>{{ row.field_comment }}</td>
+    <td>{{ cita.title.value }}</td>
+    {# añadimos el enalce a la cita con el nombre 'ver cita' en el idioma catalan #}
+    <td><a href="{{ path('entity.node.canonical', {'node': cita.id }) }}">{{ 'Veure cita'|t }}</a></td>
+
+
   </tr>
 {% endfor %}
 </tbody>

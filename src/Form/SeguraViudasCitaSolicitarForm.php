@@ -161,15 +161,14 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
         0 => $this->t('Presencial'),
         1 => $this->t('Telefónica'),
       ),
-      '#required' => TRUE,
+      '#required' => FALSE,
     ];
 
     // Agregamos los campos de fecha, hora y lugar al formulario.
     $form['field_date'] = [
       '#type' => 'date',
       '#title' => $this->t('Fecha'),
-      '#required' => TRUE,
-      '#value' => $current_date,
+      '#required' => FALSE,
     ];
 
     $form['field_time'] = [
@@ -195,9 +194,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
         '16:30' => '16:30 ~ 17:00',
         // ... añade más opciones aquí ...
       ),
-
-
-      '#required' => TRUE,
+      '#required' => FALSE,
     ];
 
     $form['field_comment'] = [
@@ -213,6 +210,14 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#value' => $this->t('Solicitar cita'),
       '#attributes' => array(
         'class' => array('icon-crest'),
+      ),
+    ];
+    $form['save'] = [
+      '#type' => 'submit',
+      /* Añadimos un value con un <em> y un texto */
+      '#value' => $this->t('Desa la documentació'),
+      '#attributes' => array(
+        'class' => array('icon-crest save-file'),
       ),
     ];
     // creamos una variable para retornar en el $form la plantilla twig y la- libreria js 'segura_viudas_citas'

@@ -76,6 +76,7 @@
         event.preventDefault(); // Prevenir la acción predeterminada del enlace
         // mostramos el overlay que tiene un hide
         $('#create-popup').show();
+        $('')
       });
       // Si se hace clic en el botón "open-popup", abrir el popup
       $('.open-mod-popup').off('click').click(function (event) {
@@ -216,6 +217,9 @@
     });
   });
   $(document).ready(function () {
+    // metemos el boton con la clase .save-file en el final del form
+    $('.save-file').appendTo('form');
+
     console.log('seguraViudasCitas form styles attached');
     var $fileInfo = $('.file-field');
     // si no existe $fileInfo
@@ -272,8 +276,8 @@
     var $popupDiv = $('#popup');
     var $overlay = $('#create-popup');
     // Selecciona los campos del formulario y el botón de envío y los mueve al div popup
-    var $fieldDate = $('#edit-field-date').detach();
-    var $fieldTime = $('#edit-field-time').detach();
+    var $fieldDate = $('#edit-field-date').detach().val(null);
+    var $fieldTime = $('#edit-field-time').detach().val(null);
     var $fieldComment = $('#edit-field-comment').detach();
     var $fieldModalidad = $('#edit-field-modalidad').detach();
     // creamos boton cancelar y lo añadimos en variable

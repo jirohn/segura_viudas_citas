@@ -62,7 +62,14 @@
                             <dl class="admin-list--panel admin-list gin-layer-wrapper">
                                 <div class="admin-item">
                                     <dt class="admin-item__title">{{ 'Día'|t }}</dt>
-                                    <dd class="admin-item__description">{{ node.field_date.value | date('d/m/Y') }}</dt>
+                                    <dd class="admin-item__description">
+                                    {# si hay fecha se muestra, si no ponemos no hay cita programada en el idioma catalan#}
+                                    {% if node.field_date.value %}
+                                      {{ node.field_date.value.date | date('d/m/Y') }}
+                                    {% else %}
+                                      {{ 'No hi ha cita programada'|t }}
+                                    {% endif %}
+                                  </dt>
                                 </div>
                                 <div class="admin-item">
                                     <dt class="admin-item__title">{{ 'Hora'|t }}</dt>
