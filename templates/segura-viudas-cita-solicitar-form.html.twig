@@ -110,8 +110,8 @@
           </div>
         </div>
         </div>
-      <div class="block nomobile third column p-3 space-between" style="background-color:#f8f9f6; align-self: flex-start; margin-top:5em;margin-left: 2em;">
-        <h2 class="noup">{{ "Cita per a la signatura" | t }}</h2>
+      <div id="block--cita-info" class="block nomobile third column p-3 space-between" style="background-color:#f8f9f6; align-self: flex-start; margin-top:5em;margin-left: 2em;">
+        <h2 class="noup">{{ "Cita per a la signatura" | t }}</h2>        
         {# Revisa si la información de la cita está presente. #}
         {% if form['#cita_info'] is defined %}
           {# Crea un div personalizado con la información de la cita. #}
@@ -128,24 +128,35 @@
             {% endif %}
 
             {% if form['#cita_info']['type'] == 1 %}
+                {% if form['#cita_info']['time'] is not null %}
               <p><b>{{ 'Telefònica' | t }}</b>.</p>
+                {% endif %}
             {% else %}
+                {% if form['#cita_info']['time'] is not null %}
               <p><b>{{ 'Presencial' | t }}</b>.</p>
+                {% endif %}
             {% endif %}
             {# creamos un boton 'x' con una clase btn danger#}
 
             <p>
             {# creamos un boton llamado modificar cita con la clase btn primary open-mod-popup #}
-            <button style="float:left; width:100%;" class="btn primary open-mod-popup" href=""><em class="icon-crest"></em>{{ "Modificar cita" | t }}</button>
-            {#<button style="float:right; width:5%;transform: translateY(-4px);" class="btn danger open-del-popup" id="delete-cita" href=""><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#718457" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <path d="M4 7l16 0" />
-              <path d="M10 11l0 6" />
-              <path d="M14 11l0 6" />
-              <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-              <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-            </svg></button>
-          </p>#}
+            {% if form['#cita_info']['time'] is not null %}
+              <button style="float:left; width:80%;padding: 1em;" class="btn primary open-mod-popup" href=""><em class="icon-crest"></em>{{ "Modificar cita" | t }}</button>
+            {% else %}
+              <button style="float:left; width:100%;" class="btn primary open-mod-popup" href=""><em class="icon-crest"></em>{{ "Programar cita" | t }}</button>
+            {% endif %}
+
+            {% if form['#cita_info']['time'] is not null %}
+              <button style="float:right; width:5%;transform: translateY(-4px);" class="btn danger open-del-popup" id="delete-cita" href=""><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#718457" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M4 7l16 0" />
+                <path d="M10 11l0 6" />
+                <path d="M14 11l0 6" />
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+              </svg></button>
+            {% endif %}
+          </p>
             {# renderizamos un nuevo div con la clase mod-popup con varias opciones dentro. #}
         {% else %}
           {# Renderiza el formulario como de costumbre. #}
