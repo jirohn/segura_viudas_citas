@@ -148,6 +148,7 @@ function segura_viudas_citas_node_delete(EntityInterface $entity) {
     $params['title'] = $entity->label();
     $params['deleter'] = \Drupal::currentUser()->getDisplayName();
     $send = true;
+    $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
 
     $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
     if ($result['result'] !== true) {

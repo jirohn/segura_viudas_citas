@@ -45,33 +45,35 @@
             },
           });
         });
-        var timeSlots = [
-          '09:00',
-          '09:30',
-          '10:00',
-          '10:30',
-          '11:00',
-          '11:30',
-          '12:00',
-          '12:30',
-          '13:00',
-          '13:30',
-          '14:00',
-          '14:30',
-          '15:00',
-          '15:30',
-          '16:00',
-          '16:30',
-        ];
+
         function updateCitasTable(citas) {
+          var timeSlots = [
+            '09:00',
+            '09:30',
+            '10:00',
+            '10:30',
+            '11:00',
+            '11:30',
+            '12:00',
+            '12:30',
+            '13:00',
+            '13:30',
+            '14:00',
+            '14:30',
+            '15:00',
+            '15:30',
+            '16:00',
+            '16:30',
+          ];
+          var date = $('#date-picker').val();
           var $tableBody = $('.gestion-citas-wrapper table tbody');
           $tableBody.empty();
           citas.forEach(function (cita) {
-            if (cita.title === 'Ampliado') {
+
               if (timeSlots.indexOf(cita.field_time) === -1) {
               timeSlots.push(cita.field_time);
               }
-            }
+
           });
           timeSlots.forEach(function (timeSlot) {
             var citaForTimeSlot = citas.find(function (cita) {
@@ -81,8 +83,8 @@
             if (citaForTimeSlot) {
               $row.addClass('appointment');
               $row.css('cursor', 'pointer');
-              if(citaForTimeSlot.title != 'Bloqueado'){
-                $row.on('click', function () {
+              if(citaForTimeSlot.title != 'Bloqueado' || citaForTimeSlot.title != 'Bloqueado Ampliado'){
+                $row.off('click').on('click', function () {
                   if (event.target.className == 'action-link action-link--danger action-link--icon-delete') {
                   window.location.href = Drupal.url('node/' + citaForTimeSlot.nid);
                   }
@@ -98,7 +100,7 @@
                 $row.append($('<td></td>').text(''));
                 $row.append($('<td></td>').text(''));
                 $row.append($('<td></td>').append($deleteButton).append($blockButton));
-                $blockButton.on('click', function (event) {
+                $blockButton.off('click').on('click', function (event) {
                   event.stopPropagation();
                   if ($blockButton.hasClass('blocked')) {
                     $blockButton.removeClass('blocked');
@@ -114,7 +116,7 @@
                     blockAppointment(date, timeSlot);
                   }
                 });
-              }else if (citaForTimeSlot.title == 'Bloqueado') {
+              }else if (citaForTimeSlot.title == 'Bloqueado' || citaForTimeSlot.title == 'Bloqueado Ampliado') {
                 var $blockButton = $('<button class="action-link action-link--danger action-link--icon-block"></button>').append($('<img src="" alt="lock icon" />'));
                 $blockButton.find('img').attr('src', '/modules/nateevo/segura_viudas_citas/images/lockicon.svg');
                 $blockButton.css('border', 'none');
@@ -132,7 +134,7 @@
                 $row.append($('<td></td>').text(''));
                 $row.append($('<td></td>').text(''));
                 $row.append($('<td></td>').append($deleteButton).append($blockButton));
-                $blockButton.on('click', function (event) {
+                $blockButton.off('click').on('click', function (event) {
                   event.stopPropagation();
                   if ($blockButton.hasClass('blocked')) {
                     $blockButton.removeClass('blocked');
@@ -161,14 +163,14 @@
                   }else{
                     $row.append($('<td></td>').text(''));
                   }
-                  if (citaForTimeSlot.title != 'Bloqueado') {
+                  if (citaForTimeSlot.title != 'Bloqueado' || citaForTimeSlot.title != 'Bloqueado Ampliado') {
                   var $deleteButton = $('<button class="action-link action-link--danger action-link--icon-delete"></button>').append($('<img src="" alt="delete icon" />'));
                   $deleteButton.find('img').attr('src', '/modules/nateevo/segura_viudas_citas/images/deleteicon.svg');
                   $deleteButton.css('border', 'none');
                   $deleteButton.css('background-color', 'transparent');
                   $deleteButton.find('img').css('width', '1.5em', 'transition', 'all .4s');
                   $row.append($('<td></td>').append($deleteButton));
-                  $deleteButton.on('click', function (event) {
+                  $deleteButton.off('click').on('click', function (event) {
                     if (!confirm('¿Estás seguro de que quieres eliminar esta cita?')) {
                       alert('Eliminación cancelada');
                     }else{
@@ -185,7 +187,7 @@
               $blockButton.css('border', 'none');
               $blockButton.css('background-color', 'transparent');
               $blockButton.find('img').css('width', '1.5em', 'transition', 'all .4s');
-              $blockButton.on('click', function (event) {
+              $blockButton.off('click').on('click', function (event) {
                 event.stopPropagation();
                 if ($blockButton.hasClass('blocked')) {
                   $blockButton.removeClass('blocked');
@@ -230,7 +232,7 @@
               var $deleteButton = $('#delete-button');
               var $blockButton = $('#block-button');
               var $unblockButton = $('#unblock-button');
-              $deleteButton.on('click', function () {
+              $deleteButton.off('click').on('click', function () {
                 console.log('click en el boton de eliminar');
                 if (!confirm('¿Estás seguro de que quieres eliminar estas citas?')) {
                   alert('Eliminación cancelada');
@@ -247,8 +249,8 @@
                   $('#date-picker').change();
                 }
               });
-              $blockButton.on('click', function () {
-                var date = $('#date-picker').val();
+              $blockButton.off('click').on('click', function () {
+                date = $('#date-picker').val();
                 var time = [];
                 console.log('click en el boton de bloquear');
                 console.log('fecha: ', date);
@@ -269,7 +271,7 @@
                 }
                 $('#date-picker').change();
               });
-              $unblockButton.on('click', function () {
+              $unblockButton.off('click').on('click', function () {
                 console.log('click en el boton de desbloquear');
                 if (!confirm('¿Estás seguro de que quieres desbloquear estas citas?')) {
                   alert('Desbloqueo cancelado');
@@ -323,6 +325,7 @@
             dataType: 'json',
             success: function (data) {
               console.log('Cita eliminada: ', data);
+              $('#date-picker').change();
             },
             error: function (jqXHR, textStatus, errorThrown) {
               console.error('Error eliminando cita:', textStatus, errorThrown);
@@ -379,7 +382,7 @@
             $('input[type="checkbox"]').prop('checked', false);
           }
         });
-        $('#add-time-slot').on('click', function (event) {
+        $('#add-time-slot').off('click').on('click', function (event) {
           event.stopPropagation();
 
           var lastTimeSlot = timeSlots[timeSlots.length - 1];

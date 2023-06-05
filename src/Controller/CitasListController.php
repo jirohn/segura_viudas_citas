@@ -78,17 +78,24 @@ class CitasListController extends ControllerBase {
     $nid = $request->query->get('nid');
     $date = $request->query->get('date');
 
-    // Log the received date
+    // Log the received nid
     \Drupal::logger('segura_viudas_citas')->notice('Received nid: @nid', ['@nid' => $nid]);
 
     $node = Node::load($nid);
-    $node->delete();
+    // Check if the node title is 'Bloqueado Ampliado'
+    if ($node->label() === 'Bloqueado Ampliado') {
+        // Change the title to 'Ampliado' instead of deleting
+        $node->setTitle('Ampliado');
+        $node->save();
+    } else {
+        // If the title is not 'Bloqueado Ampliado', delete the node as usual
+        $node->delete();
+    }
+
     $query = \Drupal::entityQuery('node')
     ->condition('type', 'citas')
     ->condition('field_date', $date)
     ->accessCheck(FALSE);
-
-
 
     $nids = $query->execute();
     if (!empty($nids)) {
@@ -111,7 +118,8 @@ class CitasListController extends ControllerBase {
       }
     }
     return new JsonResponse($existing_citas);
-  }
+}
+
   //Creamos un ajax que crea una cita llamada "Bloquedo" para poder bloquear las horas que no se pueden seleccionar ese dia//
   /**
    * Callback for the 'segura_viudas_citas/admin_block_appointment' route.
@@ -133,8 +141,22 @@ class CitasListController extends ControllerBase {
     $time = explode(',', $time);
     // Comprobamos si $time es un array
     if (is_array($time)) {
-        // Si es un array, creamos un nodo para cada valor de tiempo
+      $changed = false;
+
         foreach ($time as $t) {
+            $existing_nodes = \Drupal::entityTypeManager()
+                ->getStorage('node')
+                ->loadByProperties(['type' => 'citas', 'field_time' => $t]);
+
+            // Change the title of the existing node to 'Bloqueado Ampliado'
+            foreach($existing_nodes as $existing_node) {
+                $existing_node->setTitle('Bloqueado Ampliado');
+                $existing_node->save();
+                $changed = true;
+
+            }
+            if(!$changed){
+            // Now create the new node
             $node = Node::create([
                 'type' => 'citas',
                 'title' => 'Bloqueado',
@@ -142,10 +164,25 @@ class CitasListController extends ControllerBase {
                 'field_time' => $t,
                 'field_modalidad' => 0,
             ]);
+
             $node->save();
+          }
         }
     } else {
-        // Si no es un array, creamos un solo nodo
+        $existing_nodes = \Drupal::entityTypeManager()
+            ->getStorage('node')
+            ->loadByProperties(['type' => 'citas', 'field_time' => $time]);
+
+        // Change the title of the existing node to 'Bloqueado Ampliado'
+        $changed = false;
+        foreach($existing_nodes as $existing_node) {
+            $existing_node->setTitle('Bloqueado Ampliado');
+            $existing_node->save();
+            $changed = true;
+        }
+
+        // Now create the new node
+        if(!$changed){
         $node = Node::create([
             'type' => 'citas',
             'title' => 'Bloqueado',
@@ -154,10 +191,13 @@ class CitasListController extends ControllerBase {
             'field_modalidad' => 0,
         ]);
         $node->save();
+      }
     }
 
     return new JsonResponse(['status' => 'ok']);
 }
+
+
   // creamos una orden ajax como la de arriba pero para crear horas ampliadas//
   /**
    * Callback for the 'segura_viudas_citas/admin_add_appointment' route.
