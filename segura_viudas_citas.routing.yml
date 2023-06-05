@@ -121,3 +121,10 @@ segura_viudas_citas.update_cita:
   requirements:
     _permission: 'access content'
 
+segura_viudas_citas.admin_add_appointment:
+  path: '/segura_viudas_citas/admin/add_appointment'
+  defaults:
+    _controller: '\Drupal\segura_viudas_citas\Controller\CitasListController::adminAddAppointment'
+    _title: 'Admin add Appointment'
+  requirements:
+    _permission: 'access content'

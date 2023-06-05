@@ -173,8 +173,8 @@ class CitasListController extends ControllerBase {
     $date = $request->query->get('date');
     $time = $request->query->get('timeSlot');
     // Log the received date
-    \Drupal::logger('segura_viudas_citas')->notice('Received date: @date', ['@date' => $date]);
-    \Drupal::logger('segura_viudas_citas')->notice('Received time: @time', ['@time' => $time]);
+    \Drupal::logger('segura_viudas_citas add appointment')->notice('Received date: @date', ['@date' => $date]);
+    \Drupal::logger('segura_viudas_citas add appointment')->notice('Received time: @time', ['@time' => $time]);
     // creamos un nodo con el tipo de contenido citas y el titulo Ampliado
     $node = Node::create([
       'type' => 'citas',

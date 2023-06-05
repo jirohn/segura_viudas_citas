@@ -199,10 +199,12 @@ function segura_viudas_citas_node_update(EntityInterface $entity) {
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function segura_viudas_citas_form_SeguraViudasCitaSolicitarForm_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  // Define los campos requeridos como no requeridos.
-  $form['field_date']['#required'] = FALSE;
-  $form['field_time']['#required'] = FALSE;
+if (!function_exists('segura_viudas_citas_form_SeguraViudasCitaSolicitarForm_alter')) {
+  function segura_viudas_citas_form_SeguraViudasCitaSolicitarForm_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+    // Define los campos requeridos como no requeridos.
+    $form['field_date']['#required'] = FALSE;
+    $form['field_time']['#required'] = FALSE;
+  }
 }
 /**
  * Implements hook_mail().

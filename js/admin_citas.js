@@ -1,21 +1,42 @@
 (function ($, Drupal) {
   Drupal.behaviors.adminCitas = {
     attach: function (context, settings) {
-      $(document).ready(function () {
+
         var today = new Date();
         var formattedDate = today.toISOString().substr(0, 10);
+        var selectedones=[];
+        function getSelected() {
+          var selected = [];
+          $('input[type="checkbox"]').each(function () {
+            selected.push({ checked: $(this).prop('checked'), id: $(this).attr('id') });
+          });
+          return selected;
+          }
+          function addAppointment(newTimeSlot){
+            $.ajax({
+              url: Drupal.url('/segura_viudas_citas/admin/add_appointment'),
+              data: { timeSlot: newTimeSlot, date: $('#date-picker').val() },
+              dataType: 'json',
+              success: function (data) {
+                console.log('Hora añadida: ', data);
+                timeSlots.push(newTimeSlot);
+                $('#date-picker').change();
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error añadiendo cita:', textStatus, errorThrown);
+              },
+            });
+        }
         $('#date-picker', context).val(formattedDate).change();
-
         $('#date-picker', context).on('change', function () {
           var selectedDate = $(this).val();
           console.log('AdminCitas fecha seleccionada: ', selectedDate);
-          // si apretamos el boton con la id add-time-slot añadimos añadimos un valor con media hora mas al array de timeSlots
-
           $.ajax({
             url: Drupal.url('/segura_viudas_citas/admin/check_apointments'),
             data: { date: selectedDate },
             dataType: 'json',
             success: function (citas) {
+              selectedones = getSelected();
               updateCitasTable(citas);
               console.log('obtenemos array de citas de este dia ', citas);
             },
@@ -45,14 +66,17 @@
         function updateCitasTable(citas) {
           var $tableBody = $('.gestion-citas-wrapper table tbody');
           $tableBody.empty();
-
-
+          citas.forEach(function (cita) {
+            if (cita.title === 'Ampliado') {
+              if (timeSlots.indexOf(cita.field_time) === -1) {
+              timeSlots.push(cita.field_time);
+              }
+            }
+          });
           timeSlots.forEach(function (timeSlot) {
             var citaForTimeSlot = citas.find(function (cita) {
               return cita.field_time === timeSlot;
             });
-
-
             var $row = $('<tr></tr>');
             if (citaForTimeSlot) {
               $row.addClass('appointment');
@@ -64,7 +88,33 @@
                   }
                 });
               }
-              if (citaForTimeSlot.title == 'Bloqueado') {
+              if(citaForTimeSlot.title == 'Ampliado'){
+                var $blockButton = $('<button class="action-link action-link--danger action-link--icon-block"></button>').append($('<img src="" alt="lock icon" />'));
+                var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox" id="reserved-appointment" />');
+                $checkbox.attr('data-nid', citaForTimeSlot.nid);
+                $row.append($('<td></td>').append($checkbox));
+                $row.append($('<td></td>').text(citaForTimeSlot.field_time));
+                $row.append($('<td></td>').text(''));
+                $row.append($('<td></td>').text(''));
+                $row.append($('<td></td>').text(''));
+                $row.append($('<td></td>').append($deleteButton).append($blockButton));
+                $blockButton.on('click', function (event) {
+                  event.stopPropagation();
+                  if ($blockButton.hasClass('blocked')) {
+                    $blockButton.removeClass('blocked');
+                    $blockButton.find('img').css('transform', 'rotate(0deg)');
+                    $row.css('background-color', '#f5f8ff');
+                    $blockButton.find('img').css('fill', '#00cc00');
+                    deleteAppointment(citaForTimeSlot.nid);
+                  } else {
+                    $blockButton.addClass('blocked');
+                    $blockButton.find('img').css('transform', 'rotate(90deg)');
+                    $row.css('background-color', '#ffcccc');
+                    $blockButton.find('img').css('fill', '#ff0000');
+                    blockAppointment(date, timeSlot);
+                  }
+                });
+              }else if (citaForTimeSlot.title == 'Bloqueado') {
                 var $blockButton = $('<button class="action-link action-link--danger action-link--icon-block"></button>').append($('<img src="" alt="lock icon" />'));
                 $blockButton.find('img').attr('src', '/modules/nateevo/segura_viudas_citas/images/lockicon.svg');
                 $blockButton.css('border', 'none');
@@ -74,7 +124,7 @@
                 $row.css('background-color', '#ffcccc');
                 $blockButton.addClass('blocked');
                 $blockButton.find('img').css('transform', 'rotate(-90deg)');
-                var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox" id="blocked-appointment" class="blocked" />');
+                var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox check-blocked" id="blocked-appointment" />');
                 $checkbox.attr('data-nid', citaForTimeSlot.nid);
                 $row.append($('<td></td>').append($checkbox));
                 $row.append($('<td></td>').text(timeSlot));
@@ -96,13 +146,10 @@
                     $row.css('background-color', '#ffcccc');
                     $blockButton.find('img').css('fill', '#ff0000');
                     blockAppointment(date, timeSlot);
-
                   }
-
                 });
-
                 }else{
-                  var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox" id="reserved-appointment" class="reserved" />');
+                  var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox" id="reserved-appointment" />');
                   $checkbox.attr('data-nid', citaForTimeSlot.nid);
                   $row.append($('<td></td>').append($checkbox));
                   $row.append($('<td></td>').text(citaForTimeSlot.field_time));
@@ -125,7 +172,6 @@
                     if (!confirm('¿Estás seguro de que quieres eliminar esta cita?')) {
                       alert('Eliminación cancelada');
                     }else{
-                      // eliminamos
                       deleteAppointment(citaForTimeSlot.nid);
                       alert('Eliminando cita...');
                       $('#date-picker').change();
@@ -156,7 +202,7 @@
                 }
               });
               $row.css('background-color', '#f5f8ff');
-              var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox" id="empty-appointment" class="reserved" />');
+              var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox check-empty" id="empty-appointment"/>');
               $checkbox.attr('data-time', timeSlot);
               $checkbox.attr('data-date', $('#date-picker').val());
               $row.append($('<td></td>').append($checkbox));
@@ -165,6 +211,93 @@
               $row.append($('<td></td>').append($blockButton));
             }
             $tableBody.append($row);
+
+            $('input[type="checkbox"]').on('change', function () {
+              if ($(this).is(':checked') && $('#action-buttons-container').hasClass('hidden')) {
+                checkSelected();
+              }else if (!$('input[type="checkbox"]').is(':checked')) {
+                checkSelected();
+              }
+              console.log('selectedones: ', selectedones);
+            });
+          });
+          function checkSelected() {
+            console.log('click en checkbox');
+            if ($('#action-buttons-container').hasClass('hidden')) {
+              $('#action-buttons-container').removeClass('hidden');
+              var $actioncontainer = $('#action-buttons-container');
+              console.log('hay acciones', $actioncontainer);
+              var $deleteButton = $('#delete-button');
+              var $blockButton = $('#block-button');
+              var $unblockButton = $('#unblock-button');
+              $deleteButton.on('click', function () {
+                console.log('click en el boton de eliminar');
+                if (!confirm('¿Estás seguro de que quieres eliminar estas citas?')) {
+                  alert('Eliminación cancelada');
+                } else {
+                  $('input[type="checkbox"]:checked').each(function () {
+                    if ($(this).attr('id') === 'reserved-appointment') {
+                      var nid = $(this).attr('data-nid');
+                      console.log('nid: ', nid);
+                      deleteAppointments(nid);
+                    }else{
+                      console.log('no hay citas seleccionadas');
+                    }
+                  });
+                  $('#date-picker').change();
+                }
+              });
+              $blockButton.on('click', function () {
+                var date = $('#date-picker').val();
+                var time = [];
+                console.log('click en el boton de bloquear');
+                console.log('fecha: ', date);
+                console.log('horas: ', time);
+                if (!confirm('¿Estás seguro de que quieres bloquear estas citas?')) {
+                  alert('Bloqueo cancelado');
+                } else {
+                  $('input[type="checkbox"]:checked').each(function () {
+                  if ($(this).attr('id') === 'empty-appointment') {
+                    time.push($(this).attr('data-time'));
+                  }else{
+                    console.log('no hay citas libres seleccionadas');
+                  }
+                });
+                if(time.length > 0){
+                  blockAppointments(date, time);
+                  }
+                }
+                $('#date-picker').change();
+              });
+              $unblockButton.on('click', function () {
+                console.log('click en el boton de desbloquear');
+                if (!confirm('¿Estás seguro de que quieres desbloquear estas citas?')) {
+                  alert('Desbloqueo cancelado');
+                } else {
+                  $('input[type="checkbox"]:checked').each(function () {
+                  if ($(this).attr('id') === 'blocked-appointment') {
+                    var nid = $(this).attr('data-nid');
+                    console.log('nid: ', nid);
+                    deleteAppointments(nid);
+                  }else{
+                    console.log('no hay citas bloqueadas seleccionadas');
+                  }
+              });
+              $('#date-picker').change();
+            }
+          });
+            }else {
+              $('#action-buttons-container').addClass('hidden');
+            }
+          };
+          $('input[type="checkbox"]').each(function () {
+            var id = $(this).attr('id');
+            var selectedone = selectedones.find(function (selectedone) {
+              return selectedone.id === id;
+            });
+            if (selectedone) {
+              $(this).prop('checked', selectedone.checked);
+            }
           });
         }
         function blockAppointment(date, timeSlot) {
@@ -220,111 +353,8 @@
             },
           });
         }
-        $('#add-time-slot').on('click', function () {
-          // buscamo el ultimo valor del array
-          var lastTimeSlot = timeSlots[timeSlots.length - 1];
-          // creamos una variable con el valor de la hora y los minutos
-          var lastTimeSlotParts = lastTimeSlot.split(':');
-          // creamos una variable con el valor de la hora
-          var lastTimeSlotHour = parseInt(lastTimeSlotParts[0]);
-          // creamos una variable con el valor de los minutos
-          var lastTimeSlotMinutes = parseInt(lastTimeSlotParts[1]);
-          // comprobamos si el lastTimeSlotMinutes es igual a 30
-          if (lastTimeSlotMinutes === 30) {
-            // si es igual a 30 le sumamos una hora y le restaamos 30 minutos
-            lastTimeSlotHour += 1;
-            lastTimeSlotMinutes -= 30;
-          } else {
-            // si no es igual a 30 le sumamos 30 minutos
-            lastTimeSlotMinutes += 30;
-          }
-          // creamos una variable con el valor de la hora y los minutos
-          var newTimeSlot = lastTimeSlotHour + ':' + lastTimeSlotMinutes;
-          // añadimos el nuevo valor al array
-          // si el lastTimeSlotMinutes es igual a 0 le añadimos un 0
-          if (lastTimeSlotMinutes === 0) {
-            newTimeSlot += '0';
-          }
-          timeSlots.push(newTimeSlot);
-          // llamamos a la funcion updateCitasTable
-          $('#date-picker').change();
-
-        });
-
-      $(document).ready(function() {
-        $('input[type="checkbox"]').on('change', function () {
-          console.log('click en checkbox');
-          if ($('input[type="checkbox"]:checked').length > 0 && $('#action-buttons-container').hasClass('hidden')) {
 
 
-            // retiramos la clase 'hidden' del container
-            $('#action-buttons-container').removeClass('hidden');
-            var $actioncontainer = $('#action-buttons-container');
-            console.log('hay acciones', $actioncontainer);
-            var $deleteButton = $('#delete-button');
-            var $blockButton = $('#block-button');
-            var $unblockButton = $('#unblock-button');
-            $deleteButton.on('click', function () {
-              console.log('click en el boton de eliminar');
-              if (!confirm('¿Estás seguro de que quieres eliminar estas citas?')) {
-                alert('Eliminación cancelada');
-              } else {
-                $('input[type="checkbox"]:checked').each(function () {
-                  if ($(this).attr('id') === 'reserved-appointment') {
-                    var nid = $(this).attr('data-nid');
-                    console.log('nid: ', nid);
-                    deleteAppointments(nid);
-                  }else{
-                    console.log('no hay citas seleccionadas');
-                  }
-                });
-                $('#date-picker').change();
-              }
-            });
-            $blockButton.on('click', function () {
-              var date = $('#date-picker').val();
-              var time = [];
-              console.log('click en el boton de bloquear');
-              console.log('fecha: ', date);
-              console.log('horas: ', time);
-              if (!confirm('¿Estás seguro de que quieres bloquear estas citas?')) {
-                alert('Bloqueo cancelado');
-              } else {
-                $('input[type="checkbox"]:checked').each(function () {
-                if ($(this).attr('id') === 'empty-appointment') {
-                  time.push($(this).attr('data-time'));
-                }else{
-                  console.log('no hay citas libres seleccionadas');
-                }
-              });
-              if(time.length > 0){
-                blockAppointments(date, time);
-                }
-              }
-              $('#date-picker').change();
-            });
-            $unblockButton.on('click', function () {
-              console.log('click en el boton de desbloquear');
-              if (!confirm('¿Estás seguro de que quieres desbloquear estas citas?')) {
-                alert('Desbloqueo cancelado');
-              } else {
-                $('input[type="checkbox"]:checked').each(function () {
-                if ($(this).attr('id') === 'blocked-appointment') {
-                  var nid = $(this).attr('data-nid');
-                  console.log('nid: ', nid);
-                  deleteAppointments(nid);
-                }else{
-                  console.log('no hay citas bloqueadas seleccionadas');
-                }
-            });
-            $('#date-picker').change();
-          }
-        });
-          }else {
-            // añadimos la clase 'hidden' al container
-            $('#action-buttons-container').addClass('hidden');
-          }
-        });
         $('#check-all').on('change', function () {
           if ($(this).is(':checked')) {
             $('input[type="checkbox"]').prop('checked', true);
@@ -349,9 +379,28 @@
             $('input[type="checkbox"]').prop('checked', false);
           }
         });
-      });
-      
-    },
+        $('#add-time-slot').on('click', function (event) {
+          event.stopPropagation();
 
-)},
+          var lastTimeSlot = timeSlots[timeSlots.length - 1];
+          var lastTimeSlotParts = lastTimeSlot.split(':');
+          var lastTimeSlotHour = parseInt(lastTimeSlotParts[0]);
+          var lastTimeSlotMinutes = parseInt(lastTimeSlotParts[1]);
+          if (lastTimeSlotMinutes === 30) {
+            lastTimeSlotHour += 1;
+            lastTimeSlotMinutes -= 30;
+          } else {
+            lastTimeSlotMinutes += 30;
+          }
+          var newTimeSlot = lastTimeSlotHour + ':' + lastTimeSlotMinutes;
+          if (lastTimeSlotMinutes === 0) {
+            newTimeSlot += '0';
+          }
+
+
+            addAppointment(newTimeSlot);
+
+
+        });
+    },
   }}(jQuery, Drupal));
