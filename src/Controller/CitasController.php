@@ -65,6 +65,12 @@ class CitasController extends ControllerBase {
       if (!empty($nids)) {
         $nodes = Node::loadMultiple($nids);
         foreach ($nodes as $node) {
+          // si el titulo del nodo es 'Ampliado' se crea un nuevo array, llamado $addedTimes, con los valores del campo 'field_time'
+          if ($node->getTitle() == 'Ampliado' || $node->getTitle() == 'Bloqueado Ampliado') {
+            $addedTimes[] = [
+              'field_time' => $node->get('field_time')->getString(),
+            ];
+          }
           $existing_times[] = $node->get('field_time')->value;
         }
       }
@@ -75,8 +81,12 @@ class CitasController extends ControllerBase {
     // Log the existing times
     \Drupal::logger('segura_viudas_citas')->notice('Existing times: @times', ['@times' => implode(', ', $existing_times)]);
 
-    return new JsonResponse($existing_times);
-  }
+    // devolvemos $existing_times y $addedTimes en formato JSON
+    return new JsonResponse([
+      'existing_times' => $existing_times,
+      'addedTimes' => $addedTimes,
+    ]);
+    }
 
 
 }

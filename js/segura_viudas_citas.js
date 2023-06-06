@@ -137,33 +137,69 @@
           data: { date: date },
         }).then(function(response) {
           // Añade las horas de la comida a la respuesta antes de devolverla
-          response.push('13:00', '13:30', '14:00');
+          response.existing_times.push('13:00', '13:30', '14:00');
           return response;
         });
       }
+      var addedTimes = [];
 
-      function handleDateChange() {
-        console.log('El campo de fecha ha cambiado');
-        var dateValue = $dateField.val();
-        if (!dateValue) {
-          disableTimeField();
-        } else {
-          console.log('Obteniendo citas existentes para la fecha:', dateValue);
-          checkExistingAppointments(dateValue)
-            .done(function (response) {
-              console.log('Citas recibidas:', response);
-              enableTimeField();
-              $timeField.find('option').prop('disabled', false);
-              response.forEach(function (time) {
-                $timeField.find('option[value="' + time + '"]').prop('disabled', true);
-              });
-              $timeField.val($timeField.find('option:not(:disabled):first').val());
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-              console.error('Error al obtener citas:', textStatus, errorThrown);
-            });
+function handleDateChange() {
+  console.log('El campo de fecha ha cambiado');
+  var dateValue = $dateField.val();
+  if (!dateValue) {
+    disableTimeField();
+  } else {
+    console.log('Obteniendo citas existentes para la fecha:', dateValue);
+    checkExistingAppointments(dateValue)
+      .done(function (response) {
+        console.log('Citas recibidas:', response);
+        enableTimeField();
+
+        addedTimes.forEach(function (time) {
+          // Los times en el timeField que no están en addedTimes los borramos teniendo en cuenta el formato con el que lo añadimos
+          // le damos el siguiente formato 'time ~ time2'
+          // creamos el time2 que sería el time + 30 minutos
+          var timeDate = new Date('1970-01-01T' + time + ':00');
+          var time2 = new Date(timeDate.getTime() + 30 * 60000);
+          // guardamos en la variable time2 el valor de la variable time2 en formato string
+          var time2String = time2.toTimeString().slice(0, 5);
+          var timeString = timeDate.toTimeString().slice(0, 5);
+          var timeformatted = timeString + ' ~ ' + time2String;
+          $timeField.find('option[value="' + timeformatted + '"]').remove();
+        });
+
+        addedTimes = [];
+
+        $timeField.find('option').prop('disabled', false);
+        response.existing_times.forEach(function (time) {
+          $timeField.find('option[value="' + time + '"]').prop('disabled', true);
+        });
+
+        if (response.addedTimes) {
+          response.addedTimes.forEach(function (item) {
+            // al valor string item.field_time lo convertimos en time, y le sumamos 30 minutos y lo guardamos en la variable $nextTime
+            var time = new Date('1970-01-01T' + item.field_time + ':00');
+            var nextTime = new Date(time.getTime() + 30 * 60000);
+            // guardamos en la variable newTime el valor de la variable nextTime en formato string
+            var newTime2 = nextTime.toTimeString().slice(0, 5);
+            var newTime = item.field_time + ' ~ ' + newTime2;
+
+            var newOption = new Option(newTime, newTime);
+            addedTimes.push(item.field_time);
+            if (!$timeField.find('option[value="' + newTime + '"]').length) {
+              $timeField.append(newOption);
+            }
+          });
         }
-      }
+
+        $timeField.val($timeField.find('option:not(:disabled):first').val());
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        console.error('Error al obtener citas:', textStatus, errorThrown);
+      });
+  }
+}
+
 
       handleDateChange();
       $dateField.on('change', handleDateChange);

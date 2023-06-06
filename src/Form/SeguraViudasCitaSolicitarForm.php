@@ -21,6 +21,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
     // Comprueba si el usuario tiene una cita.
     $query = \Drupal::entityQuery('node')
     ->condition('type', 'citas')
+    ->condition('title', ['Bloqueado', 'Ampliado', 'Bloqueado Ampliado'], 'NOT IN')
     ->condition('uid', $current_user->id())
     ->accessCheck(FALSE); // Añade esta línea
 
