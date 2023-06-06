@@ -83,7 +83,7 @@ class CitasListController extends ControllerBase {
 
     $node = Node::load($nid);
     // Check if the node title is 'Bloqueado Ampliado'
-    if ($node->label() === 'Bloqueado Ampliado') {
+    if ($node->label() == 'Bloqueado Ampliado') {
         // Change the title to 'Ampliado' instead of deleting
         $node->setTitle('Ampliado');
         $node->save();
