@@ -107,7 +107,7 @@
             if (citaForTimeSlot) {
               $row.addClass('appointment');
               $row.css('cursor', 'pointer');
-              if(citaForTimeSlot.title != 'Bloqueado' || citaForTimeSlot.title != 'Bloqueado Ampliado'){
+              if(citaForTimeSlot.title != 'Bloqueado' || citaForTimeSlot.title != 'Bloqueado Ampliado' || citaForTimeSlot.title != 'Ampliado'){
                 $row.off('click').on('click', function () {
                   if (event.target.className == 'action-link action-link--danger action-link--icon-delete') {
                   window.location.href = Drupal.url('node/' + citaForTimeSlot.nid);
@@ -118,6 +118,7 @@
                 var $blockButton = $('<button class="action-link action-link--danger action-link--icon-block"></button>').append($('<img src="" alt="lock icon" />'));
                 var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox" id="reserved-appointment" />');
                 $checkbox.attr('data-nid', citaForTimeSlot.nid);
+                $row.css('background-color', '#f5f8ff');
                 $row.append($('<td></td>').append($checkbox));
                 $row.append($('<td></td>').text(citaForTimeSlot.field_time));
                 $row.append($('<td></td>').text(''));
