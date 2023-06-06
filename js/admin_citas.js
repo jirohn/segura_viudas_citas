@@ -1,6 +1,24 @@
 (function ($, Drupal) {
   Drupal.behaviors.adminCitas = {
     attach: function (context, settings) {
+      var timeSlots = [
+        '09:00',
+        '09:30',
+        '10:00',
+        '10:30',
+        '11:00',
+        '11:30',
+        '12:00',
+        '12:30',
+        '13:00',
+        '13:30',
+        '14:00',
+        '14:30',
+        '15:00',
+        '15:30',
+        '16:00',
+        '16:30',
+      ];
 
         var today = new Date();
         var formattedDate = today.toISOString().substr(0, 10);
@@ -28,46 +46,10 @@
             });
         }
         $('#date-picker', context).val(formattedDate).change();
-        $('#date-picker', context).on('change', function () {
-          var selectedDate = $(this).val();
-          console.log('AdminCitas fecha seleccionada: ', selectedDate);
-          $.ajax({
-            url: Drupal.url('/segura_viudas_citas/admin/check_apointments'),
-            data: { date: selectedDate },
-            dataType: 'json',
-            success: function (citas) {
-              selectedones = getSelected();
-              updateCitasTable(citas);
-              console.log('obtenemos array de citas de este dia ', citas);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-              console.error('Error fetching appointments:', textStatus, errorThrown);
-            },
-          });
-        });
+        $('#date-picker', context).off('change').on('change', function () {
+          timeSlots = null;
 
-        var timeSlots = [
-          '09:00',
-          '09:30',
-          '10:00',
-          '10:30',
-          '11:00',
-          '11:30',
-          '12:00',
-          '12:30',
-          '13:00',
-          '13:30',
-          '14:00',
-          '14:30',
-          '15:00',
-          '15:30',
-          '16:00',
-          '16:30',
-        ];
-
-
-        function updateCitasTable(citas) {
-          var timeSlots = [
+          timeSlots = [
             '09:00',
             '09:30',
             '10:00',
@@ -85,6 +67,27 @@
             '16:00',
             '16:30',
           ];
+
+          var selectedDate = $(this).val();
+          console.log('AdminCitas fecha seleccionada: ', selectedDate);
+          $.ajax({
+            url: Drupal.url('/segura_viudas_citas/admin/check_apointments'),
+            data: { date: selectedDate },
+            dataType: 'json',
+            success: function (citas) {
+              selectedones = getSelected();
+              updateCitasTable(citas);
+              console.log('obtenemos array de citas de este dia ', citas);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              console.error('Error fetching appointments:', textStatus, errorThrown);
+            },
+          });
+        });
+
+
+
+        function updateCitasTable(citas) {
 
           var date = $('#date-picker').val();
           var $tableBody = $('.gestion-citas-wrapper table tbody');
