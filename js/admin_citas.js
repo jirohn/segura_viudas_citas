@@ -364,6 +364,7 @@
             data: { nid: nid },
             dataType: 'json',
             success: function (data) {
+              $('#date-picker').change();
             },
             error: function (jqXHR, textStatus, errorThrown) {
               console.error('Error eliminando cita:', textStatus, errorThrown);
@@ -376,6 +377,8 @@
             data: { timeSlot: timeSlot.join(','), date: date},
             dataType: 'json',
             success: function (data) {
+              // se reinicia la tabla
+              $('#date-picker').change();
             },
             error: function (jqXHR, textStatus, errorThrown) {
               console.error('Error bloqueando cita:', textStatus, errorThrown);

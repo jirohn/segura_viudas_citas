@@ -365,12 +365,7 @@ function handleDateChange() {
         });
       }
     });
-    // si presionamos el boton con la id 'delete-cita' se ejecuta la funcion
-
-
-
-
-
+        
   });
 
 })(jQuery, Drupal);
