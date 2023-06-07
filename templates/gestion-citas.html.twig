@@ -3,9 +3,9 @@
   <label for="date-picker form-item__label visually-hidden">{{ 'Seleccionar fecha'|t }}:</label><br>
   <input class="form-date form-element form-element--type-date form-element--api-date" type="date" id="date-picker">
   {# creamos un checkbox con la id 'check-all' #}
-  <input type="checkbox" style="transform: translatey(6px); margin-left: 1em;" class="form-checkbox form-boolean form-boolean--type-checkbox" id="check-all">
+  <input type="checkbox" style="margin-left: 1em;" class="form-checkbox form-boolean form-boolean--type-checkbox" id="check-all">
   {# un input select para elegir acciones en los rows #}
-   <select style="transform: translatey(6px);" class="form-select form-element form-element--type-select" id="select-action">
+   <select class="form-select form-element form-element--type-select" id="select-action">
     <option value="0">{{ 'Selección por lotes'|t }}</option>
     <option value="all">{{ 'Todas'|t }}</option>
     <option value="empty">{{ 'Citas vacías'|t }}</option>
@@ -13,10 +13,10 @@
     <option value="blocked">{{ 'Citas bloqueadas'|t }}</option>
     <option value="deselect">{{ 'Deseleccionar todo'|t }}</option>
   </select>
-  <div id="action-buttons-container" class="hidden">
-  <button id="delete-button" class="action-link action-link--danger action-link--icon-delete">'<img src="" alt="delete icon" /></button>
-  <button id="block-button" class="action-link action-link--warning action-link--icon-block">'<img src="" alt="block icon" /></button>
-  <button id="unblock-button" class="action-link action-link--success action-link--icon-reserve">'<img src="" alt="unblock icon" /></button>
+  <div id="action-buttons-container" class="hidden panel gin-layer-wrapper">
+  <button id="delete-button" class="action-link action-link--danger action-link--icon-delete" style="margin-left: 0;border: none;"><img style="width: 1.5em;" src="/modules/nateevo/segura_viudas_citas/images/deleteicon.svg" alt="delete icon" /></button>
+  <button id="block-button" class="action-link action-link--warning action-link--icon-block" style="margin-left: 0;border: none;"><img style="width: 1.5em; transform: rotate(-90deg);" src="/modules/nateevo/segura_viudas_citas/images/lockicon.svg" alt="block icon" /></button>
+  <button id="unblock-button" class="action-link action-link--success action-link--icon-reserve" style="margin-left: 0;border: none;"><img style="width: 1.5em;" src="/modules/nateevo/segura_viudas_citas/images/lockicon.svg" alt="unblock icon" /></button>
   </div>
 </div>
 

@@ -115,7 +115,8 @@
                 });
               }
               if(citaForTimeSlot.title == 'Ampliado'){
-                var $blockButton = $('<button class="action-link action-link--danger action-link--icon-block"></button>').append($('<img src="" alt="lock icon" />'));
+                var $blockButton = $('<button class="action-link action-link--danger action-link--icon-block" style="border: medium none; background-color: transparent;"></button>').append($('<img src="" alt="lock icon" style="width: 1.5em;" />'));
+                $blockButton.find('img').attr('src', '/modules/nateevo/segura_viudas_citas/images/lockicon.svg');
                 var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox" id="reserved-appointment" />');
                 $checkbox.attr('data-nid', citaForTimeSlot.nid);
                 $row.css('background-color', '#f5f8ff');

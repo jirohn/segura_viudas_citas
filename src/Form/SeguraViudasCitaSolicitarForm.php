@@ -193,7 +193,6 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
         '15:30' => '15:30 ~ 16:00',
         '16:00' => '16:00 ~ 16:30',
         '16:30' => '16:30 ~ 17:00',
-        // ... añade más opciones aquí ...
       ),
       '#required' => FALSE,
     ];
@@ -261,17 +260,15 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
     $nids = $query->execute();
     // si existe una cita a la misma hora y el mismo dia
     if (!empty($nids)) {
-      // Utiliza la función 'messenger()' para mostrar mensajes en Drupal 10.
       $this->messenger()->addError($this->t('Ya existe una cita a la misma hora y el mismo dia.'));
       // Redirige a la misma pagina donde estamos
       echo '<script>alert("Ya han pedido cita a esa hora, elige otra hora");</script>';
       return;
     }
     $node->save();
-    // Utiliza la función 'messenger()' para mostrar mensajes en Drupal 10.
     // enviamos por alert de jquery un mensaje que diga que la cita se ha solicitado correctamente
     echo '<script>alert("Cita solicitada correctamente");</script>';
-    $this->messenger()->addStatus($this->t('Cita solicitada correctamente.'));
+    $this->messenger()->addStatus($this->t('Se ha solicitado correctamente.'));
 
     // Redirige a la misma pagina donde estamos
     $form_state->setRedirect('<current>');
