@@ -65,7 +65,7 @@
                                     <dd class="admin-item__description">
                                     {# si hay fecha se muestra, si no ponemos no hay cita programada en el idioma catalan#}
                                     {% if node.field_date.value %}
-                                      {{ node.field_date.value.date | date('d/m/Y') }}
+                                      {{ node.field_date.value | date('d/m/Y') }}
                                     {% else %}
                                       {{ 'No hi ha cita programada'|t }}
                                     {% endif %}
