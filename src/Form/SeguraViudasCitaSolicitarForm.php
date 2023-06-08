@@ -85,7 +85,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#title' => $this->t('CARTA ACREDITATIVA RAÏM DO CAVA*'),
       '#upload_location' => 'public://',
       '#upload_validators' => [
-        'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
+        'file_validate_extensions' => ['pdf jpg jpeg xlsx xls png'],
         'file_validate_size' => [10 * 1024 * 1024],
         // ponemos un maximo de 5 archivos
         'max_filesize' => '5',
