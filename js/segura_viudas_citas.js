@@ -136,8 +136,7 @@
           method: 'GET',
           data: { date: date },
         }).then(function(response) {
-          // Añade las horas de la comida a la respuesta antes de devolverla
-          response.existing_times.push('13:00', '13:30', '14:00');
+          response.existing_times.push('13:00', '13:30');
           return response;
         });
       }
@@ -154,7 +153,12 @@ function handleDateChange() {
       .done(function (response) {
         console.log('Citas recibidas:', response);
         enableTimeField();
-
+        // si la fecha seleccionada en el date es sabado o dia 6 se quitan los campos del select
+        var dateValue = new Date($dateField.val());
+        var day = dateValue.getDay();
+        if (day === 6) {
+          $timeField.find('option').remove();
+        }
         addedTimes.forEach(function (time) {
           // Los times en el timeField que no están en addedTimes los borramos teniendo en cuenta el formato con el que lo añadimos
           // le damos el siguiente formato 'time ~ time2'
@@ -167,9 +171,9 @@ function handleDateChange() {
           var timeformatted = timeString + ' ~ ' + time2String;
           $timeField.find('option[value="' + timeformatted + '"]').remove();
         });
+        // si es sabado por  defecto no se añaden citas
 
         addedTimes = [];
-
         $timeField.find('option').prop('disabled', false);
         response.existing_times.forEach(function (time) {
           $timeField.find('option[value="' + time + '"]').prop('disabled', true);
