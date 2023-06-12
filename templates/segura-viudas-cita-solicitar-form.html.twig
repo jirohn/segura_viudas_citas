@@ -111,7 +111,7 @@
         </div>
         </div>
       <div id="block--cita-info" class="block nomobile third column p-3 space-between" style="background-color:#f8f9f6; align-self: flex-start; margin-top:5em;margin-left: 2em;">
-        <h2 class="noup">{{ "Cita per a la signatura" | t }}</h2>        
+        <h2 class="noup">{{ "Cita per a la signatura" | t }}</h2>
         {# Revisa si la información de la cita está presente. #}
         {% if form['#cita_info'] is defined %}
           {# Crea un div personalizado con la información de la cita. #}
@@ -121,7 +121,7 @@
               <p>{{ 'La cita és el' | t }} <b>{{ form['#cita_info']['date']|date('d/m/Y') }}</b>.</p>
             {% endif %}
 
-          
+
             {# si cita_info time no es null entonces renderizamos la hora de la cita #}
             {% if form['#cita_info']['time'] is not null %}
               <p>{{ 'Tens una cita el' | t }} <b>{{ form['#cita_info']['time'] }}</b>.</p>
@@ -163,7 +163,7 @@
         {% else %}
           {# Renderiza el formulario como de costumbre. #}
           <center><button style="text-align:center;" class="btn primary disabled open-popup" href=""><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</button>
-          <button id="id_de_tu_nuevo_boton">Guardar</button></center>
+          <button id="guardar">Guardar</button></center>
         {% endif %}
         {# creamos un boton para  guardar solo documentos sin pedir cita #}
         </div>

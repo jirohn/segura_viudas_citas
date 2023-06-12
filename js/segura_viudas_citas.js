@@ -141,6 +141,11 @@
         });
       }
       var addedTimes = [];
+      // si haccemos click en el boton con la id guardar se llama al click del boton con la id #edit-save
+      $('#guardar').click(function() {
+        console.log('se hizo clic en el boton de guardar');
+        $('#edit-save').click();
+      });
 
 function handleDateChange() {
   console.log('El campo de fecha ha cambiado');
