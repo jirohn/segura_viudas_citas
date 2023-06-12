@@ -235,11 +235,14 @@
                 $blockButton.addClass('blocked');
                 $blockButton.find('img').css('transform', 'rotate(-90deg)');
                 $blockButton.find('img').css('fill', '#ff0000');
+                var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox check-empty" id="saturday-appointment"/>');
+
               } else {
                 $row.css('background-color', '#f5f8ff');
+                var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox check-empty" id="empty-appointment"/>');
+
               }
 
-              var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox check-empty" id="empty-appointment"/>');
               $checkbox.attr('data-time', timeSlot);
               $checkbox.attr('data-date', $('#date-picker').val());
               $row.append($('<td></td>').append($checkbox));
@@ -331,6 +334,10 @@
                     var nid = $(this).attr('data-nid');
                     console.log('nid: ', nid);
                     deleteAppointments(nid);
+                  }else if ($(this).attr('id') === 'saturday-appointment') {
+                    var time = $(this).attr('data-time');
+                    console.log('time: ', time);
+                    addAppointment(time);
                   }else{
                     console.log('no hay citas bloqueadas seleccionadas');
                   }
