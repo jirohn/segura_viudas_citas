@@ -246,6 +246,7 @@
               $row.append($('<td></td>').text(timeSlot));
               $row.append($('<td colspan="3"></td>').text(''));
               $row.append($('<td></td>').append($blockButton));
+              if (new Date(date).getDay() === 6 || new Date(date).getDay() === 0) {
               $blockButton.off('click').on('click', function (event) {
                 // llamamos a addappointment
                 event.stopPropagation();
@@ -257,6 +258,7 @@
                   addAppointment(timeSlot);
                 }
               });
+            }
 
 
             }
