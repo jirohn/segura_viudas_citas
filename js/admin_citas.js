@@ -229,7 +229,16 @@
                   blockAppointment(date, timeSlot);
                 }
               });
-              $row.css('background-color', '#f5f8ff');
+              // si es sabado la cita es bloqueada por lo tanto el row tendra un color diferente
+              if (new Date(date).getDay() === 6 || new Date(date).getDay() === 0) {
+                $row.css('background-color', '#ffcccc');
+                $blockButton.addClass('blocked');
+                $blockButton.find('img').css('transform', 'rotate(-90deg)');
+                $blockButton.find('img').css('fill', '#ff0000');
+              } else {
+                $row.css('background-color', '#f5f8ff');
+              }
+
               var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox check-empty" id="empty-appointment"/>');
               $checkbox.attr('data-time', timeSlot);
               $checkbox.attr('data-date', $('#date-picker').val());
@@ -237,6 +246,19 @@
               $row.append($('<td></td>').text(timeSlot));
               $row.append($('<td colspan="3"></td>').text(''));
               $row.append($('<td></td>').append($blockButton));
+              $blockButton.off('click').on('click', function (event) {
+                // llamamos a addappointment
+                event.stopPropagation();
+                if ($blockButton.hasClass('blocked')) {
+                  $blockButton.removeClass('blocked');
+                  $blockButton.find('img').css('transform', 'rotate(0deg)');
+                  $row.css('background-color', '#f5f8ff');
+                  $blockButton.find('img').css('fill', '#00cc00');
+                  addAppointment(timeSlot);
+                }
+              });
+
+
             }
             $tableBody.append($row);
 
