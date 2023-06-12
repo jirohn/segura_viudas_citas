@@ -116,15 +116,17 @@
         {% if form['#cita_info'] is defined %}
           {# Crea un div personalizado con la información de la cita. #}
           <div class="app-data">
-          {# si cita_info date no es null entonces renderizamos la fecha de la cita #}
-          {% if form['#cita_info']['date'] is not null %}
-            <p>{{ 'Tens una cita el' | t }} <b>{{ form['#cita_info']['date'] }}</b>.</p>
-          {% else %}
-            <p>{{ 'No tens cap cita programada.' | t }}</p>
-          {% endif %}
+          {# si cita_info date no es null entonces renderizamos la fecha de la cita con la fecha formateada #}
+            {% if form['#cita_info']['date'] is not null %}
+              <p>{{ 'La cita és el' | t }} <b>{{ form['#cita_info']['date']|date('d/m/Y') }}</b>.</p>
+            {% endif %}
+
+          
             {# si cita_info time no es null entonces renderizamos la hora de la cita #}
             {% if form['#cita_info']['time'] is not null %}
-              <p>{{ 'La cita és a les' | t }} <b>{{ form['#cita_info']['time'] }}</b>.</p>
+              <p>{{ 'Tens una cita el' | t }} <b>{{ form['#cita_info']['time'] }}</b>.</p>
+            {% else %}
+              <p>{{ 'No tens cap cita programada.' | t }}</p>
             {% endif %}
 
             {% if form['#cita_info']['type'] == 1 %}
@@ -154,13 +156,14 @@
                 <path d="M14 11l0 6" />
                 <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
                 <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-              </svg></button>#}
-            {% endif %}
+              </svg></button>
+            {% endif %}#}
           </p>
             {# renderizamos un nuevo div con la clase mod-popup con varias opciones dentro. #}
         {% else %}
           {# Renderiza el formulario como de costumbre. #}
-          <center><button style="text-align:center;" class="btn primary disabled open-popup" href=""><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</button></center>
+          <center><button style="text-align:center;" class="btn primary disabled open-popup" href=""><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</button>
+          <button id="id_de_tu_nuevo_boton">Guardar</button></center>
         {% endif %}
         {# creamos un boton para  guardar solo documentos sin pedir cita #}
         </div>

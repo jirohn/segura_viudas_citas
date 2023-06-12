@@ -11,6 +11,8 @@
       </thead>
       <tbody>
 {% for cita in citas %}
+{# Muestra solo las citas que no tengan el título "Ampliado" y el valor de date está vacío#}
+{% if cita.title.value != 'Ampliado' and cita.date.value is empty %}
   <tr>
     <td>{{ cita.title.value }}</td>
     {# añadimos el enalce a la cita con el nombre 'ver cita' en el idioma catalan #}
@@ -18,6 +20,7 @@
 
 
   </tr>
+{% endif %}
 {% endfor %}
 </tbody>
 

@@ -365,7 +365,14 @@ function handleDateChange() {
         });
       }
     });
-        
+
+    $(document).ready(function() {
+      $('#id_de_tu_nuevo_boton').click(function(e) {
+          e.preventDefault();
+          $('#save-file').click();
+      });
+    });
+
   });
 
 })(jQuery, Drupal);

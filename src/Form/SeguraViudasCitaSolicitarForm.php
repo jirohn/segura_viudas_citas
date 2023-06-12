@@ -63,7 +63,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       ];
     }
      // guardamos la fecha en una variable
-    $current_date = DrupalDateTime::createFromTimestamp(time())->format('Y-m-d');
+    $current_date = DrupalDateTime::createFromTimestamp(time())->format('d-m-y');
     // guardamos el nombre del usuario actual en una variable con accountinterface
     $title = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id())->getDisplayName();
     $form['title'] = [
@@ -93,7 +93,6 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#description' => '<span class="nofileuploades hidden">' . $this->t('Adjunta o arrastra el archivo') . '</span>' . $this->t('Puedes subir más de un archivo.') . '<br>' . $this->t('Peso máximo archivos 1 MB.') . '<br>',
       '#multiple' => 'true',
       '#required' => TRUE,
-
     ];
     // llamamos a los campos 'field_file2' del formulario
     $form['field_file2'] = [
@@ -101,7 +100,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#title' => $this->t('QUADERN DE CAMP*'),
       '#upload_location' => 'public://',
       '#upload_validators' => [
-        'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
+        'file_validate_extensions' => ['pdf jpg jpeg xlsx xls png'],
         'file_validate_size' => [10 * 1024 * 1024],
       ],
       '#description' => '<span class="nofileuploades hidden">' . $this->t('Adjunta o arrastra el archivo') . '</span>' . $this->t('Puedes subir más de un archivo.') . '<br>' . $this->t('Peso máximo archivos 1 MB.') . '<br>',
@@ -115,7 +114,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#title' => $this->t('CERTIFICAT CCPAE'),
       '#upload_location' => 'public://',
       '#upload_validators' => [
-        'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
+        'file_validate_extensions' => ['pdf jpg jpeg xlsx xls png'],
         'file_validate_size' => [10 * 1024 * 1024],
       ],
       '#description' => '<span class="nofileuploades hidden">' . $this->t('Adjunta o arrastra el archivo') . '</span>' . $this->t('Puedes subir más de un archivo.') . '<br>' . $this->t('Peso máximo archivos 1 MB.') . '<br>',
@@ -129,7 +128,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#title' => $this->t('RVC'),
       '#upload_location' => 'public://',
       '#upload_validators' => [
-        'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
+        'file_validate_extensions' => ['pdf jpg jpeg xlsx xls png'],
         'file_validate_size' => [10 * 1024 * 1024],
       ],
       '#description' => '<span class="nofileuploades hidden">' . $this->t('Adjunta o arrastra el archivo') . '</span>' . $this->t('Puedes subir más de un archivo.') . '<br>' . $this->t('Peso máximo archivos 1 MB.') . '<br>',
@@ -143,7 +142,7 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       '#title' => $this->t('ALTRES DOCUMENTS'),
       '#upload_location' => 'public://',
       '#upload_validators' => [
-        'file_validate_extensions' => ['pdf jpg jpeg xlsx'],
+        'file_validate_extensions' => ['pdf jpg jpeg xlsx xls png'],
         'file_validate_size' => [10 * 1024 * 1024],
         // ponemos un maximo de 5 archivos
         'max_filesize' => '5',
@@ -241,8 +240,10 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
       'field_verify_file4' => $form_state->getValue('field_verify_file4'),
       'field_file5' => $form_state->getValue('field_file5'),
       'field_verify_file5' => $form_state->getValue('field_verify_file5'),
-      // guardamos modalidad
+      // guardamos modalidad si no está vacio
       'field_modalidad' => $form_state->getValue('field_modalidad'),
+      // si no se ha seleccionado ni 0 ni 1, guardamos 1 por defecto
+      'field_modalidad' => $form_state->getValue('field_modalidad') == '' ? 1 : $form_state->getValue('field_modalidad'),
 
       'type' => 'citas',
       'title' => $form_state->getValue('title'),
