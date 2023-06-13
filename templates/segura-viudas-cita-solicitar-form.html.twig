@@ -48,7 +48,7 @@
         <h2 style="margin-bottom:1em; margin-top: 2em;" class="noup">{{ "Adjuntar documentació" | t }}</h2>
           <p>{{ "Un cop adjuntada tota la documentació requerida podràs demanar una cita el dia que vulguis per a la signatura del contracte." | t }}</p><br>
           <p style="margin-top:1em;">{{ "Pots pujar la documentació en <b>els formats següents: JPG, PDF, xlsx (Excel)." | t }}</b></p><br>
-        <div class="block row space-between nomobile">
+        <div class="block row middle space-between nomobile">
           <div class="block row cgap-1">
             <p><svg style="border-radius: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#c82020" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="#c82020"/>
@@ -62,7 +62,7 @@
             <p>{{" *Camps obligatoris" | t }}</p>
         </div>
         <!-- Formulario -->
-        <div style="margin-top:2em;"class="full cgap-1 uploads nomobile">
+        <div style="margin-top:3em;"class="full cgap-1 uploads nomobile">
 
 
         {% for field, files_info in form['#cita_info']['files_info'] %}
@@ -163,7 +163,7 @@
         {% else %}
           {# Renderiza el formulario como de costumbre. #}
           <center><button style="text-align:center;" class="btn primary disabled open-popup" href=""><em class="icon-crest"></em>{{ "Solicitar cita" | t }}</button>
-          <button class="btn primary" id="guardar">Guardar</button></center>
+          <button class="btn primary" id="guardar">{{ 'Desa la documentació' | t }}</button></center>
         {% endif %}
         {# creamos un boton para  guardar solo documentos sin pedir cita #}
         </div>
