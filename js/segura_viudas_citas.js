@@ -4,7 +4,10 @@
       // cuando el documento este cargado y se realiza solo una vez
       $(document).ready(function() {
       console.log('seguraViudasCitas behavior attached');
-
+      $selectArray = [];
+      if($selectArray.length == 0){
+        $selectArray = $('select[name="field_time"] option').clone();
+      }
       $('#edit-field-file-upload', context).change(function () {
         if (this.files.length > 5) {
           alert("Solo puedes seleccionar un máximo de 5 archivos.");
@@ -163,6 +166,11 @@ function handleDateChange() {
         var day = dateValue.getDay();
         if (day === 6) {
           $timeField.find('option').remove();
+        }else{
+          // le damos al select las opciones del array $selectArray
+          $timeField.find('option').remove();
+          $timeField.append($selectArray);
+
         }
         addedTimes.forEach(function (time) {
           // Los times en el timeField que no están en addedTimes los borramos teniendo en cuenta el formato con el que lo añadimos
@@ -176,8 +184,6 @@ function handleDateChange() {
           var timeformatted = timeString + ' ~ ' + time2String;
           $timeField.find('option[value="' + timeformatted + '"]').remove();
         });
-        // si es sabado por  defecto no se añaden citas
-
         addedTimes = [];
         $timeField.find('option').prop('disabled', false);
         response.existing_times.forEach(function (time) {
@@ -193,9 +199,9 @@ function handleDateChange() {
             var newTime2 = nextTime.toTimeString().slice(0, 5);
             var newTime = item.field_time + ' ~ ' + newTime2;
 
-            var newOption = new Option(newTime, newTime);
+            var newOption = new Option(newTime, item.field_time);
             addedTimes.push(item.field_time);
-            if (!$timeField.find('option[value="' + newTime + '"]').length) {
+            if (!$timeField.find('option[value="' + time + '"]').length) {
               $timeField.append(newOption);
             }
           });

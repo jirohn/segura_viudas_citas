@@ -261,10 +261,17 @@ class SeguraViudasCitaSolicitarForm extends FormBase {
     $nids = $query->execute();
     // si existe una cita a la misma hora y el mismo dia
     if (!empty($nids)) {
+      // si la cita tiene el titulo 'Bloqueado' o 'Ampliado' o 'Bloqueado Ampliado' la eliminamos y creamos la nueva cita
+      $nid = reset($nids);
+      $old = \Drupal\node\Entity\Node::load($nid);
+      if ($old->getTitle() == 'Bloqueado' || $old->getTitle() == 'Ampliado' || $old->getTitle() == 'Bloqueado Ampliado') {
+        $old->delete();
+      }else{
       $this->messenger()->addError($this->t('Ya existe una cita a la misma hora y el mismo dia.'));
       // Redirige a la misma pagina donde estamos
       echo '<script>alert("Ya han pedido cita a esa hora, elige otra hora");</script>';
       return;
+      }
     }
     $node->save();
     // enviamos por alert de jquery un mensaje que diga que la cita se ha solicitado correctamente

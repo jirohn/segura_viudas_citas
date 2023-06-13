@@ -140,11 +140,15 @@ function segura_viudas_citas_preprocess_node(&$variables) {
  */
 function segura_viudas_citas_node_delete(EntityInterface $entity) {
   if ($entity->bundle() == 'citas' && $entity->label() != 'Bloqueado') {
+    if ($entity->getOwner()->hasRole('administrator')) {
+      return;
+    }
     $mailManager = \Drupal::service('plugin.manager.mail');
     $module = 'segura_viudas_citas';
     $key = 'citas_deleted';
     $to = $entity->getOwner()->getEmail();
     $params['username'] = $entity->getOwner()->getDisplayName();
+    // si el usuario no es administrador, se envia el correo
     $params['title'] = $entity->label();
     $params['deleter'] = \Drupal::currentUser()->getDisplayName();
     $send = true;
