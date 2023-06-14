@@ -35,17 +35,26 @@
   cursor: pointer;
 }
 
+.last-access {
+  margin-top: 1.5em;
+  color: #A99E8E;
+}
 </style>
 <!-- Computer -->
 <section id="appointment" class="nospace nomobile" style="margin-top:1em;">
     <div class="block column full">
         <h1 class="noup">{{ "Documentació i cita de contracte" | t }}</h1>
+        
+        {% if last_login %}
+          <p class="last-access"><i>{{ "El teu últim accés va ser el" | t }} {{ last_login|date('d/m/Y') }}</i></p>
+        {% endif %}
+
     </div>
 </section>
 <section id="attach" class="nospace">
     <div class="block full space-between">
       <div class="block two-thirds column nomobile">
-        <h2 style="margin-bottom:1em; margin-top: 2em;" class="noup">{{ "Adjuntar documentació" | t }}</h2>
+        <h2 style="margin-bottom:1em; margin-top: 1em;" class="noup">{{ "Adjuntar documentació" | t }}</h2>
           <p>{{ "Un cop adjuntada tota la documentació requerida podràs demanar una cita el dia que vulguis per a la signatura del contracte." | t }}</p><br>
           <p style="margin-top:1em;">{{ "Pots pujar la documentació en <b>els formats següents: JPG, PDF, xlsx (Excel)." | t }}</b></p><br>
         <div class="block row middle space-between nomobile">
@@ -110,7 +119,7 @@
           </div>
         </div>
         </div>
-      <div id="block--cita-info" class="block nomobile third column p-3 space-between" style="background-color:#f8f9f6; align-self: flex-start; margin-top:5em;margin-left: 2em;">
+      <div id="block--cita-info" class="block nomobile third column p-3 space-between" style="background-color:#f8f9f6; align-self: flex-start; margin-top:4em;margin-left: 2em;">
         <h2 class="noup">{{ "Cita per a la signatura" | t }}</h2>
         {# Revisa si la información de la cita está presente. #}
         {% if form['#cita_info'] is defined %}
