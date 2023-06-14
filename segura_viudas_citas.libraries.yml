@@ -7,6 +7,9 @@ segura_viudas_citas:
     - core/drupal
     - core/drupalSettings
     - system/moment
+  css:
+    theme:
+      css/solicita-citas-styles.css: {}
 
 citas_view:
   version: 1.x

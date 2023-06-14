@@ -1,0 +1,24 @@
+{% extends 'segura-viudas-citas-mail.html.twig' %}
+
+{% block content %}
+<table width="700" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+        <td
+            style="font-size: 32px; font-weight: 700; line-height: 42px; letter-spacing: 0px; text-align: left; padding-left: 20px;">
+            {{ 'Confirmación cancelación cita'|t() }}</td>
+    </tr>
+</table>
+<table width="700" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+        <td style="padding: 0 0 50px 20px;">
+            <p>{{ 'Estimado @username'|t({'@username': username}) }}</p>
+            <p{{{ 'Me dirijo a usted para informarle que nuestra cita programada para <b>@date</b> queda cancelada.'|t({'@date': date})|raw }}}</p>
+            <p>{{ 'Siento mucho las molestias que esto pueda causarle, espero que podamos agendar nuestra cita para otra fecha.'|t() }}</p>
+            <p>{{ 'Por favor, entre al <b><a href="@accountUrl" style="color:#718457;">Área privada</a></b> de <b>SEGURA VIUDAS</b> para seleccionar una nueva fecha y hora.'|t({'@accountUrl': accountUrl}) }}</p>
+            <p>{{ 'Gracias por su comprensión y quedo a la espera de su respuesta.'|t() }}</p><br>
+            <p>{{ 'Saludos cordiales,'|t() }}</p>
+            <p>{{ 'El equipo de Segura Viudas1'|t() }}</p>
+        </td>
+    </tr>
+</table>
+{% endblock %}

@@ -12,7 +12,8 @@ use Drupal\Core\Entity\EntityTypeInterface;
 /**
  * Implements hook_theme_suggestions_page_alter().
  */
-function segura_viudas_citas_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+function segura_viudas_citas_theme_suggestions_page_alter(array &$suggestions, array $variables)
+{
   $route_name = \Drupal::routeMatch()->getRouteName();
   if ($route_name === 'segura_viudas_citas.citas_form') {
     $suggestions[] = 'page__citas_form';
@@ -33,14 +34,16 @@ function segura_viudas_citas_preprocess_segura_viudas_cita_solicitar_form(&$vari
 /**
  * Implements hook_cron().
  */
-function segura_viudas_citas_cron() {
+function segura_viudas_citas_cron()
+{
   \Drupal::service('segura_viudas_citas.segura_viudas_citas_cron')->run();
 }
 
 /**
  * Implements hook_theme().
  */
-function segura_viudas_citas_theme($existing, $type, $theme, $path) {
+function segura_viudas_citas_theme($existing, $type, $theme, $path)
+{
 
   return [
     'segura_viudas_cita_solicitar_form' => [
@@ -71,13 +74,55 @@ function segura_viudas_citas_theme($existing, $type, $theme, $path) {
       'template' => 'gestion_reservas',
       'path' => $path . '/templates',
     ],
+    'segura_viudas_citas_mail' => [
+      'variables' => ['body' => NULL],
+      'template' => 'segura-viudas-citas-mail',
+      'path' => $path . '/templates',
+    ],
+    'segura_viudas_citas_mail_cita_created' => [
+      'variables' => [
+        'body' => NULL,
+        'label' => NULL,
+        'username' => NULL,
+        'date' => NULL,
+        'accountUrl' => NULL,
+        'place' => NULL,
+      ],
+      'template' => 'segura-viudas-citas-mail-cita-created',
+      'path' => $path . '/templates',
+    ],
+    'segura_viudas_citas_mail_cita_updated' => [
+      'variables' => [
+        'body' => NULL,
+        'label' => NULL,
+        'username' => NULL,
+        'date' => NULL,
+        'accountUrl' => NULL,
+        'place' => NULL,
+      ],
+      'template' => 'segura-viudas-citas-mail-cita-updated',
+      'path' => $path . '/templates',
+    ],
+    'segura_viudas_citas_mail_cita_deleted' => [
+      'variables' => [
+        'body' => NULL,
+        'label' => NULL,
+        'username' => NULL,
+        'date' => NULL,
+        'accountUrl' => NULL,
+        'place' => NULL,
+      ],
+      'template' => 'segura-viudas-citas-mail-cita-deleted',
+      'path' => $path . '/templates',
+    ],
   ];
 }
 
 /**
  * Implements hook_entity_view().
  */
-function segura_viudas_citas_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+function segura_viudas_citas_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode)
+{
   if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'citas' && $view_mode === 'full') {
     $url = \Drupal\Core\Url::fromRoute('segura_viudas_citas.admin_citas', ['node' => $entity->id()]);
     $response = new \Symfony\Component\HttpFoundation\RedirectResponse($url->toString());
@@ -90,7 +135,8 @@ function segura_viudas_citas_entity_view(array &$build, \Drupal\Core\Entity\Enti
 /**
  * Implements hook_preprocess_page().
  */
-function segura_viudas_citas_preprocess_page(&$variables) {
+function segura_viudas_citas_preprocess_page(&$variables)
+{
   $current_user = \Drupal::currentUser();
   if ($current_user->isAuthenticated()) {
     $user = \Drupal\user\Entity\User::load($current_user->id());
@@ -104,7 +150,8 @@ function segura_viudas_citas_preprocess_page(&$variables) {
   $variables['#attached']['drupalSettings']['segura_viudas_citas']['nid'] = $nid;
 }
 
-function _segura_viudas_citas_get_current_user_appointment_nid() {
+function _segura_viudas_citas_get_current_user_appointment_nid()
+{
   $currentUser = \Drupal::currentUser();
   $userId = $currentUser->id();
 
@@ -124,7 +171,8 @@ function _segura_viudas_citas_get_current_user_appointment_nid() {
 /**
  * Implementa hook_preprocess_HOOK() para pasar variables a Twig.
  */
-function segura_viudas_citas_preprocess_node(&$variables) {
+function segura_viudas_citas_preprocess_node(&$variables)
+{
   $node = $variables['node'];
 
   // Verifica si el nodo tiene un autor.
@@ -149,7 +197,8 @@ function segura_viudas_citas_preprocess_node(&$variables) {
 /**
  * Implements hook_ENTITY_TYPE_delete().
  */
-function segura_viudas_citas_node_delete(EntityInterface $entity) {
+function segura_viudas_citas_node_delete(EntityInterface $entity)
+{
   if ($entity->bundle() == 'citas' && $entity->label() != 'Bloqueado') {
     if ($entity->getOwner()->hasRole('administrator')) {
       return;
@@ -158,10 +207,7 @@ function segura_viudas_citas_node_delete(EntityInterface $entity) {
     $module = 'segura_viudas_citas';
     $key = 'citas_deleted';
     $to = $entity->getOwner()->getEmail();
-    $params['username'] = $entity->getOwner()->getDisplayName();
-    // si el usuario no es administrador, se envia el correo
-    $params['title'] = $entity->label();
-    $params['deleter'] = \Drupal::currentUser()->getDisplayName();
+    $params = segura_viudas_citas_get_common_entity_data($entity);
     $send = true;
     $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
 
@@ -170,19 +216,21 @@ function segura_viudas_citas_node_delete(EntityInterface $entity) {
       \Drupal::logger('segura_viudas_citas')->error('Hubo un problema al enviar el correo a %mail', ['%mail' => $to]);
     }
   }
-  /**
+}
+/**
  * Implements hook_ENTITY_TYPE_insert().
  */
 if (!function_exists('segura_viudas_citas_node_insert')) {
-  function segura_viudas_citas_node_insert(EntityInterface $entity) {
+  function segura_viudas_citas_node_insert(EntityInterface $entity)
+  {
     if ($entity->bundle() == 'citas' && $entity->label() != 'Bloqueado') {
       $mailManager = \Drupal::service('plugin.manager.mail');
       $module = 'segura_viudas_citas';
       $key = 'citas_created';
       $to = $entity->getOwner()->getEmail();
-      $params['username'] = $entity->getOwner()->getDisplayName();
-      $params['title'] = $entity->label();
+      $params = segura_viudas_citas_get_common_entity_data($entity);
       $send = true;
+      $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
 
       $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
       if ($result['result'] !== true) {
@@ -195,64 +243,124 @@ if (!function_exists('segura_viudas_citas_node_insert')) {
  * Implements hook_ENTITY_TYPE_update().
  */
 if (!function_exists('segura_viudas_citas_node_update')) {
-function segura_viudas_citas_node_update(EntityInterface $entity) {
-  if ($entity->bundle() == 'citas') {
-    $mailManager = \Drupal::service('plugin.manager.mail');
-    $module = 'segura_viudas_citas';
-    $key = 'citas_updated';
-    $to = $entity->getOwner()->getEmail();
-    $params['username'] = $entity->getOwner()->getDisplayName();
-    $params['title'] = $entity->label();
-    $send = true;
+  function segura_viudas_citas_node_update(EntityInterface $entity)
+  {
+    if ($entity->bundle() == 'citas') {
+      $mailManager = \Drupal::service('plugin.manager.mail');
+      $module = 'segura_viudas_citas';
+      $key = 'citas_updated';
+      $to = $entity->getOwner()->getEmail();
+      $params = segura_viudas_citas_get_common_entity_data($entity);
+      $send = true;
+      $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
 
-    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
-    if ($result['result'] !== true) {
-      \Drupal::logger('segura_viudas_citas')->error('Hubo un problema al enviar el correo a %mail', ['%mail' => $to]);
+      $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+      if ($result['result'] !== true) {
+        \Drupal::logger('segura_viudas_citas')->error('Hubo un problema al enviar el correo a %mail', ['%mail' => $to]);
+      }
     }
   }
-}
 }
 /**
  * Implements hook_form_FORM_ID_alter().
  */
 if (!function_exists('segura_viudas_citas_form_SeguraViudasCitaSolicitarForm_alter')) {
-  function segura_viudas_citas_form_SeguraViudasCitaSolicitarForm_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  function segura_viudas_citas_form_SeguraViudasCitaSolicitarForm_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+  {
     // Define los campos requeridos como no requeridos.
     $form['field_date']['#required'] = FALSE;
     $form['field_time']['#required'] = FALSE;
   }
 }
+
+
+/**
+ * Get common data for entity email templates.
+ */
+function segura_viudas_citas_get_common_entity_data($entity)
+{
+  return [
+    'username' => $entity->getOwner()->getDisplayName(),
+    'label' => $entity->label(),
+    'date' => $entity->get('field_date')->value . ' ' . $entity->get('field_time')->value,
+    'accountUrl' => \Drupal::request()->getSchemeAndHttpHost(),
+    'place' => '[Lugar de la cita]',
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+if (!function_exists('segura_viudas_citas_form_SeguraViudasCitaSolicitarForm_alter')) {
+  function segura_viudas_citas_form_SeguraViudasCitaSolicitarForm_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+  {
+    // Define los campos requeridos como no requeridos.
+    $form['field_date']['#required'] = FALSE;
+    $form['field_time']['#required'] = FALSE;
+  }
+}
+
 /**
  * Implements hook_mail().
  */
 if (!function_exists('segura_viudas_citas_mail')) {
+  function segura_viudas_citas_mail($key, &$message, $params)
+  {
+    $theme = '';
+    switch ($key) {
+      case 'citas_deleted':
+        $message['subject'] = t('La cita @label ha sido eliminada', ['@label' => $params['label']]);
+        $theme = 'segura_viudas_citas_mail_cita_deleted';
+        break;
+      case 'citas_created':
+        $message['subject'] = t('Has creado una cita: @label', ['@label' => $params['label']]);
+        $theme = 'segura_viudas_citas_mail_cita_created';
+        break;
+      case 'citas_updated':
+        $message['subject'] = t('Tu cita @label ha sido actualizada', ['@label' => $params['label']]);
+        $theme = 'segura_viudas_citas_mail_cita_updated';
+        break;
+    }
+    $message['from'] = \Drupal::config('system.site')->get('mail');
 
-function segura_viudas_citas_mail($key, &$message, $params) {
-  switch ($key) {
-    case 'citas_deleted':
-      $message['from'] = \Drupal::config('system.site')->get('mail');
-      $message['subject'] = t('La cita @title ha sido eliminada', ['@title' => $params['title']]);
-      $message['body'][] = t('Hola @username,', ['@username' => $params['username']]);
-      $message['body'][] = t('Tu cita "@title" ha sido eliminada por @deleter.', [
-        '@title' => $params['title'],
-        '@deleter' => $params['deleter'],
-      ]);
-      break;
-    case 'citas_created':
-        $message['from'] = \Drupal::config('system.site')->get('mail');
-        $message['subject'] = t('Has creado una cita: @title', ['@title' => $params['title']]);
-        $message['body'][] = t('Hola @username,', ['@username' => $params['username']]);
-        $message['body'][] = t('Has creado una cita con el título "@title".', ['@title' => $params['title']]);
-      break;
-    case 'citas_updated':
-      $message['from'] = \Drupal::config('system.site')->get('mail');
-      $message['subject'] = t('Tu cita @title ha sido actualizada', ['@title' => $params['title']]);
-      $message['body'][] = t('Hola @username,', ['@username' => $params['username']]);
-      $message['body'][] = t('Tu cita "@title" ha sido actualizada.', ['@title' => $params['title']]);
-    break;
+    $body = [
+      '#theme' => $theme,
+    ];
+
+    foreach ($params as $key => $value) {
+      $body['#' . $key] = $value;
+    }
+
+    $body = \Drupal::service('renderer')->render(
+      $body
+    );
+
+    $message['body'][] = $body;
+    $message['body_rendered'] = TRUE;
   }
 }
-}
-}
 
+/**
+ * Implements hook_mail_alter().
+ */
+if (!function_exists('segura_viudas_citas_mail_alter')) {
+  function segura_viudas_citas_mail_alter(&$message)
+  {
+    $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
+    if (isset($message['body_rendered']) && $message['body_rendered']) {
+      return;
+    }
+
+    $message_body = [
+      '#theme' => 'segura_viudas_citas_mail',
+      '#body'  => is_array($message['body']) ? implode('', $message['body']) : $message['body'],
+      '#title' => isset($message['title']) ? $message['title'] : '',
+    ];
+
+    $message_body = \Drupal::service('renderer')->render($message_body)->__toString();
+
+    $message['body'] = [];
+    $message['body'][] = $message_body;
+  }
+}
 

@@ -392,6 +392,68 @@ function handleDateChange() {
 
 })(jQuery, Drupal);
 
+(function ($, Drupal) {
+  function chekSize(event) {
+    event.preventDefault();
+    $('.file-upload-js-error').remove();
 
+    // Get the file size from the input field.
+    const fileSize = this.files[0].size;
+    const maxSize = 3 * 1024 * 1024;
 
+    if (fileSize > maxSize) {
+      const error = Drupal.t(
+        'The selected file %filename cannot be uploaded. The file size is %size MB, but the maximum allowed size is %maxsize MB.',
+        {
+          '%filename': this.value.replace('C:\\fakepath\\', ''),
+          '%size': Math.round((fileSize / 1024 / 1024) * 100) / 100,
+          '%maxsize': maxSize  / 1024 / 1024,
+        },
+      );
+      $(this)
+        .closest('div.js-form-managed-file')
+        .prepend(
+          `<div class="messages messages--error file-upload-js-error" aria-live="polite">${error}</div>`,
+        );
+      this.value = '';
+      // Cancel all other change event handlers.
+      event.stopImmediatePropagation();
+    }
+  }
 
+  Drupal.behaviors.fileSizeValidate = {
+    attach(context, settings) {
+      const $context = $(context);
+      let elements;
+
+      function initFileValidation(selector) {
+        $(once('fileValidate', $context.find(selector))).on(
+          'change.fileValidate',
+          { extensions: elements[selector] },
+          chekSize,
+        );
+      }
+
+      if (settings.file && settings.file.elements) {
+        elements = settings.file.elements;
+        Object.keys(elements).forEach(initFileValidation);
+      }
+    },
+    detach(context, settings, trigger) {
+      const $context = $(context);
+      let elements;
+
+      function removeFileValidation(selector) {
+        $(once.remove('fileValidate', $context.find(selector))).off(
+          'change.fileValidate',
+          chekSize,
+        );
+      }
+
+      if (trigger === 'unload' && settings.file && settings.file.elements) {
+        elements = settings.file.elements;
+        Object.keys(elements).forEach(removeFileValidation);
+      }
+    },
+  };
+})(jQuery, Drupal);

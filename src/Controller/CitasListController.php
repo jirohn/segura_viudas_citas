@@ -146,7 +146,7 @@ class CitasListController extends ControllerBase {
         foreach ($time as $t) {
             $existing_nodes = \Drupal::entityTypeManager()
                 ->getStorage('node')
-                ->loadByProperties(['type' => 'citas', 'field_time' => $t]);
+                ->loadByProperties(['type' => 'citas', 'field_date' => $date,'field_time' => $t]);
 
             // Change the title of the existing node to 'Bloqueado Ampliado'
             foreach($existing_nodes as $existing_node) {
@@ -171,7 +171,7 @@ class CitasListController extends ControllerBase {
     } else {
         $existing_nodes = \Drupal::entityTypeManager()
             ->getStorage('node')
-            ->loadByProperties(['type' => 'citas', 'field_time' => $time]);
+            ->loadByProperties(['type' => 'citas', 'field_date' => $date,'field_time' => $t]);
 
         // Change the title of the existing node to 'Bloqueado Ampliado'
         $changed = false;

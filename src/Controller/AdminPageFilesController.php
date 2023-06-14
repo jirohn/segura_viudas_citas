@@ -13,6 +13,7 @@ class AdminPageFilesController extends ControllerBase {
     // Obtén todas las citas.
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'citas')
+      ->condition('field_date', \null, 'IS NULL')
       ->sort('created', 'DESC')
       ->accessCheck(FALSE); // Añade esta línea para deshabilitar la verificación de acceso.
     $nids = $query->execute();

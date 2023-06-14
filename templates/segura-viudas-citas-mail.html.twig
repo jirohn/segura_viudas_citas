@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correo electrónico Segura Viudas</title>
+</head>
+
+<body style="background-color: #F9F8F6; font-family: Arial, sans-serif; margin: 0; padding: 0;">
+    <center>
+        <table width="100%" cellspacing="0" cellpadding="0" bgcolor="#F9F8F6">
+            <tr>
+                <td>
+                    {% block header %}
+                    <table width="700" cellspacing="0" cellpadding="0" bgcolor="#4d443d" align="center">
+                        <tr>
+                            <td style="color: white; padding: 10px; text-align: center; font-size: 14px;">
+                                {{ '¿Problemas para ver el email?'|t() }}
+                                <a href="#" style="color: white;">{{ 'Pincha aquí'|t() }}</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="700" cellspacing="0" cellpadding="0" align="center">
+                        <tr>
+                            <td style="text-align: center; padding: 20px 0 50px 0px;">
+                                <img style="width: 100px;"
+                                    src="{{ file_url('modules/nateevo/segura_viudas_blocks/images/logo_SV.png') }}"
+                                    alt="Logo Segura Viudas">
+                            </td>
+                        </tr>
+                    </table>
+                    {% endblock %}
+                    {% block content %}
+                    {% if title is not null %}
+                    <table width="700" cellspacing="0" cellpadding="0" align="center">
+                        <tr>
+                            <td
+                                style="font-size: 32px; font-weight: 700; line-height: 42px; letter-spacing: 0px; text-align: left; padding-left: 20px;">
+                                {{ title }}</td>
+                        </tr>
+                    </table>
+                    {% endif %}
+                    <table width="700" cellspacing="0" cellpadding="0" align="center">
+                        <tr>
+                            <td style="padding: 0 0 50px 20px;">
+                                {{ body|raw }}
+                            </td>
+                        </tr>
+                    </table>
+                    {% endblock %}
+                    {% block footer %}
+                    <table style="background-color:white;" width="700" cellspacing="0" cellpadding="0" align="center">
+                        <tr style="background-color:white;">
+                            <td colspan="2">
+                                <center><img style="padding-top:2em; padding-bottom:1em;"
+                                src="{{ file_url('modules/nateevo/segura_viudas_citas/images/footer-claim.png') }}"
+                                        width="70%" alt="Claim"></center>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%"
+                                style="font-size: 12px; font-weight: 400; line-height: 20px; letter-spacing: 0px; text-align: left; color: #A99E8E; padding: 20px;">
+                                © 2023 Segura Viudas. All right reserved.</td>
+                            <td width="50%" style="text-align: right; padding: 20px;">
+                                <a style="margin-right:1em;" href="https://www.instagram.com/seguraviudas/"><img
+                                        src="{{ file_url('modules/nateevo/segura_viudas_citas/images/instagram.png') }}" alt="Instagram" width="20" height="20"></a>
+                                <a style="margin-right:1em;" href="https://www.facebook.com/seguraviudasES"><img
+                                        src="{{ file_url('modules/nateevo/segura_viudas_citas/images/facebook.png') }}" alt="Facebook" width="20" height="20"></a>
+                                <a style="margin-right:1em;" href="https://twitter.com/seguraviudasES"><img
+                                        src="{{ file_url('modules/nateevo/segura_viudas_citas/images/twitter.png') }}" alt="Twitter" width="20" height="20"></a>
+                                <a href="https://www.youtube.com/user/seguraviudastv"><img
+                                        src="{{ file_url('modules/nateevo/segura_viudas_citas/images/youtube.png') }}" alt="Youtube" width="20" height="20"></a>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="background-color:white;" width="700" cellspacing="0" cellpadding="0" align="center">
+                        <tr>
+                            <td
+                                style="background-color: #F9F8F6; font-size: 12px; font-weight: 400; line-height: 14px; letter-spacing: 0em; text-align: center; padding: 20px;">
+                                <p>{{ 'Te recordamos que puedes consultar toda la información de protección de datos en'|t() }} <a
+                                        href="https://seguraviudas.com/es/politica-de-privacidad/"
+                                        style="color: #A99E8E;">Información Privacidad</a></p>
+                                <p>{{ 'Si no deseas seguir recibiendo este tipo de comunicaciones, puedes solicitarlo en'|t() }} <a
+                                        href="mailto:viticultura@freixenet.com "
+                                        style="color: #A99E8E;">viticultura@freixenet.com</a></p>
+                            </td>
+                        </tr>
+                    </table>
+                    {% endblock %}
+                </td>
+            </tr>
+        </table>
+    </center>
+</body>
+
+</html>

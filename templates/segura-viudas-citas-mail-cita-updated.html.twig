@@ -1,0 +1,25 @@
+{% extends 'segura-viudas-citas-mail.html.twig' %}
+
+{% block content %}
+<table width="700" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+        <td
+            style="font-size: 32px; font-weight: 700; line-height: 42px; letter-spacing: 0px; text-align: left; padding-left: 20px;">
+            {{ 'Confirmación modificación cita'|t() }}</td>
+    </tr>
+</table>
+<table width="700" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+        <td style="padding: 0 0 50px 20px;">
+            <p>{{ 'Estimado @username'|t({'@username': username}) }}</p>
+            <p>{{ 'Nuestra cita para <b>@label</b> ha sido modificada con éxito. La nueva cita será:'|t({'@label': label})}}</p>
+            <p>{{ 'Día: <b>@date</b>'|t({'@date': date}) }}</p>
+            <p>{{ 'Lugar: <b>@place</b>'|t({'@place': place}) }}</p>
+            <p>{{ 'Si hay algún cambio en cuanto a la hora o lugar, por favor entre al <b><a href="@accountUrl" style="color:#718457;">Área privada</a></b> de <b>SEGURA VIUDAS</b> para realizar las modificaciones oportunas.'|t({'@accountUrl': accountUrl}) }}</p>
+            <p>{{ 'Si necesita más información o si tiene alguna pregunta, por favor no dude en ponerse en contacto con Segura Viudas'|t() }}</p><br>
+            <p>{{ 'Saludos cordiales.'|t() }}</p>
+            <p>{{ 'El equipo de Segura Viudas'|t() }}</p>
+        </td>
+    </tr>
+</table>
+{% endblock %}
