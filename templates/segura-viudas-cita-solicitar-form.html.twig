@@ -42,13 +42,14 @@
 </style>
 <!-- Computer -->
 <section id="appointment" class="nospace" style="margin-top:1em;">
-    <div class="block column">
+    <div class="block full column">
+      <div class="block column">
         <h1 class="noup">{{ "Documentació i cita de contracte" | t }}</h1>
 
         {% if last_login %}
           <p class="last-access"><i>{{ "El teu últim accés va ser el" | t }} {{ last_login|date('d/m/Y') }}</i></p>
         {% endif %}
-
+      </div>
     </div>
 </section>
 <section id="attach" class="nospace">
@@ -71,9 +72,9 @@
             <p class="nomobile">{{" *Camps obligatoris" | t }}</p>
         </div>
          <p style="margin-top:1em; text-align:right;" class="nocomputer">{{" *Camps obligatoris" | t }}</p>
-
+          
         <!-- Info block -->
-        <div id="block--cita-info" class="nocomputer block column p-3 space-between" style="background-color:#f8f9f6; align-self: flex-start; margin-top:4em;margin-top: 2em; margin-right:0; margin-left:0;">
+        <div id="block--cita-info" class="nocomputer block column p-3 space-between" style="background-color:#f8f9f6; align-self: flex-start; margin-top:4em;margin-top: 2em; margin-right:0; margin-left:0; width:-moz-available;">
           <h2 class="noup">{{ "Cita per a la signatura" | t }}</h2>
           {# Revisa si la información de la cita está presente. #}
           {% if form['#cita_info'] is defined %}
@@ -129,14 +130,18 @@
             <button class="btn primary" id="guardar">{{ 'Desa la documentació' | t }}</button></center>
           {% endif %}
           {# creamos un boton para  guardar solo documentos sin pedir cita #}
+
+          
           </div>
-      </div>
+        </div>
+      
       <!-- Info block -->
 
 
         <!-- Formulario -->
         <div style="margin-top:3em;"class="full cgap-1 uploads">
-
+        
+        {{ form }}
 
         {% for field, files_info in form['#cita_info']['files_info'] %}
           <div class="file-field">
@@ -176,13 +181,12 @@
 
 
 
-          {{ form }}
 
         <!-- Formulario -->
         <div class="block column half right space-between">
           </div>
         </div>
-        </div>
+      </div>
       <div id="block--cita-info" class="block nomobile third column p-3 space-between" style="background-color:#f8f9f6; align-self: flex-start; margin-top:4em;margin-left: 2em;">
         <h2 class="noup">{{ "Cita per a la signatura" | t }}</h2>
         {# Revisa si la información de la cita está presente. #}
@@ -292,4 +296,5 @@
 
       <!-- Computer -->
     </div>
+  </div>
 </section>
