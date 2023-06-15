@@ -94,8 +94,10 @@ class AjaxController extends ControllerBase {
 
     $data = $request->query->all();
     $nid = $data['nid']; // Necesitarás pasar el NID de la cita en la petición AJAX.
+    // si hay una cita 'Ampliado' con el mismo dia y hora, se eliminara la cita con el nombre 'Ampliado' y se creara una cita con el nombre 'Ampliado' con el mismo dia y hora
 
     if (!empty($nid)) {
+
       $node = Node::load($nid);
 
       if ($node && $node->getType() == 'citas') {
@@ -108,8 +110,6 @@ class AjaxController extends ControllerBase {
           $node->set('field_modalidad', '1');
         }
         $node->set('field_comment', $data['comment']);
-
-        // Guarda el nodo.
         $node->save();
 
         $response = ['status' => 'success'];
