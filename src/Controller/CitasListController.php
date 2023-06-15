@@ -75,21 +75,26 @@ class CitasListController extends ControllerBase {
    *   A JSON response containing the times of existing appointments.
    */
   public function deleteAppointment(Request $request) {
-    $nid = $request->query->get('nid');
+    $nids = $request->query->get('nid');
     $date = $request->query->get('date');
+    $nids = explode(',', $nids);
+    // Si nids no es un array, conviértelo en uno
+    if (!is_array($nids)) {
+        $nids = array($nids);
+    }
 
-    // Log the received nid
-    \Drupal::logger('segura_viudas_citas')->notice('Received nid: @nid', ['@nid' => $nid]);
+    foreach ($nids as $nid) {
+        \Drupal::logger('segura_viudas_citas')->notice('Received nid: @nid', ['@nid' => $nid]);
+        $node = Node::load($nid);
 
-    $node = Node::load($nid);
-    // Check if the node title is 'Bloqueado Ampliado'
-    if ($node->label() == 'Bloqueado Ampliado') {
-        // Change the title to 'Ampliado' instead of deleting
-        $node->setTitle('Ampliado');
-        $node->save();
-    } else {
-        // If the title is not 'Bloqueado Ampliado', delete the node as usual
-        $node->delete();
+        if ($node->label() == 'Bloqueado Ampliado') {
+            // Change the title to 'Ampliado' instead of deleting
+            $node->setTitle('Ampliado');
+            $node->save();
+        } else {
+            // If the title is not 'Bloqueado Ampliado', delete the node as usual
+            $node->delete();
+        }
     }
 
     $query = \Drupal::entityQuery('node')
@@ -131,15 +136,9 @@ class CitasListController extends ControllerBase {
    *   A JSON response containing the times of existing appointments.
    */
   public function adminBlockAppointment(Request $request) {
-    // Recibimos las variables $date y $time
     $date = $request->query->get('date');
     $time = $request->query->get('timeSlot');
-
-    // Log the received date and time
-    \Drupal::logger('segura_viudas_citas')->notice('Received date: @date', ['@date' => $date]);
-    \Drupal::logger('segura_viudas_citas')->notice('Received time: @time', ['@time' => print_r($time, true)]);
     $time = explode(',', $time);
-    // Comprobamos si $time es un array
     if (is_array($time)) {
       $changed = false;
 
@@ -211,21 +210,24 @@ class CitasListController extends ControllerBase {
   public function adminAddAppointment(Request $request) {
     // recibimos la variable del request con los datos $date y $time
     $date = $request->query->get('date');
-    $time = $request->query->get('timeSlot');
-    // Log the received date
-    \Drupal::logger('segura_viudas_citas add appointment')->notice('Received date: @date', ['@date' => $date]);
-    \Drupal::logger('segura_viudas_citas add appointment')->notice('Received time: @time', ['@time' => $time]);
-    // creamos un nodo con el tipo de contenido citas y el titulo Ampliado
-    $node = Node::create([
-      'type' => 'citas',
-      'title' => 'Ampliado',
-      'field_date' => $date,
-      'field_time' => $time,
-      'field_modalidad' => 0,
-    ]);
-    $node->save();
+    $times = $request->query->get('timeSlot');
+    $times = explode(',', $times);
+    \Drupal::logger('segura_viudas_citas')->notice('Received times: @times', ['@times' => implode(', ', $times)]);
+
+    foreach ($times as $time) {
+      // creamos un nodo con el tipo de contenido citas y el titulo Ampliado
+      $node = Node::create([
+        'type' => 'citas',
+        'title' => 'Ampliado',
+        'field_date' => $date,
+        'field_time' => $time,
+        'field_modalidad' => 0,
+      ]);
+      $node->save();
+    }
+
     return new JsonResponse(['status' => 'added citas ok']);
-  }
+}
 
   public function content() {
     // Obtén todas las citas.

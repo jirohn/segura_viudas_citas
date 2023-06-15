@@ -31,6 +31,10 @@
           return selected;
           }
           function addAppointment(newTimeSlot){
+            // si es array de citas, le hacemos join
+            if (Array.isArray(newTimeSlot)) {
+              newTimeSlot = newTimeSlot.join(',');
+            }
             $.ajax({
               url: Drupal.url('/segura_viudas_citas/admin/add_appointment'),
               data: { timeSlot: newTimeSlot, date: $('#date-picker').val() },
@@ -290,24 +294,24 @@
                 if (!confirm('¿Estás seguro de que quieres eliminar estas citas?')) {
                   alert('Eliminación cancelada');
                 } else {
+                  var nids = [];
                   $('input[type="checkbox"]:checked').each(function () {
                     if ($(this).attr('id') === 'reserved-appointment') {
                       var nid = $(this).attr('data-nid');
-                      console.log('nid: ', nid);
-                      deleteAppointments(nid);
+                      nids.push(nid);
                     }else{
                       console.log('no hay citas seleccionadas');
                     }
                   });
+                  if(nids.length > 0){
+                    deleteAppointments(nids);
+                  }
                   $('#date-picker').change();
                 }
               });
               $blockButton.off('click').on('click', function () {
                 date = $('#date-picker').val();
                 var time = [];
-                console.log('click en el boton de bloquear');
-                console.log('fecha: ', date);
-                console.log('horas: ', time);
                 if (!confirm('¿Estás seguro de que quieres bloquear estas citas?')) {
                   alert('Bloqueo cancelado');
                 } else {
@@ -329,19 +333,25 @@
                 if (!confirm('¿Estás seguro de que quieres desbloquear estas citas?')) {
                   alert('Desbloqueo cancelado');
                 } else {
+                  var blnids = [];
+                  var adnids = [];
                   $('input[type="checkbox"]:checked').each(function () {
                   if ($(this).attr('id') === 'blocked-appointment') {
                     var nid = $(this).attr('data-nid');
-                    console.log('nid: ', nid);
-                    deleteAppointments(nid);
+                    blnids.push(nid);
                   }else if ($(this).attr('id') === 'saturday-appointment') {
                     var time = $(this).attr('data-time');
-                    console.log('time: ', time);
-                    addAppointment(time);
+                    adnids.push(time);
                   }else{
                     console.log('no hay citas bloqueadas seleccionadas');
                   }
               });
+              if(blnids.length > 0){
+                deleteAppointments(blnids);
+              }
+              if(adnids.length > 0){
+                addAppointment(adnids);
+              }
               $('#date-picker').change();
             }
           });
@@ -392,7 +402,7 @@
         function deleteAppointments(nid){
           $.ajax({
             url: Drupal.url('/segura_viudas_citas/admin/delete_appointment'),
-            data: { nid: nid },
+            data: { nid: nid.join(',') },
             dataType: 'json',
             success: function (data) {
               $('#date-picker').change();
