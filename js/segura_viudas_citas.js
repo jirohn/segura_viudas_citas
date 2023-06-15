@@ -81,6 +81,11 @@
       });
       var $timeField = $('select[name="field_time"]');
       var $dateField = $('input[name="field_date"]');
+      if($('input[name="field_date_update"]').length){
+        var $dateField = $('input[name="field_date_update"]');
+        handleDateChange();
+      }
+
       $dateField.on('change', function () {
         var dateValue = new Date(this.value);
         var day = dateValue.getDay();
@@ -115,6 +120,7 @@
         console.log('se hizo clic en el boton de guardar');
         $('#edit-save').click();
       });
+
 
 function handleDateChange() {
   console.log('El campo de fecha ha cambiado');
