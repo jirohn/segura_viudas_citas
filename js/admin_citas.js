@@ -121,7 +121,7 @@
               if(citaForTimeSlot.title == 'Ampliado'){
                 var $blockButton = $('<button class="action-link action-link--danger action-link--icon-block" style="border: medium none; background-color: transparent;"></button>').append($('<img src="" alt="lock icon" style="width: 1.5em;" />'));
                 $blockButton.find('img').attr('src', '/modules/nateevo/segura_viudas_citas/images/lockicon.svg');
-                var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox" id="reserved-appointment" />');
+                var $checkbox = $('<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox" id="added-appointment" />');
                 $checkbox.attr('data-nid', citaForTimeSlot.nid);
                 $row.css('background-color', '#f5f8ff');
                 $row.append($('<td></td>').append($checkbox));
@@ -312,18 +312,26 @@
               $blockButton.off('click').on('click', function () {
                 date = $('#date-picker').val();
                 var time = [];
+                var nids = [];
                 if (!confirm('¿Estás seguro de que quieres bloquear estas citas?')) {
                   alert('Bloqueo cancelado');
                 } else {
                   $('input[type="checkbox"]:checked').each(function () {
                   if ($(this).attr('id') === 'empty-appointment') {
                     time.push($(this).attr('data-time'));
+                  }else if ($(this).attr('id') === 'added-appointment' ) {
+                    if (new Date(date).getDay() === 6 || new Date(date).getDay() === 0) {
+                    nids.push($(this).attr('data-nid'));
+                    }
                   }else{
                     console.log('no hay citas libres seleccionadas');
                   }
                 });
                 if(time.length > 0){
                   blockAppointments(date, time);
+                  }
+                  if(nids.length > 0){
+                    deleteAppointments(nids);
                   }
                 }
                 $('#date-picker').change();
